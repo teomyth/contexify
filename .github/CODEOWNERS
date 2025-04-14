@@ -1,0 +1,15 @@
+# These owners will be the default owners for everything in the repo
+* @teomyth
+
+# Package files
+package.json @teomyth
+pnpm-lock.yaml @teomyth
+
+# Source code
+/src/ @teomyth
+
+# Tests
+/tests/ @teomyth
+
+# GitHub specific files
+/.github/ @teomyth

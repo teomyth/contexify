@@ -1,0 +1,192 @@
+name: Release and Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type (auto uses conventional commits)'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+      specific_version:
+        description: 'Specific version (overrides version_type if provided)'
+        required: false
+        type: string
+      publish_npm:
+        description: 'Publish to npm'
+        required: false
+        default: true
+        type: boolean
+      dry_run:
+        description: 'Dry run (no actual release)'
+        required: false
+        default: false
+        type: boolean
+      skip_ci:
+        description: 'Skip CI checks'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to determine version
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Lint check
+        if: ${{ github.event.inputs.skip_ci != 'true' }}
+        run: pnpm lint
+
+      - name: Run tests
+        if: ${{ github.event.inputs.skip_ci != 'true' }}
+        run: pnpm test
+
+      - name: Run coverage tests
+        if: ${{ github.event.inputs.skip_ci != 'true' }}
+        run: pnpm test:coverage
+
+      - name: Build
+        run: pnpm build
+
+      - name: Check for uncommitted changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "⚠️ There are uncommitted changes in the repository:"
+            git status --short
+            echo "\nThese changes might affect the release. Consider committing them first."
+            echo "Continuing anyway since this might be expected..."
+          else
+            echo "✅ No uncommitted changes found."
+          fi
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Install release-it
+        run: |
+          pnpm add -g release-it @release-it/conventional-changelog conventional-changelog-angular
+
+      - name: Preview Release
+        id: preview
+        run: |
+          # Run release-it in dry-run mode to preview the release
+          echo "\n📋 Release Preview:"
+          pnpm exec release-it --dry-run --verbose
+          echo "\n"
+
+      - name: Set Release Command
+        id: set-command
+        run: |
+          RELEASE_CMD="pnpm exec release-it"
+
+          # Handle version type or specific version
+          if [ "${{ github.event.inputs.specific_version }}" != "" ]; then
+            echo "Using specific version: ${{ github.event.inputs.specific_version }}"
+            RELEASE_CMD="$RELEASE_CMD --release-version=${{ github.event.inputs.specific_version }}"
+          elif [ "${{ github.event.inputs.version_type }}" != "auto" ]; then
+            echo "Using version type: ${{ github.event.inputs.version_type }}"
+            RELEASE_CMD="$RELEASE_CMD ${{ github.event.inputs.version_type }}"
+          else
+            echo "Using automatic versioning based on conventional commits"
+          fi
+
+          # Add CI flag
+          RELEASE_CMD="$RELEASE_CMD --ci"
+
+          # Handle npm publishing
+          if [ "${{ github.event.inputs.publish_npm }}" != "true" ]; then
+            RELEASE_CMD="$RELEASE_CMD --no-npm"
+          fi
+
+          # Handle dry run
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            RELEASE_CMD="$RELEASE_CMD --dry-run"
+          fi
+
+          echo "Release command: $RELEASE_CMD"
+          echo "release_cmd=$RELEASE_CMD" >> $GITHUB_OUTPUT
+
+      - name: Confirmation
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          echo "⚠️ About to execute the following command:"
+          echo "${{ steps.set-command.outputs.release_cmd }}"
+          echo "\nThis will create a new release and push it to GitHub."
+          if [ "${{ github.event.inputs.publish_npm }}" == "true" ]; then
+            echo "\n💾 This will also publish the package to npm!"
+          fi
+          echo "\nContinuing in 5 seconds... (this is your last chance to cancel)"
+          sleep 5
+
+      - name: Create GitHub Release Only
+        if: ${{ github.event.inputs.publish_npm != 'true' && github.event.inputs.dry_run != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "📌 Creating GitHub Release..."
+          ${{ steps.set-command.outputs.release_cmd }}
+          echo "✅ Release created successfully!"
+
+      - name: Create GitHub Release and Publish to npm
+        if: ${{ github.event.inputs.publish_npm == 'true' && github.event.inputs.dry_run != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "📌 Creating GitHub Release and publishing to npm..."
+          ${{ steps.set-command.outputs.release_cmd }}
+
+          # Verify the version was published correctly
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          echo "\nVerifying npm publication of version $PACKAGE_VERSION..."
+
+          # Wait a moment for npm to update
+          echo "Waiting for npm registry to update..."
+          sleep 10
+
+          # Check if the version exists on npm
+          NPM_VERSION=$(npm view $(node -p "require('./package.json').name") version 2>/dev/null || echo "not found")
+
+          if [ "$NPM_VERSION" = "$PACKAGE_VERSION" ]; then
+            echo "✅ Version $PACKAGE_VERSION successfully published to npm!"
+          else
+            echo "⚠️ Warning: Version mismatch or publication delay. npm shows version $NPM_VERSION"
+            echo "This might be due to npm registry propagation delay. Check manually in a few minutes."
+          fi
+
+          echo "✅ Release created and published successfully!"
+
+      - name: Dry Run Summary
+        if: ${{ github.event.inputs.dry_run == 'true' }}
+        run: |
+          echo "🚨 DRY RUN COMPLETED"
+          echo "No changes were made. This was just a simulation."
+          echo "To perform the actual release, run this workflow again with 'Dry run' set to false."

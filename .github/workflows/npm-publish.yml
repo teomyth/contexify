@@ -1,0 +1,109 @@
+name: Publish Existing Version to npm
+
+# NOTE: This workflow is for special cases only.
+# In most cases, you should use the 'Release and Publish' workflow
+# which handles both GitHub release and npm publishing in one step.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Current version to publish (should match package.json)'
+        required: true
+        type: string
+      tag:
+        description: 'npm tag (latest, next, beta, etc.)'
+        required: false
+        default: 'latest'
+        type: string
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        required: false
+        default: false
+        type: boolean
+      skip_tests:
+        description: 'Skip tests'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Lint check
+        if: ${{ github.event.inputs.skip_tests != 'true' }}
+        run: pnpm lint
+
+      - name: Run tests
+        if: ${{ github.event.inputs.skip_tests != 'true' }}
+        run: pnpm test
+
+      - name: Run coverage tests
+        if: ${{ github.event.inputs.skip_tests != 'true' }}
+        run: pnpm test:coverage
+
+      - name: Build
+        run: pnpm build
+
+      - name: Check package contents
+        run: |
+          echo "📌 Files that will be included in the npm package:"
+          npm pack --dry-run
+
+      - name: Check version
+        id: check-version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if [ "$PACKAGE_VERSION" != "${{ github.event.inputs.version }}" ]; then
+            echo "Error: Input version (${{ github.event.inputs.version }}) does not match package.json version ($PACKAGE_VERSION)"
+            exit 1
+          fi
+          echo "Version check passed: $PACKAGE_VERSION"
+
+      - name: Preview npm publish
+        run: |
+          echo "⚠️ About to publish version ${{ github.event.inputs.version }} to npm with tag '${{ github.event.inputs.tag }}'"
+          echo "\nPackage details:"
+          node -e "const pkg = require('./package.json'); console.log('Name: ' + pkg.name); console.log('Version: ' + pkg.version); console.log('Description: ' + pkg.description);"
+
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            echo "\n🚨 DRY RUN MODE - No actual publishing will occur"
+          else
+            echo "\n💾 LIVE MODE - Package will be published to npm!"
+            echo "Continuing in 5 seconds... (this is your last chance to cancel)"
+            sleep 5
+          fi
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            echo "\n📌 Dry run mode - would publish with tag: ${{ github.event.inputs.tag }}"
+            pnpm publish --no-git-checks --tag ${{ github.event.inputs.tag }} --dry-run
+            echo "\n✅ Dry run completed successfully. No changes were made."
+          else
+            echo "\n📌 Publishing to npm with tag: ${{ github.event.inputs.tag }}"
+            pnpm publish --no-git-checks --tag ${{ github.event.inputs.tag }}
+            echo "\n✅ Package published successfully!"
+          fi
