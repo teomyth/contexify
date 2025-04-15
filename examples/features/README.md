@@ -1,8 +1,6 @@
-# Contexify Examples
+# Contexify Features Examples
 
-This project contains a list of standalone examples to illustrate Inversion of
-Control (IoC) and Dependency Injection (DI) capabilities provided by
-[`contexify`](https://github.com/teomyth/contexify).
+This project contains a list of standalone examples to illustrate various features and capabilities of Contexify, including Inversion of Control (IoC) and Dependency Injection (DI) provided by [`contexify`](https://github.com/teomyth/contexify).
 
 ## Examples
 

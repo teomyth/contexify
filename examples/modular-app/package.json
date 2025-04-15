@@ -1,0 +1,38 @@
+{
+  "name": "modular-app-example",
+  "version": "1.0.0",
+  "description": "Example application demonstrating best practices for using the Contexify framework",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "build:clean": "pnpm clean && pnpm build",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "contexify",
+    "example",
+    "dependency-injection",
+    "ioc",
+    "context"
+  ],
+  "author": "teomyth <teomyth@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "contexify": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "eslint": "^9.24.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.8.1"
+}

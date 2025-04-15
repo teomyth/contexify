@@ -1,6 +1,6 @@
 {
-  "name": "contexify-example-context",
-  "description": "Standalone examples to illustrate features provided by contexify",
+  "name": "contexify-features-examples",
+  "description": "Standalone examples to illustrate various features provided by contexify",
   "version": "1.0.0",
   "type": "module",
   "keywords": [
@@ -16,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/teomyth/contexify.git",
-    "directory": "examples/context"
+    "directory": "examples/features"
   },
   "engines": {
     "node": "18 || 20 || 22"
@@ -32,7 +32,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "contexify": "file:../.."
+    "contexify": "1.0.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
