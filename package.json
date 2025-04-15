@@ -15,7 +15,8 @@
     "decorator",
     "esm",
     "interceptor",
-    "provider"
+    "provider",
+    "minimal-dependencies"
   ],
   "type": "module",
   "main": "dist/index.js",

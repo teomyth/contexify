@@ -25,14 +25,9 @@ pnpm add contexify
 
 ## Features
 
-[![Dependency Injection](https://img.shields.io/badge/Dependency%20Injection-✓-success)](https://github.com/teomyth/contexify#dependency-injection)
-[![IoC Container](https://img.shields.io/badge/IoC%20Container-✓-success)](https://github.com/teomyth/contexify#what-is-context)
-[![Binding System](https://img.shields.io/badge/Binding%20System-✓-success)](https://github.com/teomyth/contexify#binding-values)
-[![Context Hierarchy](https://img.shields.io/badge/Context%20Hierarchy-✓-success)](https://github.com/teomyth/contexify#context-hierarchy)
-[![Context Events](https://img.shields.io/badge/Context%20Events-✓-success)](https://github.com/teomyth/contexify#context-events)
-[![Zero Dependencies](https://img.shields.io/badge/Zero%20Dependencies-✓-success)](https://github.com/teomyth/contexify/blob/main/package.json)
-[![ESM Format](https://img.shields.io/badge/ESM%20Format-✓-success)](https://github.com/teomyth/contexify/blob/main/package.json)
-[![TypeScript](https://img.shields.io/badge/TypeScript-✓-success)](https://github.com/teomyth/contexify/blob/main/tsconfig.json)
+[![Bundle Size](https://img.shields.io/badge/Bundle%20Size-<10KB-success)](https://github.com/teomyth/contexify#dependencies)
+[![Dependencies](https://img.shields.io/badge/Dependencies-3-success)](https://github.com/teomyth/contexify#dependencies)
+[![Browser Compatible](https://img.shields.io/badge/Browser-Compatible-success)](https://github.com/teomyth/contexify#dependencies)
 
 - **Dependency Injection**: Inject dependencies into classes, properties, and methods
 - **IoC Container**: Manage dependencies with a powerful inversion of control container
@@ -306,6 +301,30 @@ ctx.configure('servers.RestServer.server2').to({
   protocol: 'http',
 });
 ```
+
+## Dependencies
+
+Contextify is designed to be lightweight with carefully selected dependencies. We've chosen high-quality libraries that provide essential functionality while maintaining a small footprint:
+
+| Dependency                                      | Size (min+gz) | Purpose                                                | Dependencies         | Browser Compatible |
+| ----------------------------------------------- | ------------- | ------------------------------------------------------ | -------------------- | ------------------ |
+| [debug](https://github.com/debug-js/debug)      | 3.0 KB        | Development-time logging that's stripped in production | 1 (ms)               | ✓                  |
+| [hexoid](https://github.com/lukeed/hexoid)      | 0.3 KB        | Ultra-lightweight ID generation                        | 0                    | ✓                  |
+| [metarize](https://github.com/teomyth/metarize) | ~5.0 KB       | TypeScript metadata reflection                         | 1 (reflect-metadata) | ✓                  |
+
+### Why These Dependencies?
+
+We carefully evaluated each dependency against these criteria:
+
+- **Size Impact**: All dependencies combined add less than 10KB minified+gzipped
+- **Quality**: Well-tested, widely-used in production environments
+- **Functionality**: Each provides essential features that would be complex to implement correctly
+
+**debug**: Provides development-time logging that is automatically stripped in production builds, enabling detailed debugging without performance impact in production.
+
+**hexoid**: Ultra-lightweight (190 bytes) ID generator with zero dependencies, significantly faster than UUID alternatives.
+
+**metarize**: Handles TypeScript metadata reflection for decorators with minimal overhead, providing type-safe decorator APIs that would otherwise require significantly more code to implement.
 
 ## Development
 
