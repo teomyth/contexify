@@ -1,4 +1,22 @@
-import { hexoid } from 'hexoid';
+/**
+ * Create a function that generates unique identifiers in an extremely fast way.
+ * This produces a hexadecimal format string (e.g. '52032fedb951da00').
+ *
+ * @param size - The length of the ID to generate (default: 16)
+ * @returns A function that generates unique IDs
+ * @internal
+ */
+export function createIdGenerator(size = 16) {
+  const alphabet = '0123456789abcdef';
+  return () => {
+    let str = '';
+    let num = (Math.random() * 16) | 0;
+    for (let i = 0; i < size; i++) {
+      str += alphabet[i === 0 ? num : (Math.random() * 16) | 0];
+    }
+    return str;
+  };
+}
 
 /**
  * Generate a unique identifier in an extremely fast way.
@@ -6,7 +24,7 @@ import { hexoid } from 'hexoid';
  *
  * @internal
  */
-export const generateUniqueId = hexoid();
+export const generateUniqueId = createIdGenerator();
 
 /**
  * Generate a UUID-like identifier.
@@ -15,7 +33,7 @@ export const generateUniqueId = hexoid();
  * @internal
  */
 export function generateUUID(): string {
-  const h = hexoid(32)();
+  const h = createIdGenerator(32)();
   return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20, 32)}`;
 }
 

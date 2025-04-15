@@ -26,8 +26,9 @@ pnpm add contexify
 ## Features
 
 [![Bundle Size](https://img.shields.io/badge/Bundle%20Size-<10KB-success)](https://github.com/teomyth/contexify#dependencies)
-[![Dependencies](https://img.shields.io/badge/Dependencies-3-success)](https://github.com/teomyth/contexify#dependencies)
+[![Dependencies](https://img.shields.io/badge/Dependencies-2-success)](https://github.com/teomyth/contexify#dependencies)
 [![Browser Compatible](https://img.shields.io/badge/Browser-Compatible-success)](https://github.com/teomyth/contexify#dependencies)
+[![Modular](https://img.shields.io/badge/Modular-Yes-success)](https://github.com/teomyth/contexify#modular-usage)
 
 - **Dependency Injection**: Inject dependencies into classes, properties, and methods
 - **IoC Container**: Manage dependencies with a powerful inversion of control container
@@ -309,7 +310,6 @@ Contextify is designed to be lightweight with carefully selected dependencies. W
 | Dependency                                      | Size (min+gz) | Purpose                                                | Dependencies         | Browser Compatible |
 | ----------------------------------------------- | ------------- | ------------------------------------------------------ | -------------------- | ------------------ |
 | [debug](https://github.com/debug-js/debug)      | 3.0 KB        | Development-time logging that's stripped in production | 1 (ms)               | ✓                  |
-| [hexoid](https://github.com/lukeed/hexoid)      | 0.3 KB        | Ultra-lightweight ID generation                        | 0                    | ✓                  |
 | [metarize](https://github.com/teomyth/metarize) | ~5.0 KB       | TypeScript metadata reflection                         | 1 (reflect-metadata) | ✓                  |
 
 ### Why These Dependencies?
@@ -321,8 +321,6 @@ We carefully evaluated each dependency against these criteria:
 - **Functionality**: Each provides essential features that would be complex to implement correctly
 
 **debug**: Provides development-time logging that is automatically stripped in production builds, enabling detailed debugging without performance impact in production.
-
-**hexoid**: Ultra-lightweight (190 bytes) ID generator with zero dependencies, significantly faster than UUID alternatives.
 
 **metarize**: Handles TypeScript metadata reflection for decorators with minimal overhead, providing type-safe decorator APIs that would otherwise require significantly more code to implement.
 
@@ -358,6 +356,70 @@ pnpm test
 - `pnpm lint` - Run linting
 - `pnpm format` - Format code
 - `pnpm release` - Release a new version
+
+## Modular Usage
+
+Contextify is designed to be modular, allowing you to import only the parts you need. This can significantly reduce your bundle size if you don't need all features.
+
+### Core Module
+
+The core module provides the basic functionality without any dependencies on decorators or metadata reflection:
+
+```typescript
+// Import only the core functionality
+import { Context, Binding } from 'contexify/core';
+
+// Create a context
+const ctx = new Context('app');
+
+// Bind values
+ctx.bind('greeting').to('Hello, World!');
+const greeting = ctx.getSync('greeting');
+```
+
+### Decorators Module
+
+The decorators module provides TypeScript decorators for dependency injection:
+
+```typescript
+// Import decorators
+import { inject, injectable } from 'contexify/decorators';
+
+@injectable()
+class GreetingService {
+  constructor(@inject('greeting') private greeting: string) {}
+
+  greet(name: string) {
+    return `${this.greeting} ${name}!`;
+  }
+}
+```
+
+### Interceptors Module
+
+The interceptors module provides method interception capabilities:
+
+```typescript
+// Import interceptors
+import { Interceptor } from 'contexify/interceptors';
+
+// Create an interceptor
+const loggingInterceptor: Interceptor = async (context, next) => {
+  console.log(`Before: ${context.targetName}`);
+  const result = await next();
+  console.log(`After: ${context.targetName}`);
+  return result;
+};
+```
+
+### Full Package
+
+If you need all features, you can import from the main package:
+
+```typescript
+// Import everything
+import { Context, inject, Interceptor } from 'contexify';
+```
 
 ## License
 
