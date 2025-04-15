@@ -6,7 +6,6 @@
  */
 
 /* eslint-env node */
-/* eslint no-console: 0 */
 
 import fs from 'fs';
 import path from 'path';
@@ -22,7 +21,7 @@ const packageJsonPath = path.join(rootDir, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const version = packageJson.version;
 
-console.log(`Updating VERSION constant in src/index.ts to ${version}`);
+process.stdout.write(`Updating VERSION constant in src/index.ts to ${version}\n`);
 
 // Read the index.ts file
 const indexPath = path.join(rootDir, 'src', 'index.ts');
@@ -37,4 +36,4 @@ const updatedContent = indexContent.replace(
 // Write the updated content back to the file
 fs.writeFileSync(indexPath, updatedContent);
 
-console.log('VERSION constant updated successfully');
+process.stdout.write('VERSION constant updated successfully\n');
