@@ -63,7 +63,9 @@ export class InterceptedInvocationContext extends InvocationContext {
 
     this.sortGlobalInterceptorBindings(bindings);
     const keys = bindings.map((b) => b.key);
-    debug('Global interceptor binding keys:', keys);
+    if (debug.enabled) {
+      debug('Global interceptor binding keys:', keys);
+    }
     return keys;
   }
 
@@ -131,7 +133,9 @@ export class InterceptedInvocationContext extends InvocationContext {
     const globalInterceptors = this.getGlobalInterceptorBindingKeys();
     // Inserting global interceptors
     interceptors = mergeInterceptors(globalInterceptors, interceptors);
-    debug('Interceptors for %s', this.targetName, interceptors);
+    if (debug.enabled) {
+      debug('Interceptors for %s', this.targetName, interceptors);
+    }
     return interceptors;
   }
 }

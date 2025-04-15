@@ -601,7 +601,9 @@ export class Binding<T = BoundValue> extends EventEmitter {
             `Binding "${this.key}" in context "${ctx.name}" cannot` +
             ` be resolved in scope "${this.scope}"`;
           if (options.optional) {
-            debug(msg);
+            if (debug.enabled) {
+              debug(msg);
+            }
             return undefined;
           }
           throw new Error(msg);
@@ -614,7 +616,9 @@ export class Binding<T = BoundValue> extends EventEmitter {
         `Resolution context "${resolutionCtx?.name}" does not have ` +
         `visibility to binding "${this.key} (scope:${this.scope})" in context "${ownerCtx.name}"`;
       if (options.optional) {
-        debug(msg);
+        if (debug.enabled) {
+          debug(msg);
+        }
         return undefined;
       }
       throw new Error(msg);

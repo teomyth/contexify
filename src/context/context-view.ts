@@ -101,7 +101,9 @@ export class ContextView<T = unknown>
    * Start listening events from the context
    */
   open() {
-    debug('Start listening on changes of context %s', this.context.name);
+    if (debug.enabled) {
+      debug('Start listening on changes of context %s', this.context.name);
+    }
     if (this.context.isSubscribed(this)) {
       return this._subscription;
     }
@@ -113,7 +115,9 @@ export class ContextView<T = unknown>
    * Stop listening events from the context
    */
   close() {
-    debug('Stop listening on changes of context %s', this.context.name);
+    if (debug.enabled) {
+      debug('Stop listening on changes of context %s', this.context.name);
+    }
     if (!this._subscription || this._subscription.closed) return;
     this._subscription.unsubscribe();
     this._subscription = undefined;
@@ -125,7 +129,9 @@ export class ContextView<T = unknown>
    * them from the context.
    */
   get bindings(): Readonly<Binding<T>>[] {
-    debug('Reading bindings');
+    if (debug.enabled) {
+      debug('Reading bindings');
+    }
     if (this._cachedBindings == null) {
       this._cachedBindings = this.findBindings();
     }
@@ -136,7 +142,9 @@ export class ContextView<T = unknown>
    * Find matching bindings and refresh the cache
    */
   protected findBindings(): Readonly<Binding<T>>[] {
-    debug('Finding matching bindings');
+    if (debug.enabled) {
+      debug('Finding matching bindings');
+    }
     const found = this.context.find(this.filter);
     if (typeof this.comparator === 'function') {
       found.sort(this.comparator);
@@ -164,7 +172,9 @@ export class ContextView<T = unknown>
       binding,
       type: event,
     };
-    debug('Observed event %s %s %s', event, binding.key, context.name);
+    if (debug.enabled) {
+      debug('Observed event %s %s %s', event, binding.key, context.name);
+    }
 
     if (event === 'unbind') {
       const cachedValue = this._cachedValues?.get(
@@ -182,7 +192,9 @@ export class ContextView<T = unknown>
    * Refresh the view by invalidating its cache
    */
   refresh() {
-    debug('Refreshing the view by invalidating cache');
+    if (debug.enabled) {
+      debug('Refreshing the view by invalidating cache');
+    }
     this._cachedBindings = undefined;
     this._cachedValues = undefined;
     this.emit('refresh');
@@ -193,7 +205,9 @@ export class ContextView<T = unknown>
    * @param session - Resolution session
    */
   resolve(session?: ResolutionOptionsOrSession): ValueOrPromise<T[]> {
-    debug('Resolving values');
+    if (debug.enabled) {
+      debug('Resolving values');
+    }
     if (this._cachedValues != null) {
       return this.getCachedValues();
     }
@@ -229,7 +243,9 @@ export class ContextView<T = unknown>
    * and resolve them.
    */
   async values(session?: ResolutionOptionsOrSession): Promise<T[]> {
-    debug('Reading values');
+    if (debug.enabled) {
+      debug('Reading values');
+    }
     // Wait for the next tick so that context event notification can be emitted
     await new Promise<void>((resolve) => {
       process.nextTick(() => resolve());
