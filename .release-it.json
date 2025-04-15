@@ -14,7 +14,7 @@
     "versionArgs": ["--allow-same-version"]
   },
   "hooks": {
-    "after:bump": "pnpm build",
+    "after:bump": ["node scripts/update-version.js", "pnpm build:clean"],
     "after:release": "echo Successfully released ${name} v${version} to GitHub."
   },
   "plugins": {

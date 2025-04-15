@@ -48,13 +48,16 @@
     "url": "https://github.com/teomyth/contexify/issues"
   },
   "scripts": {
+    "clean": "rm -rf dist",
     "build": "tsc",
+    "build:clean": "pnpm clean && pnpm build",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky",
     "lint-staged": "lint-staged",
+    "update-version": "node scripts/update-version.js",
     "release": "release-it",
     "release:patch": "release-it patch",
     "release:minor": "release-it minor",
