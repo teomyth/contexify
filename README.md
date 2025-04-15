@@ -26,7 +26,7 @@ pnpm add contexify
 ## Features
 
 [![Bundle Size](https://img.shields.io/badge/Bundle%20Size-<10KB-success)](https://github.com/teomyth/contexify#dependencies)
-[![Dependencies](https://img.shields.io/badge/Dependencies-2-success)](https://github.com/teomyth/contexify#dependencies)
+[![Dependencies](https://img.shields.io/badge/Dependencies-1-success)](https://github.com/teomyth/contexify#dependencies)
 [![Browser Compatible](https://img.shields.io/badge/Browser-Compatible-success)](https://github.com/teomyth/contexify#dependencies)
 [![Modular](https://img.shields.io/badge/Modular-Yes-success)](https://github.com/teomyth/contexify#modular-usage)
 
@@ -307,10 +307,9 @@ ctx.configure('servers.RestServer.server2').to({
 
 Contextify is designed to be lightweight with carefully selected dependencies. We've chosen high-quality libraries that provide essential functionality while maintaining a small footprint:
 
-| Dependency                                      | Size (min+gz) | Purpose                                                | Dependencies         | Browser Compatible |
-| ----------------------------------------------- | ------------- | ------------------------------------------------------ | -------------------- | ------------------ |
-| [debug](https://github.com/debug-js/debug)      | 3.0 KB        | Development-time logging that's stripped in production | 1 (ms)               | ✓                  |
-| [metarize](https://github.com/teomyth/metarize) | ~5.0 KB       | TypeScript metadata reflection                         | 1 (reflect-metadata) | ✓                  |
+| Dependency                                      | Size (min+gz) | Purpose                        | Dependencies         | Browser Compatible |
+| ----------------------------------------------- | ------------- | ------------------------------ | -------------------- | ------------------ |
+| [metarize](https://github.com/teomyth/metarize) | ~5.0 KB       | TypeScript metadata reflection | 1 (reflect-metadata) | ✓                  |
 
 ### Why These Dependencies?
 
@@ -319,8 +318,6 @@ We carefully evaluated each dependency against these criteria:
 - **Size Impact**: All dependencies combined add less than 10KB minified+gzipped
 - **Quality**: Well-tested, widely-used in production environments
 - **Functionality**: Each provides essential features that would be complex to implement correctly
-
-**debug**: Provides development-time logging that is automatically stripped in production builds, enabling detailed debugging without performance impact in production.
 
 **metarize**: Handles TypeScript metadata reflection for decorators with minimal overhead, providing type-safe decorator APIs that would otherwise require significantly more code to implement.
 

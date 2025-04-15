@@ -1,5 +1,5 @@
 import { DecoratorFactory } from 'metarize';
-import debugModule from 'debug';
+import createLogger from '../utils/logger.js';
 import { Binding } from '../binding/binding.js';
 import { BindingSelector } from '../binding/binding-filter.js';
 import { Context } from '../context/context.js';
@@ -10,7 +10,7 @@ import {
   ValueOrPromise,
 } from '../utils/value-promise.js';
 
-const debugSession = debugModule('contexify:resolver:session');
+const debugSession = createLogger('contexify:resolver:session');
 const getTargetName = DecoratorFactory.getTargetName;
 
 /**

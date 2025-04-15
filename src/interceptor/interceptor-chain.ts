@@ -1,4 +1,4 @@
-import debugFactory from 'debug';
+import createLogger from '../utils/logger.js';
 import { BindingFilter } from '../binding/binding-filter.js';
 import { BindingAddress } from '../binding/binding-key.js';
 import { BindingComparator } from '../binding/binding-sorter.js';
@@ -8,7 +8,7 @@ import {
   transformValueOrPromise,
   ValueOrPromise,
 } from '../utils/value-promise.js';
-const debug = debugFactory('contexify:interceptor-chain');
+const debug = createLogger('contexify:interceptor-chain');
 
 /**
  * Any type except `void`. We use this type to enforce that interceptor functions

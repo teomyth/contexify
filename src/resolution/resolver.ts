@@ -1,6 +1,6 @@
 import { DecoratorFactory } from 'metarize';
 import assert from 'assert';
-import debugModule from 'debug';
+import createLogger from '../utils/logger.js';
 import { isBindingAddress } from '../binding/binding-filter.js';
 import { BindingAddress } from '../binding/binding-key.js';
 import { Context } from '../context/context.js';
@@ -24,7 +24,7 @@ import {
   ValueOrPromise,
 } from '../utils/value-promise.js';
 
-const debug = debugModule('contexify:resolver');
+const debug = createLogger('contexify:resolver');
 const getTargetName = DecoratorFactory.getTargetName;
 
 /**

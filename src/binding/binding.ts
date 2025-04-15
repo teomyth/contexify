@@ -1,4 +1,4 @@
-import debugFactory from 'debug';
+import createLogger from '../utils/logger.js';
 import { EventEmitter } from 'events';
 import { bindingTemplateFor } from './binding-inspector.js';
 import { BindingAddress, BindingKey } from './binding-key.js';
@@ -27,7 +27,7 @@ import {
   ValueOrPromise,
 } from '../utils/value-promise.js';
 
-const debug = debugFactory('contexify:binding');
+const debug = createLogger('contexify:binding');
 
 /**
  * Scope for binding values

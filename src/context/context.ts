@@ -1,4 +1,4 @@
-import debugFactory, { Debugger } from 'debug';
+import createLogger, { Logger } from '../utils/logger.js';
 import { EventEmitter } from 'events';
 import {
   Binding,
@@ -80,19 +80,19 @@ export class Context extends EventEmitter {
   protected configResolver!: ConfigurationResolver;
 
   /**
-   * A debug function which can be overridden by subclasses.
+   * A logger function which can be overridden by subclasses.
    *
    * @example
    * ```ts
-   * import debugFactory from 'debug';
-   * const debug = debugFactory('contexify:application');
+   * import createLogger from '../utils/logger.js';
+   * const logger = createLogger('contexify:application');
    * export class Application extends Context {
    *   super('application');
-   *   this._debug = debug;
+   *   this._debug = logger;
    * }
    * ```
    */
-  protected _debug!: Debugger;
+  protected _debug!: Logger;
 
   /**
    * Scope for binding resolution
@@ -136,7 +136,7 @@ export class Context extends EventEmitter {
     this.name = name ?? this.generateName();
     this.tagIndexer = new ContextTagIndexer(this);
     this.subscriptionManager = new ContextSubscriptionManager(this);
-    this._debug = debugFactory(this.getDebugNamespace());
+    this._debug = createLogger(this.getDebugNamespace());
   }
 
   /**

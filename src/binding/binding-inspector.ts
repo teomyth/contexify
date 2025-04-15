@@ -1,5 +1,5 @@
 import { MetadataAccessor, MetadataInspector } from 'metarize';
-import debugFactory from 'debug';
+import createLogger from '../utils/logger.js';
 import {
   Binding,
   BindingScope,
@@ -13,7 +13,7 @@ import { ContextTags } from '../utils/keys.js';
 import { Provider } from '../provider/provider.js';
 import { Constructor } from '../utils/value-promise.js';
 
-const debug = debugFactory('contexify:binding-inspector');
+const debug = createLogger('contexify:binding-inspector');
 
 /**
  * Binding metadata from `@injectable`

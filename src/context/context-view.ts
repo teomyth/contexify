@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import debugFactory from 'debug';
+import createLogger from '../utils/logger.js';
 import { Binding } from '../binding/binding.js';
 import { BindingFilter } from '../binding/binding-filter.js';
 import { BindingComparator } from '../binding/binding-sorter.js';
@@ -20,7 +20,7 @@ import {
   ValueOrPromise,
 } from '../utils/value-promise.js';
 
-const debug = debugFactory('contexify:view');
+const debug = createLogger('contexify:view');
 
 /**
  * An event emitted by a `ContextView`

@@ -7,7 +7,7 @@ import {
   MethodDecoratorFactory,
 } from 'metarize';
 import assert from 'assert';
-import debugFactory from 'debug';
+import createLogger from '../utils/logger.js';
 import { Binding, BindingTemplate } from '../binding/binding.js';
 import { injectable } from '../binding/binding-decorator.js';
 import {
@@ -42,7 +42,7 @@ import {
   tryWithFinally,
   ValueOrPromise,
 } from '../utils/value-promise.js';
-const debug = debugFactory('contexify:interceptor');
+const debug = createLogger('contexify:interceptor');
 
 /**
  * A specialized InvocationContext for interceptors
