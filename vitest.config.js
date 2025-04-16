@@ -10,7 +10,13 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.ts'],
-      exclude: ['**/node_modules/**', '**/dist/**', '**/tests/**', '**/temp/**', '**/temp-*'],
+      exclude: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/tests/**',
+        '**/temp/**',
+        '**/temp-*',
+      ],
     },
   },
 });
