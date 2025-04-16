@@ -36,6 +36,6 @@ Contexify is a fork of LoopBack's Context module with the following modification
 
 - Extracted the Context module as a standalone package
 - Updated dependencies and modernized tooling
-- [在此添加您的其他主要修改]
+- [Add your other major modifications here]
 
 All modifications are made by teomyth (2025) and are also licensed under the MIT License.
