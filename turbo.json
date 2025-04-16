@@ -13,6 +13,15 @@
       "dependsOn": ["build"],
       "inputs": ["src/**/*.ts", "tests/**/*.ts"]
     },
+    "docs:validate": {
+      "dependsOn": ["build"],
+      "inputs": ["docs-code/**/*.ts", "docs-site/**/*.md"]
+    },
+    "docs:update": {
+      "dependsOn": ["build"],
+      "inputs": ["docs-code/**/*.ts"],
+      "outputs": ["docs-site/**/*.md"]
+    },
     "lint": {
       "outputs": []
     },

@@ -14,6 +14,8 @@ This repository uses pnpm workspaces and Turborepo to manage the following packa
 - [**packages/contexify**](./packages/contexify/): Core library providing a powerful dependency injection container and context system
 - [**examples/modular-app**](./examples/modular-app/): A modular application example demonstrating best practices for using Contexify
 - [**examples/features**](./examples/features/): Standalone feature examples showcasing various capabilities provided by Contexify
+- [**docs-code**](./docs-code/): Executable code examples for Contexify documentation
+- [**docs-site**](./docs-site/): Documentation website built with Docusaurus
 
 ## Quick Start
 
@@ -26,6 +28,12 @@ pnpm build
 
 # Run tests
 pnpm test
+
+# Start documentation site locally
+pnpm run docs:start
+
+# Build documentation
+pnpm run docs:build
 ```
 
 ## Key Features
@@ -42,9 +50,38 @@ Contexify is a TypeScript library providing a powerful dependency injection cont
 - **Context Events**: Subscribe to binding events for dynamic behavior
 - **Context Views**: Track and observe bindings that match specific criteria
 
-## Detailed Documentation
+## Documentation
 
-For detailed API documentation and usage examples, see the [core package documentation](./packages/contexify/README.md).
+Comprehensive documentation is available at [https://teomyth.github.io/contexify](https://teomyth.github.io/contexify).
+
+The documentation includes:
+
+- Getting Started Guide
+- Core Concepts
+- How-to Guides
+- Examples
+- API Reference
+- Best Practices
+
+For package-specific documentation, see the [core package documentation](./packages/contexify/README.md).
+
+### Documentation Structure
+
+The documentation is organized as follows:
+
+- **docs-site**: Contains the Docusaurus website configuration and content
+- **docs-code**: Contains executable code examples that are used in the documentation
+
+### Contributing to Documentation
+
+To contribute to the documentation:
+
+1. Make changes to the markdown files in `docs-site/docs` or `docs-site/i18n` for translations
+2. For code examples, add or modify files in the `docs-code` directory
+3. Run `pnpm run docs:validate` to ensure all code examples are valid
+4. Run `pnpm run docs:update` to update the documentation with the latest code examples
+5. Run `pnpm run docs:start` to preview your changes locally
+6. Submit a pull request with your changes
 
 ## Contributing
 

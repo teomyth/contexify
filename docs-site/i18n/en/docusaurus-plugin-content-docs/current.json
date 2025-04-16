@@ -1,0 +1,46 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.分类": {
+    "message": "Categories",
+    "description": "The label for category 分类 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.分类.link.generated-index.description": {
+    "message": "Contexify Documentation Categories",
+    "description": "The generated-index page description for category 分类 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.核心概念": {
+    "message": "Core Concepts",
+    "description": "The label for category 核心概念 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.核心概念.link.generated-index.description": {
+    "message": "Learn about Contexify's core concepts, including context, binding, dependency injection, and more.",
+    "description": "The generated-index page description for category 核心概念 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.示例": {
+    "message": "Examples",
+    "description": "The label for category 示例 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.示例.link.generated-index.description": {
+    "message": "View examples of using Contexify in different scenarios.",
+    "description": "The generated-index page description for category 示例 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.指南": {
+    "message": "Guides",
+    "description": "The label for category 指南 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.指南.link.generated-index.description": {
+    "message": "Practical guides for using Contexify in your applications.",
+    "description": "The generated-index page description for category 指南 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.API 参考": {
+    "message": "API Reference",
+    "description": "The label for category API 参考 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.API 参考.link.generated-index.description": {
+    "message": "Reference documentation for the Contexify API.",
+    "description": "The generated-index page description for category API 参考 in sidebar tutorialSidebar"
+  }
+}

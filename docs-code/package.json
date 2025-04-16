@@ -1,0 +1,27 @@
+{
+  "name": "docs-code",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Executable code examples for Contexify documentation",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "docs:validate": "node scripts/validate-docs.js",
+    "docs:update": "node scripts/update-docs.js",
+    "start:basic": "ts-node-esm core-concepts/context.ts",
+    "start:modular": "ts-node-esm modular-app/index.ts"
+  },
+  "dependencies": {
+    "contexify": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  }
+}

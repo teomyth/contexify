@@ -1,0 +1,8 @@
+{
+  "label": "核心概念",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "了解 Contexify 的核心概念，包括上下文、绑定、依赖注入等。"
+  }
+}

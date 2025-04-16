@@ -1,0 +1,8 @@
+{
+  "label": "分类",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Contexify 文档分类"
+  }
+}

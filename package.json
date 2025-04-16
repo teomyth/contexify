@@ -22,13 +22,20 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage --filter=contexify",
+    "validate:all": "npm run test && npm run docs:test",
     "lint": "turbo run lint",
     "lint:fix": "biome check --write .",
     "format": "turbo run format",
     "format:fix": "biome format --write .",
     "fix": "biome check --write . && biome format --write .",
     "prepare": "husky",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "docs:test": "turbo run test --filter=docs-code",
+    "docs:validate": "turbo run docs:validate",
+    "docs:update": "turbo run docs:update",
+    "docs:build": "cd docs-site && npm run build",
+    "docs:start": "cd docs-site && npm run start",
+    "docs:serve": "cd docs-site && npm run serve"
   },
   "lint-staged": {
     "packages/contexify/src/**/*.{js,ts}": [

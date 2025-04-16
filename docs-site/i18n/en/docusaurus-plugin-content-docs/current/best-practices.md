@@ -1,32 +1,16 @@
-# Context Best Practices Guide
+---
+sidebar_position: 4
+---
+
+# Best Practices
 
 This document provides best practices for using the Context system in the Contexify framework, referencing design concepts and practical experience from the LoopBack framework.
 
-## 1. Context Overview
-
-### 1.1 What is Context?
-
-Context is the core of the Contexify framework, providing a dependency injection container for managing all dependencies in your application. Context allows you to:
-
-- Register and manage various components, services, and configurations in your application
-- Decouple component dependencies through dependency injection
-- Manage component lifecycles and scopes
-- Dynamically discover and use extension points and extensions
-
-### 1.2 Core Features of Context
-
-- **Binding Registration**: Bind classes, values, or factory functions to unique keys
-- **Dependency Injection**: Automatically inject dependencies through decorators
-- **Scope Management**: Control the lifecycle of binding values (singleton, transient, context)
-- **Hierarchy**: Support parent-child Context relationships, forming a Context chain
-- **Event System**: Provide event notifications for binding changes
-- **Observer Pattern**: Allow monitoring of binding changes in the Context
-
-## 2. Context Usage Patterns
+## Context Usage Patterns
 
 When using Context, there are several common patterns. Below is an analysis of these patterns and recommended best practices.
 
-### 2.1 Not Recommended: Global Context Object
+### Not Recommended: Global Context Object
 
 ```typescript
 // Not recommended pattern
@@ -44,7 +28,7 @@ service.doSomething();
 - Hides dependencies, making code harder to understand and maintain
 - Cannot easily replace or mock dependencies for testing
 
-### 2.2 Not Recommended: Context as a Parameter
+### Not Recommended: Context as a Parameter
 
 ```typescript
 // Not recommended pattern
@@ -60,7 +44,7 @@ function doSomething(context: Context) {
 - Makes the function dependent on the Context API rather than the services it actually needs
 - Difficult to test because you need to create and configure a Context
 
-### 2.3 Recommended: Extending Context to Create a Domain-Specific Application Core
+### Recommended: Extending Context to Create a Domain-Specific Application Core
 
 ```typescript
 // Recommended pattern
@@ -83,9 +67,9 @@ app.start();
 - Easy to test because dependencies can be mocked or replaced
 - Supports modular design and extensibility
 
-## 3. Application Architecture
+## Application Architecture
 
-### 3.1 Application Class Extending Context
+### Application Class Extending Context
 
 Create an application class that extends Context as the core of your application:
 
@@ -95,18 +79,22 @@ import { Context, injectable } from 'contexify';
 export class MyApplication extends Context {
   constructor() {
     super('application');
-
-    // Configure the application
-    this.configure();
   }
 
-  private configure() {
+  async setup() {
     // Register core services
     this.bind('logger').toClass(Logger);
 
     // Add components
     this.component(AuthComponent);
     this.component(ApiComponent);
+
+    // You could perform async initialization here
+    // For example, connecting to databases, loading configurations, etc.
+    await Promise.resolve(); // Placeholder for actual async operations
+
+    console.log('Application setup completed');
+    return this;
   }
 
   async start() {
@@ -124,7 +112,7 @@ export class MyApplication extends Context {
 }
 ```
 
-### 3.2 Components and Modular Design
+### Components and Modular Design
 
 Components are collections of related bindings used to extend application functionality:
 
@@ -152,7 +140,7 @@ Using components allows you to:
 - Support a pluggable architecture
 - Simplify dependency management
 
-### 3.3 Lifecycle Management
+### Lifecycle Management
 
 Your application should manage the lifecycle of components and services:
 
@@ -189,9 +177,9 @@ export class MyApplication extends Context {
 }
 ```
 
-## 4. Dependency Injection Best Practices
+## Dependency Injection Best Practices
 
-### 4.1 Use Decorators for Dependency Injection
+### Use Decorators for Dependency Injection
 
 It's recommended to use decorators for dependency injection instead of directly retrieving dependencies from the Context:
 
@@ -219,7 +207,7 @@ Benefits:
 - Easy to test, as dependencies can be mocked
 - Code is cleaner and more maintainable
 
-### 4.2 Binding Key Naming Conventions
+### Binding Key Naming Conventions
 
 Use consistent naming conventions to organize binding keys:
 
@@ -246,7 +234,7 @@ Recommended naming patterns:
 - Use plural forms for namespaces (services, repositories, controllers)
 - For configurations, use `config.{component}`
 
-### 4.3 Scope Management
+### Scope Management
 
 Choose appropriate scopes based on the nature of the component:
 
@@ -278,9 +266,9 @@ Scope guidelines:
 - **TRANSIENT**: For components that need a new instance each time they're used
 - **CONTEXT**: For components shared within a specific context
 
-## 5. Advanced Patterns
+## Advanced Patterns
 
-### 5.1 Using Interceptors
+### Using Interceptors
 
 Interceptors allow you to execute code before and after method calls:
 
@@ -305,7 +293,7 @@ Interceptor use cases:
 - Transaction management
 - Caching
 
-### 5.2 Using the Observer Pattern
+### Using the Observer Pattern
 
 Observe binding changes in the Context:
 
@@ -337,7 +325,7 @@ Observer use cases:
 - Monitoring binding changes
 - Implementing plugin systems
 
-### 5.3 Configuration Management
+### Configuration Management
 
 Use Context's configuration capabilities to manage application configuration:
 
@@ -366,87 +354,7 @@ Configuration best practices:
 - Provide default values for configuration
 - Support environment-specific configuration overrides
 
-## 6. Example: Building a Modular Application
-
-Here's a complete example demonstrating how to build a modular application using Context:
-
-```typescript
-import { Context, injectable, inject, createBindingFromClass } from 'contexify';
-
-// Define interfaces
-export interface Logger {
-  log(message: string): void;
-}
-
-export interface UserService {
-  createUser(name: string): Promise<User>;
-}
-
-export interface User {
-  id: string;
-  name: string;
-}
-
-// Implement services
-@injectable()
-export class ConsoleLogger implements Logger {
-  log(message: string) {
-    console.log(`[LOG] ${message}`);
-  }
-}
-
-@injectable()
-export class DefaultUserService implements UserService {
-  constructor(@inject('services.Logger') private logger: Logger) {}
-
-  async createUser(name: string): Promise<User> {
-    this.logger.log(`Creating user: ${name}`);
-    return { id: Date.now().toString(), name };
-  }
-}
-
-// Define component
-export class CoreComponent {
-  bindings = [
-    createBindingFromClass(ConsoleLogger, {
-      key: 'services.Logger',
-    }),
-    createBindingFromClass(DefaultUserService, {
-      key: 'services.UserService',
-    }),
-  ];
-}
-
-// Define application
-export class MyApplication extends Context {
-  constructor() {
-    super('application');
-
-    // Add component
-    this.component(new CoreComponent());
-  }
-
-  component(component: { bindings?: Binding[] }) {
-    if (component.bindings) {
-      for (const binding of component.bindings) {
-        this.add(binding);
-      }
-    }
-  }
-
-  async start() {
-    const userService = await this.get<UserService>('services.UserService');
-    const user = await userService.createUser('John');
-    console.log('Created user:', user);
-  }
-}
-
-// Use the application
-const app = new MyApplication();
-app.start().catch((err) => console.error(err));
-```
-
-## 7. Summary
+## Summary
 
 Best practices for using Context as your application core:
 
