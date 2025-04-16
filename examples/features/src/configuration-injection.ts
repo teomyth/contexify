@@ -1,4 +1,4 @@
-import {config, Context} from 'contexify';
+import { config, Context } from 'contexify';
 
 /**
  * Configuration for greeters
@@ -16,7 +16,7 @@ class Greeter {
     /**
      * Inject configuration for this bound instance
      */
-    @config() private settings: GreeterConfig = {},
+    @config() private settings: GreeterConfig = {}
   ) {}
 
   greet(name: string) {
@@ -34,7 +34,7 @@ export async function main() {
   // Configure `greeter` with `{prefix: '>>>', includeDate: true}`
   ctx
     .configure<GreeterConfig>('greeter')
-    .to({prefix: '>>>', includeDate: true});
+    .to({ prefix: '>>>', includeDate: true });
   ctx.bind('greeter').toClass(Greeter);
 
   const greeter = await ctx.get<Greeter>('greeter');
@@ -43,7 +43,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./configuration-injection.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

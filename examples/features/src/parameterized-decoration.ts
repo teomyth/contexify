@@ -24,7 +24,7 @@ function createClassWithDecoration(
   bindingKeyForName: BindingAddress<string>,
   ...tags: BindingTag[]
 ): Constructor<Greeter> {
-  @injectable({tags})
+  @injectable({ tags })
   class GreeterTemplate implements Greeter {
     constructor(@inject(bindingKeyForName) private userName: string) {}
 
@@ -41,13 +41,13 @@ export async function main() {
   ctx.bind('name1').to('John');
   ctx.bind('name2').to('Jane');
 
-  const class1 = createClassWithDecoration('name1', {tags: {prefix: '1'}});
-  const binding1 = createBindingFromClass(class1, {key: 'greeter1'});
+  const class1 = createClassWithDecoration('name1', { tags: { prefix: '1' } });
+  const binding1 = createBindingFromClass(class1, { key: 'greeter1' });
   ctx.add(binding1);
   console.log('1:', binding1.tagMap);
 
-  const class2 = createClassWithDecoration('name2', {tags: {prefix: '2'}});
-  const binding2 = createBindingFromClass(class2, {key: 'greeter2'});
+  const class2 = createClassWithDecoration('name2', { tags: { prefix: '2' } });
+  const binding2 = createBindingFromClass(class2, { key: 'greeter2' });
   ctx.add(binding2);
   console.log('2:', binding2.tagMap);
 
@@ -60,7 +60,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./parameterized-decoration.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

@@ -1,4 +1,4 @@
-import {BindingKey, Context, inject} from 'contexify';
+import { BindingKey, Context, inject } from 'contexify';
 
 const CURRENT_USER = BindingKey.create<string>('currentUser');
 
@@ -30,7 +30,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./custom-inject-decorator.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

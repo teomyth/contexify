@@ -1,9 +1,10 @@
 import { Context } from 'contexify';
+
 import { Component } from './components/component.js';
 import { CoreComponent } from './components/core/index.js';
-import { TaskComponent } from './components/task/index.js';
 import { CoreKeys } from './components/core/keys.js';
 import { Logger } from './components/core/services/logger.js';
+import { TaskComponent } from './components/task/index.js';
 import { ServiceObserver } from './observers/service-observer.js';
 
 /**

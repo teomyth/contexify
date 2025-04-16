@@ -1,7 +1,7 @@
 import { Application } from './application.js';
 import { TaskKeys } from './components/task/keys.js';
-import { TaskService } from './components/task/services/task-service.js';
 import { TaskStatus } from './components/task/models/task.js';
+import { TaskService } from './components/task/services/task-service.js';
 
 /**
  * Run the example application

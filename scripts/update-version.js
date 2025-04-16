@@ -22,7 +22,9 @@ const packageJsonPath = path.join(rootDir, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const version = packageJson.version;
 
-process.stdout.write(`Updating VERSION constant in src/index.ts to ${version}\n`);
+process.stdout.write(
+  `Updating VERSION constant in src/index.ts to ${version}\n`
+);
 
 // Read the index.ts file
 const indexPath = path.join(rootDir, 'src', 'index.ts');

@@ -17,7 +17,7 @@ const CURRENT_DATE = BindingKey.create<Date>('currentDate');
  * A strongly-typed binding key for `GreetingService`
  */
 const GREETING_SERVICE = BindingKey.create<GreetingService>(
-  'services.GreetingService',
+  'services.GreetingService'
 );
 
 /**
@@ -52,12 +52,12 @@ class GreetingService {
   constructor(
     // Inject a context view for all greeters
     @inject.view(filterByTag('greeter'))
-    private greetersView: ContextView<Greeter>,
+    private greetersView: ContextView<Greeter>
   ) {}
 
   // Property based injection
   @inject.getter(CURRENT_DATE)
-  private now: Getter<Date>;
+  private now!: Getter<Date>;
 
   async greet(
     // Parameter injection
@@ -66,7 +66,7 @@ class GreetingService {
 
     // Parameter injection
     @inject('currentUser')
-    userName: string,
+    userName: string
   ) {
     // Get current date
     const date = await this.now();
@@ -129,7 +129,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./dependency-injection.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

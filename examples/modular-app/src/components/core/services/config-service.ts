@@ -1,5 +1,7 @@
 import { injectable, inject, BindingScope } from 'contexify';
+
 import { CoreKeys } from '../keys.js';
+
 import { Logger } from './logger.js';
 
 /**

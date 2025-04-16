@@ -1,4 +1,4 @@
-import {BindingKey, Context, inject, instantiateClass} from 'contexify';
+import { BindingKey, Context, inject, instantiateClass } from 'contexify';
 
 /**
  * Strongly-typed binding key for the current user
@@ -33,7 +33,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./injection-without-binding.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

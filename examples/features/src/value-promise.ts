@@ -43,10 +43,10 @@ class AsyncChineseGreeter implements Greeter {
    * @param name - Name
    */
   greet(name: string): Promise<string> {
-    return new Promise<string>(resolve =>
+    return new Promise<string>((resolve) =>
       setImmediate(() => {
         resolve(`[promise] 你好，${name}！`);
-      }),
+      })
     );
   }
 }
@@ -85,7 +85,7 @@ async function greetFromAll(greetersView: ContextView<Greeter>) {
   const greeters = await greetersView.values();
 
   // Collect greetings as an array from all greeters
-  const greetings = resolveList(greeters, greeter => {
+  const greetings = resolveList(greeters, (greeter) => {
     return greeter.greet('John');
   });
 
@@ -100,10 +100,10 @@ async function greetFromAll(greetersView: ContextView<Greeter>) {
   const greeterMap: {
     [language: string]: Greeter;
   } = {};
-  greeters.filter(greeter => (greeterMap[greeter.language] = greeter));
+  greeters.filter((greeter) => (greeterMap[greeter.language] = greeter));
 
-  const greetingsByLanguage = resolveMap(greeterMap, greeter =>
-    greeter.greet('Jane'),
+  const greetingsByLanguage = resolveMap(greeterMap, (greeter) =>
+    greeter.greet('Jane')
   );
 
   // Print out all map entries
@@ -112,7 +112,7 @@ async function greetFromAll(greetersView: ContextView<Greeter>) {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./value-promise.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

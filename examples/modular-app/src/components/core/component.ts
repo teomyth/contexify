@@ -1,9 +1,10 @@
 import { Binding, createBindingFromClass } from 'contexify';
+
 import { Component } from '../component.js';
+
 import { CoreKeys } from './keys.js';
-import { ConsoleLogger } from './services/logger.js';
 import { MemoryConfigService } from './services/config-service.js';
-import { ServiceObserver } from '../../observers/service-observer.js';
+import { ConsoleLogger } from './services/logger.js';
 
 /**
  * Core Component

@@ -1,4 +1,4 @@
-import {BindingKey, Context, inject} from 'contexify';
+import { BindingKey, Context, inject } from 'contexify';
 
 const CURRENT_USER = BindingKey.create<string>('currentUser');
 
@@ -55,7 +55,7 @@ async function greetWithAsyncUser(ctx: Context) {
     console.log(greeter.hello());
   } catch (err) {
     // Error: Cannot get greeter synchronously: the value is a promise
-    console.log('Expect to fail with error: %s', err.message);
+    console.log('Expect to fail with error: %s', (err as Error).message);
   }
 }
 
@@ -73,7 +73,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./sync-async.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

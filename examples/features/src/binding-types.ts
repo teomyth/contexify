@@ -1,4 +1,4 @@
-import {BindingKey, Context, inject, Provider} from 'contexify';
+import { BindingKey, Context, inject, Provider } from 'contexify';
 
 /**
  * A strongly-typed binding key for current date
@@ -24,11 +24,11 @@ class Greeter {
 
   // Property based injection
   @inject(CURRENT_DATE)
-  private created: Date;
+  private created!: Date;
 
   // Property based injection
   @inject('requestId')
-  private requestId: string;
+  private requestId!: string;
 
   hello() {
     return `[${this.created.toISOString()}] (${this.requestId}) Hello, ${
@@ -93,7 +93,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./binding-types.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

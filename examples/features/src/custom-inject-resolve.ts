@@ -16,7 +16,7 @@ import {
 const resolve: ResolverFunction = (
   ctx: Context,
   injection: Readonly<Injection>,
-  session: ResolutionSession,
+  session: ResolutionSession
 ) => {
   console.log('Context: %s Binding: %s', ctx.name, session.currentBinding!.key);
   const targetName = ResolutionSession.describeInjection(injection).targetName;
@@ -49,7 +49,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./custom-inject-resolve.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

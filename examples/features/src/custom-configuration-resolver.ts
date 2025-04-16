@@ -38,7 +38,7 @@ class EnvConfigResolver
     console.log(
       'Loading configuration for binding "%s" from env variable "%s"',
       key,
-      found,
+      found
     );
     try {
       return JSON.parse(val);
@@ -50,7 +50,7 @@ class EnvConfigResolver
   getConfigAsValueOrPromise<ConfigValueType>(
     key: BindingAddress<unknown>,
     configPath?: string,
-    resolutionOptions?: ResolutionOptions,
+    resolutionOptions?: ResolutionOptions
   ): ValueOrPromise<ConfigValueType | undefined> {
     const val = this.getFromEnvVars(key.toString());
     if (val != null) return val;
@@ -64,7 +64,7 @@ export async function main() {
 
   // Configure `foo` with `{bar: 'abc'}`
   // To override it with env var, use `foo='{"bar":"abc"}'`.
-  ctx.configure('foo').to({bar: 'abc'});
+  ctx.configure('foo').to({ bar: 'abc' });
 
   const fooConfig = await ctx.getConfig('foo');
   console.log(fooConfig);
@@ -78,7 +78,7 @@ export async function main() {
 if (
   import.meta.url === import.meta.resolve('./custom-configuration-resolver.js')
 ) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

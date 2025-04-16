@@ -1,4 +1,4 @@
-import {Context, inject} from 'contexify';
+import { Context, inject } from 'contexify';
 
 class Greeter {
   constructor(@inject('prefix') private prefix: string) {}
@@ -41,7 +41,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./context-chain.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

@@ -1,4 +1,5 @@
 import { ContextObserver, BindingFilter, ContextObserverFn } from 'contexify';
+
 import { Logger } from '../components/core/services/logger.js';
 
 /**

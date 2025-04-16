@@ -1,6 +1,7 @@
 import { BindingKey } from 'contexify';
-import { TaskService } from './services/task-service.js';
+
 import { TaskRepository } from './services/task-repository.js';
+import { TaskService } from './services/task-service.js';
 
 /**
  * Binding keys for the task component

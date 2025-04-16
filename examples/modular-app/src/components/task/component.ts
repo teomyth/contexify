@@ -1,8 +1,10 @@
 import { Binding, createBindingFromClass } from 'contexify';
+
 import { Component } from '../component.js';
+
 import { TaskKeys } from './keys.js';
-import { DefaultTaskService } from './services/task-service.js';
 import { InMemoryTaskRepository } from './services/task-repository.js';
+import { DefaultTaskService } from './services/task-service.js';
 
 /**
  * Task Component

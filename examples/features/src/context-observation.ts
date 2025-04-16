@@ -1,5 +1,6 @@
-import {Context, filterByKey, filterByTag} from 'contexify';
-import {promisify} from 'util';
+import { promisify } from 'util';
+
+import { Context, filterByKey, filterByTag } from 'contexify';
 
 const setImmediateAsync = promisify(setImmediate);
 
@@ -51,7 +52,7 @@ export async function main() {
   greetersView.on('refresh', () => {
     console.log(
       '[view.refresh] %j',
-      greetersView.bindings.map(b => b.key),
+      greetersView.bindings.map((b) => b.key)
     );
   });
 
@@ -82,7 +83,7 @@ export async function main() {
 
 // Run this example directly
 if (import.meta.url === import.meta.resolve('./context-observation.js')) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error(err);
     process.exit(1);
   });

@@ -1,9 +1,11 @@
-import {expect, test, describe, beforeAll, afterAll} from 'vitest';
-import {readFileSync, existsSync, readdirSync} from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-import {format} from 'node:util';
-import {fileURLToPath} from 'node:url';
-import {main} from '../src/index.js';
+import { fileURLToPath } from 'node:url';
+import { format } from 'node:util';
+
+import { expect, test, describe, beforeAll, afterAll } from 'vitest';
+
+import { main } from '../src/index.js';
 
 // Get the directory name of the current module
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -30,18 +32,19 @@ describe('context examples', () => {
     // Check if at least one example file exists
     const srcFiles = readdirSync(path.join(__dirname, '../src'));
     const exampleFiles = srcFiles.filter(
-      (f: string) => f.endsWith('.ts') && f !== 'index.ts',
+      (f: string) => f.endsWith('.ts') && f !== 'index.ts'
     );
     expect(exampleFiles.length).toBeGreaterThan(0);
   });
 
-  // Temporarily skip this test because it depends on the published contexify package
-  // When the locally developed contexify is published, this test can be re-enabled
+  // This test is temporarily skipped because import.meta.resolve is not available in the test environment
+  // This is a compatibility issue caused by Vitest running ES modules in Node.js
+  // This test can be re-enabled when this issue is fixed in a future release or a better solution is found
   test.skip('runs all examples', async () => {
     const expectedLogs = loadExpectedLogs();
     await main();
-    expect(errors).to.eql([]);
-    expect(replaceDates(logs)).to.eql(replaceDates(expectedLogs));
+    expect(errors).toEqual([]);
+    expect(replaceDates(logs)).toEqual(replaceDates(expectedLogs));
   });
 
   afterAll(restoreConsoleOutput);
@@ -54,7 +57,7 @@ describe('context examples', () => {
   function loadExpectedLogs() {
     const output = readFileSync(
       path.join(__dirname, '../fixtures/examples-output.txt'),
-      'utf-8',
+      'utf-8'
     );
     const items = output.split('\n');
     // When we run `node . > fixtures/examples-output.txt`, a new line is added
@@ -88,6 +91,6 @@ describe('context examples', () => {
   }
 
   function replaceDates(items: string[]) {
-    return items.map(str => str.replace(/\[\d+[\w\d\-\.\:]+\]/g, '[DATE]'));
+    return items.map((str) => str.replace(/\[\d+[\w\d\-\.\:]+\]/g, '[DATE]'));
   }
 });
