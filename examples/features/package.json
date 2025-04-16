@@ -23,6 +23,7 @@
     "format": "biome format --write .",
     "fix": "biome check --write . && biome format --write .",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "rebuild": "npm run clean && npm run build",
     "prestart": "npm run rebuild",
     "start": "node dist/index.js"

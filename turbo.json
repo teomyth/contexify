@@ -9,6 +9,10 @@
       "dependsOn": ["build"],
       "inputs": ["src/**/*.ts", "tests/**/*.ts"]
     },
+    "test:coverage": {
+      "dependsOn": ["build"],
+      "inputs": ["src/**/*.ts", "tests/**/*.ts"]
+    },
     "lint": {
       "outputs": []
     },
