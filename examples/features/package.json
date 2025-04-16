@@ -3,12 +3,7 @@
   "description": "Standalone examples to illustrate various features provided by contexify",
   "version": "1.0.0",
   "type": "module",
-  "keywords": [
-    "contexify",
-    "context",
-    "example",
-    "tutorial"
-  ],
+  "keywords": ["contexify", "context", "example", "tutorial"],
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,20 +19,19 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "lint": "eslint .",
-    "format": "prettier --write .",
+    "lint": "biome check --write .",
+    "format": "biome format --write .",
+    "fix": "biome check --write . && biome format --write .",
     "test": "vitest run",
     "rebuild": "npm run clean && npm run build",
     "prestart": "npm run rebuild",
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "contexify": "1.0.2"
+    "contexify": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.14.1",
-    "eslint": "^9.24.0",
-    "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vitest": "^3.1.1"
   }

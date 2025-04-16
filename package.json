@@ -1,52 +1,10 @@
 {
-  "name": "contexify",
-  "version": "1.0.2",
+  "name": "contexify-monorepo",
+  "private": true,
   "description": "A TypeScript library providing a powerful dependency injection container with context-based IoC capabilities, inspired by LoopBack's Context system.",
   "author": "teomyth <teomyth@gmail.com>",
   "license": "MIT",
-  "keywords": [
-    "typescript",
-    "dependency-injection",
-    "ioc",
-    "inversion-of-control",
-    "context",
-    "container",
-    "binding",
-    "decorator",
-    "esm",
-    "interceptor",
-    "provider",
-    "minimal-dependencies"
-  ],
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./core": {
-      "types": "./dist/core.d.ts",
-      "default": "./dist/core.js"
-    },
-    "./decorators": {
-      "types": "./dist/decorators.d.ts",
-      "default": "./dist/decorators.js"
-    },
-    "./interceptors": {
-      "types": "./dist/interceptors.d.ts",
-      "default": "./dist/interceptors.js"
-    }
-  },
-  "files": [
-    "README.md",
-    "NOTICE.md",
-    "LICENSE",
-    "dist",
-    "src"
-  ],
   "engines": {
     "node": ">=18"
   },
@@ -60,48 +18,34 @@
     "url": "https://github.com/teomyth/contexify/issues"
   },
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "tsc",
-    "build:clean": "pnpm clean && pnpm build",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "lint": "eslint .",
-    "format": "prettier --write .",
+    "clean": "turbo run clean",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "lint:fix": "biome check --write .",
+    "format": "turbo run format",
+    "format:fix": "biome format --write .",
+    "fix": "biome check --write . && biome format --write .",
     "prepare": "husky",
-    "lint-staged": "lint-staged",
-    "update-version": "node scripts/update-version.js",
-    "release": "release-it",
-    "release:patch": "release-it patch",
-    "release:minor": "release-it minor",
-    "release:major": "release-it major"
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write"
+    "packages/contexify/src/**/*.{js,ts}": [
+      "biome check --write",
+      "biome format --write"
     ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
-  },
-  "dependencies": {
-    "metarize": "^1.0.2"
+    "*.{json,md}": ["biome format --write"]
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@eslint/js": "^9.24.0",
     "@release-it/conventional-changelog": "^10.0.0",
     "@types/node": "^22.14.1",
     "@vitest/coverage-v8": "^3.1.1",
     "conventional-changelog-angular": "^8.0.0",
-    "eslint": "^9.24.0",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
-    "prettier": "^3.5.3",
     "release-it": "^18.1.2",
     "turbo": "^2.5.0",
     "typescript": "^5.8.3",
