@@ -13,7 +13,7 @@ export class ApiComponent {
     Binding.create(ApiBindings.COMPONENT)
       .to(this)
       .tag('component'),
-    
+
     // Bind the user controller
     createBindingFromClass(UserController, {
       key: ApiBindings.CONTROLLER,

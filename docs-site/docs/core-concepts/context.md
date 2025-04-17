@@ -2,103 +2,103 @@
 sidebar_position: 1
 ---
 
-# Context（上下文）
+# Context
 
-## 什么是 Context？
+## What is Context?
 
-Context 是 Contexify 框架的核心。它作为：
+Context is the core of the Contexify framework. It serves as:
 
-- 应用程序中所有状态和依赖项的抽象
-- 应用程序中任何内容的全局注册表（配置、状态、依赖项、类等）
-- 用于将依赖项注入到代码中的[控制反转](https://zh.wikipedia.org/wiki/%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC)容器
+- An abstraction of all state and dependencies in your application
+- A global registry for anything and everything in your app (configurations, state, dependencies, classes, etc.)
+- An [inversion of control](https://en.wikipedia.org/wiki/Inversion_of_control) container used to inject dependencies into your code
 
-Context 系统允许您以结构化和灵活的方式管理依赖项，使您的应用程序更加模块化和可测试。
+The Context system allows you to manage dependencies in a structured and flexible way, making your application more modular and testable.
 
-## Context 层次结构
+## Context Hierarchy
 
-Context 系统的一个关键特性是其层次化特性。Context 可以组织成父子关系，形成 Context 链。
+One of the key features of the Context system is its hierarchical nature. Contexts can be organized in a parent-child relationship, forming a Context chain.
 
 ```typescript
 import { Context } from 'contexify';
 
-// 创建根上下文
+// Create a root context
 const rootContext = new Context('root');
 
-// 创建以 rootContext 为父级的子上下文
+// Create a child context with rootContext as its parent
 const serverContext = new Context(rootContext, 'server');
 
-// 创建另一个子上下文
+// Create another child context
 const requestContext = new Context(serverContext, 'request');
 ```
 
-这种层次结构允许：
+This hierarchy allows for:
 
-- **继承**：子上下文继承其父上下文的绑定
-- **隔离**：对子上下文的更改不会影响父上下文
-- **作用域**：应用程序的不同部分可以有自己的特定绑定的上下文
+- **Inheritance**: Child contexts inherit bindings from their parent contexts
+- **Isolation**: Changes to a child context don't affect the parent context
+- **Scoping**: Different parts of your application can have their own context with specific bindings
 
-## Context 级别
+## Context Levels
 
-在典型的应用程序中，您将有三个级别的上下文：
+In a typical application, you'll have three levels of contexts:
 
-### 1. 应用程序级别上下文（全局）
+### 1. Application-level Context (Global)
 
-- 在整个应用程序生命周期中存储所有初始和修改的应用程序状态
-- 通常在创建应用程序时配置
-- 作为所有其他上下文的根上下文
+- Stores all the initial and modified app states throughout the entire life of the app
+- Generally configured when the application is created
+- Serves as the root context for all other contexts
 
 ```typescript
 import { Context } from 'contexify';
 
-// 创建一个扩展 Context 的应用程序类
+// Create an application class that extends Context
 class Application extends Context {
   constructor() {
     super('application');
   }
 }
 
-// 创建应用程序实例
+// Create an application instance
 const app = new Application();
 
-// 注册应用程序范围的服务
+// Register application-wide services
 app.bind('services.ConfigService').toClass(ConfigService);
 app.bind('services.LoggerService').toClass(LoggerService);
 ```
 
-### 2. 服务器级别上下文
+### 2. Server-level Context
 
-- 应用程序级别上下文的子级
-- 保存特定于特定服务器实例的配置
-- 对于每个服务器可能有不同配置的多服务器应用程序很有用
+- Child of the application-level context
+- Holds configuration specific to a particular server instance
+- Useful for multi-server applications where each server might have different configurations
 
 ```typescript
-// 创建服务器上下文
+// Create a server context
 const serverContext = new Context(app, 'server');
 
-// 配置服务器特定的绑定
+// Configure server-specific bindings
 serverContext.bind('server.port').to(3000);
 serverContext.bind('server.host').to('localhost');
 ```
 
-### 3. 请求级别上下文（每个请求）
+### 3. Request-level Context (Per Request)
 
-- 为每个传入请求创建
-- 扩展服务器级别上下文
-- 请求完成后进行垃圾回收
-- 允许请求特定的依赖项和状态
+- Created for each incoming request
+- Extends the server-level context
+- Garbage-collected once the request is completed
+- Allows for request-specific dependencies and state
 
 ```typescript
-// 对于每个传入请求
+// For each incoming request
 const requestContext = new Context(serverContext, 'request');
 
-// 绑定请求特定数据
+// Bind request-specific data
 requestContext.bind('request.body').to(requestBody);
 requestContext.bind('request.headers').to(requestHeaders);
 ```
 
-## 创建和使用 Context
+## Creating and Using a Context
 
-以下是创建和使用 Context 的基本示例：
+Here's a basic example of creating and using a Context:
 
 ```typescript
 import { Context } from 'contexify';
@@ -118,9 +118,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## Context 事件
+## Context Events
 
-当添加或删除绑定时，Context 会发出事件。您可以监听这些事件以响应 Context 中的变化。
+A Context emits events when bindings are added or removed. You can listen to these events to react to changes in the Context.
 
 ```typescript
 import { Context } from 'contexify';
@@ -146,9 +146,9 @@ context.unbind('greeting');
 // Output: Binding removed: greeting
 ```
 
-## Context 观察者
+## Context Observers
 
-对于更高级的用例，您可以使用 Context 观察者异步响应 Context 事件。
+For more advanced use cases, you can use Context Observers to react to changes in the Context asynchronously.
 
 ```typescript
 import { Context, ContextObserver } from 'contexify';
@@ -179,9 +179,9 @@ context.bind('services.UserService')
 // Output: Service registered: services.UserService
 ```
 
-## Context 视图
+## Context Views
 
-Context 视图允许您跟踪匹配特定过滤器的一组绑定。这对于动态跟踪扩展或插件很有用。
+Context Views allow you to track a set of bindings that match a specific filter. This is useful for dynamically tracking extensions or plugins.
 
 ```typescript
 import { Context } from 'contexify';
@@ -207,10 +207,10 @@ context.bind('controllers.UserController')
 // Now getControllers() will include UserController
 ```
 
-## 下一步
+## Next Steps
 
-现在您已经了解了 Context 概念，可以了解：
+Now that you understand the Context concept, you can learn about:
 
-- [绑定](./binding) - 如何注册和管理依赖项
-- [依赖注入](./dependency-injection) - 如何将依赖项注入到类中
-- [API 参考](../api) - 查看详细的 API 文档
+- [Binding](./binding) - How to register and manage dependencies
+- [Dependency Injection](./dependency-injection) - How to inject dependencies into your classes
+- [API Reference](../api) - View the detailed API documentation

@@ -15,12 +15,12 @@ export interface AuthService {
 @injectable()
 export class DefaultAuthService implements AuthService {
   constructor(@inject(AuthBindings.PROVIDER) private authProvider: any) {}
-  
+
   async authenticate(username: string, password: string): Promise<User | null> {
     // Authentication logic
     return this.authProvider.authenticate(username, password);
   }
-  
+
   async verifyToken(token: string): Promise<User | null> {
     // Token verification logic
     return this.authProvider.verifyToken(token);

@@ -11,18 +11,18 @@ import { User, ApiResponse } from '../types.js';
 @injectable()
 export class UserController {
   constructor(@inject(AuthBindings.SERVICE) private authService: AuthService) {}
-  
+
   async login(username: string, password: string): Promise<ApiResponse<User>> {
     try {
       const user = await this.authService.authenticate(username, password);
-      
+
       if (!user) {
         return {
           success: false,
           error: 'Invalid username or password',
         };
       }
-      
+
       return {
         success: true,
         data: user,
@@ -34,18 +34,18 @@ export class UserController {
       };
     }
   }
-  
+
   async verifyToken(token: string): Promise<ApiResponse<User>> {
     try {
       const user = await this.authService.verifyToken(token);
-      
+
       if (!user) {
         return {
           success: false,
           error: 'Invalid token',
         };
       }
-      
+
       return {
         success: true,
         data: user,

@@ -12,8 +12,12 @@
     "test:watch": "vitest",
     "docs:validate": "node scripts/validate-docs.js",
     "docs:update": "node scripts/update-docs.js",
+    "docs:check": "node scripts/extract-docs.js && node scripts/check-docs-syntax.js",
     "start:basic": "ts-node-esm core-concepts/context.ts",
-    "start:modular": "ts-node-esm modular-app/index.ts"
+    "start:modular": "ts-node-esm modular-app/index.ts",
+    "clean": "rm -rf dist",
+    "fix": "biome check --write . && biome format --write .",
+    "prepub": "echo 'Skipping tests in docs-code'"
   },
   "dependencies": {
     "contexify": "workspace:^"

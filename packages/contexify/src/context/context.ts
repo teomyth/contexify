@@ -27,7 +27,7 @@ import {
 } from '../resolution/resolution-session.js';
 import { JSONObject } from '../utils/json-types.js';
 import { ContextBindings } from '../utils/keys.js';
-import createLogger, { Logger } from '../utils/logger.js';
+import createDebugger, { Debugger } from '../utils/debug.js';
 import { generateUniqueId } from '../utils/unique-id.js';
 import {
   BoundValue,
@@ -86,15 +86,15 @@ export class Context extends EventEmitter {
    *
    * @example
    * ```ts
-   * import createLogger from '../utils/logger.js';
-   * const logger = createLogger('contexify:application');
+   * import createDebugger from '../utils/debug.js';
+   * const debugger = createDebugger('contexify:application');
    * export class Application extends Context {
    *   super('application');
-   *   this._debug = logger;
+   *   this._debug = debugger;
    * }
    * ```
    */
-  protected _debug!: Logger;
+  protected _debug!: Debugger;
 
   /**
    * Scope for binding resolution
@@ -138,7 +138,7 @@ export class Context extends EventEmitter {
     this.name = name ?? this.generateName();
     this.tagIndexer = new ContextTagIndexer(this);
     this.subscriptionManager = new ContextSubscriptionManager(this);
-    this._debug = createLogger(this.getDebugNamespace());
+    this._debug = createDebugger(this.getDebugNamespace());
   }
 
   /**

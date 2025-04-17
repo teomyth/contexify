@@ -27,7 +27,7 @@ import {
   GLOBAL_INTERCEPTOR_NAMESPACE,
   LOCAL_INTERCEPTOR_NAMESPACE,
 } from '../utils/keys.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   Constructor,
   ValueOrPromise,
@@ -46,7 +46,7 @@ import {
   InvocationResult,
 } from './invocation.js';
 
-const debug = createLogger('contexify:interceptor');
+const debug = createDebugger('contexify:interceptor');
 
 /**
  * A specialized InvocationContext for interceptors

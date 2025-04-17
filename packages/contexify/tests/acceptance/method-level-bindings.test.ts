@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import { BindingKey, Context, inject, invokeMethod } from '../../src/index.js';
-import { createLogger } from '../../src/utils/logger.js';
+import createDebugger from '../../src/utils/debug.js';
 
-const debug = createLogger('contexify:test');
+const debug = createDebugger('contexify:test');
 
 class InfoController {
   static sayHello(@inject('user') user: string): string {

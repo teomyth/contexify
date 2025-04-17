@@ -19,7 +19,7 @@ export class DefaultAuthProvider {
     }
     return Promise.resolve(null);
   }
-  
+
   verifyToken(token: string): Promise<User | null> {
     // In a real application, this would verify a JWT token
     if (token === 'valid-token') {

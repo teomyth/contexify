@@ -3,6 +3,7 @@ sidebar_position: 4
 ---
 
 # 拦截器
+## Interceptors
 
 ## 什么是拦截器？
 
@@ -56,14 +57,14 @@ class LogInterceptor implements Interceptor {
   ) {
     // Code executed before the method call
     console.log(`Calling method: ${invocationCtx.methodName}`);
-    
+
     try {
       // Call the next interceptor or the method itself
       const result = await next();
-      
+
       // Code executed after the method call
       console.log(`Method ${invocationCtx.methodName} returned:`, result);
-      
+
       // Return the result
       return result;
     } catch (error) {
@@ -110,7 +111,7 @@ class UserService {
     // Method implementation
     return { id: '123', ...userData };
   }
-  
+
   async getUser(id: string) {
     // Method implementation
     return { id, name: 'John Doe' };
@@ -144,13 +145,13 @@ class UserService {
 interface InvocationContext {
   // The target object (instance of the class)
   target: object;
-  
+
   // The method name
   methodName: string;
-  
+
   // The method arguments
   args: any[];
-  
+
   // Additional metadata
   metadata?: { [key: string]: any };
 }
@@ -170,7 +171,7 @@ class LogInterceptor implements Interceptor {
   ) {
     const { methodName, args } = invocationCtx;
     console.log(`Calling ${methodName} with args:`, args);
-    
+
     const start = Date.now();
     try {
       const result = await next();
@@ -191,25 +192,25 @@ class LogInterceptor implements Interceptor {
 ```typescript
 class CacheInterceptor implements Interceptor {
   private cache = new Map<string, any>();
-  
+
   async intercept(
     invocationCtx: InvocationContext,
     next: () => ValueOrPromise<any>
   ) {
     const { methodName, args } = invocationCtx;
     const cacheKey = `${methodName}:${JSON.stringify(args)}`;
-    
+
     // Check if result is in cache
     if (this.cache.has(cacheKey)) {
       return this.cache.get(cacheKey);
     }
-    
+
     // Call the method
     const result = await next();
-    
+
     // Cache the result
     this.cache.set(cacheKey, result);
-    
+
     return result;
   }
 }
@@ -228,7 +229,7 @@ class ErrorHandlingInterceptor implements Interceptor {
     } catch (error) {
       // Handle the error
       console.error('Error in method execution:', error);
-      
+
       // You can transform the error
       throw new ApplicationError('An error occurred', { cause: error });
     }

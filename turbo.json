@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "build/**"]
     },
     "test": {
       "dependsOn": ["build"],
@@ -22,14 +22,36 @@
       "inputs": ["docs-code/**/*.ts"],
       "outputs": ["docs-site/**/*.md"]
     },
+    "docs:check": {
+      "dependsOn": ["build"],
+      "inputs": ["docs-site/**/*.md"]
+    },
     "lint": {
       "outputs": []
     },
     "format": {
       "outputs": []
     },
+    "fix": {
+      "outputs": []
+    },
     "clean": {
       "outputs": []
+    },
+    "prepub": {
+      "dependsOn": [],
+      "outputs": ["dist/**"]
+    },
+
+    "start": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "serve": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
     }
   }
 }

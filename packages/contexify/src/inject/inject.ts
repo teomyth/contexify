@@ -26,6 +26,7 @@ import {
   ResolutionSession,
 } from '../resolution/resolution-session.js';
 import { JSONObject } from '../utils/json-types.js';
+import createDebugger from '../utils/debug.js';
 import {
   BoundValue,
   Constructor,
@@ -46,6 +47,8 @@ const INJECT_PROPERTIES_KEY = MetadataAccessor.create<
 const INJECT_METHODS_KEY = MetadataAccessor.create<Injection, MethodDecorator>(
   'inject:methods'
 );
+
+const debug = createDebugger('contexify:inject');
 
 // TODO(rfeng): We may want to align it with `ValueFactory` interface that takes
 // an argument of `ResolutionContext`.
@@ -521,6 +524,20 @@ function findOrCreateBindingForInjection(
 function shouldSkipBaseConstructorInjection(targetClass: object) {
   // FXIME(rfeng): We use the class definition to check certain patterns
   const classDef = targetClass.toString();
+
+  // Add length limit to prevent ReDoS attacks
+  const MAX_CLASS_DEF_LENGTH = 50000; // Reasonable maximum length
+  if (classDef.length > MAX_CLASS_DEF_LENGTH) {
+    /* istanbul ignore if */
+    if (debug.enabled) {
+      debug(
+        'Class definition too long, skipping regex check for %s',
+        targetClass.constructor?.name || 'unknown'
+      );
+    }
+    return false;
+  }
+
   return (
     /*
      * Handle class decorators that return a new constructor
@@ -548,8 +565,9 @@ function shouldSkipBaseConstructorInjection(targetClass: object) {
      * }
      * ```
      */
+    // Use non-greedy quantifiers (*? and +?) to reduce backtracking
     !classDef.match(
-      /\s+constructor\s*\(\s*\)\s*\{\s*super\(\.\.\.arguments\)/
+      /\s+constructor\s*?\(\s*?\)\s*?\{\s*?super\(\.\.\.arguments\)/
     ) &&
     /*
      * Handle subclasses without explicit constructors
@@ -570,8 +588,9 @@ function shouldSkipBaseConstructorInjection(targetClass: object) {
      * };
      *
      */
+    // Use non-greedy quantifiers and keep multiline flag
     // eslint-disable-next-line no-useless-escape
-    classDef.match(/\s+constructor\s*\([^\)]*\)\s+\{/m)
+    classDef.match(/\s+constructor\s*?\([^\)]*?\)\s*?\{/m)
   );
 }
 

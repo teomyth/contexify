@@ -2,7 +2,7 @@ import { MetadataAccessor, MetadataInspector } from 'metarize';
 
 import { Provider } from '../provider/provider.js';
 import { ContextTags } from '../utils/keys.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import { Constructor } from '../utils/value-promise.js';
 
 import { BindingAddress } from './binding-key.js';
@@ -15,7 +15,7 @@ import {
   isDynamicValueProviderClass,
 } from './binding.js';
 
-const debug = createLogger('contexify:binding-inspector');
+const debug = createDebugger('contexify:binding-inspector');
 
 /**
  * Binding metadata from `@injectable`

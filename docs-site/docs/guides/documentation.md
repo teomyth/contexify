@@ -2,37 +2,37 @@
 sidebar_position: 4
 ---
 
-# 文档开发指南
+# Documentation Development Guide
 
-本指南提供了关于如何维护和更新 Contexify 文档的详细说明。
+This guide provides detailed instructions on how to maintain and update Contexify documentation.
 
-## 文档结构
+## Documentation Structure
 
-Contexify 的文档系统由以下部分组成：
+Contexify's documentation system consists of the following parts:
 
-- **docs-site**: 使用 Docusaurus 构建的文档网站
-- **docs-code**: 包含可执行的代码示例，用于验证文档中的代码片段
+- **docs-site**: Documentation website built with Docusaurus
+- **docs-code**: Contains executable code examples used to validate code snippets in the documentation
 
-## 文档代码示例
+## Documentation Code Examples
 
-为了确保文档中的代码示例是准确且可运行的，我们使用 `docs-code` 目录来存储和验证这些示例。
+To ensure that code examples in the documentation are accurate and runnable, we use the `docs-code` directory to store and validate these examples.
 
-### 编写代码示例
+### Writing Code Examples
 
-当需要在文档中添加新的代码示例时，请遵循以下步骤：
+When adding new code examples to the documentation, follow these steps:
 
-1. 在 `docs-code` 目录中创建一个新的 TypeScript 文件，文件名应该反映示例的用途
-2. 实现完整的、可运行的代码示例
-3. 确保代码示例可以独立运行，并包含所有必要的导入
-4. 添加适当的注释，解释代码的关键部分
+1. Create a new TypeScript file in the `docs-code` directory, with a filename that reflects the purpose of the example
+2. Implement a complete, runnable code example
+3. Ensure the code example can run independently and includes all necessary imports
+4. Add appropriate comments explaining key parts of the code
 
-示例：
+Example:
 
 ```typescript
 // docs-code/core-concepts/binding-example.ts
 import { Context, injectable, inject } from 'contexify';
 
-// 创建一个服务类
+// Create a service class
 @injectable()
 class GreetingService {
   sayHello(name: string) {
@@ -40,7 +40,7 @@ class GreetingService {
   }
 }
 
-// 创建一个使用 GreetingService 的类
+// Create a class that uses GreetingService
 @injectable()
 class Greeter {
   constructor(@inject('services.GreetingService') private greetingService: GreetingService) {}
@@ -50,40 +50,40 @@ class Greeter {
   }
 }
 
-// 运行示例
+// Run the example
 async function main() {
-  // 创建上下文
+  // Create a context
   const context = new Context('example');
   
-  // 绑定服务
+  // Bind services
   context.bind('services.GreetingService').toClass(GreetingService);
   context.bind('services.Greeter').toClass(Greeter);
   
-  // 获取 Greeter 实例
+  // Get Greeter instance
   const greeter = await context.get<Greeter>('services.Greeter');
   
-  // 使用 Greeter
+  // Use Greeter
   console.log(greeter.greet('World'));
 }
 
-// 如果直接运行此文件，则执行 main 函数
+// If this file is run directly, execute the main function
 if (typeof require !== 'undefined' && require.main === module) {
   main().catch(console.error);
 }
 
-// 导出函数以便测试
+// Export functions for testing
 export { main };
 ```
 
-### 测试代码示例
+### Testing Code Examples
 
-所有代码示例都应该有对应的测试，以确保它们正常工作：
+All code examples should have corresponding tests to ensure they work correctly:
 
-1. 在 `docs-code/tests` 目录中创建一个测试文件
-2. 使用 Vitest 编写测试，验证代码示例的功能
-3. 确保测试覆盖代码示例的主要功能
+1. Create a test file in the `docs-code/tests` directory
+2. Write tests using Vitest to verify the functionality of the code example
+3. Ensure tests cover the main functionality of the code example
 
-示例：
+Example:
 
 ```typescript
 // docs-code/tests/binding-example.test.ts
@@ -92,7 +92,7 @@ import { main } from '../core-concepts/binding-example';
 
 describe('Binding Example', () => {
   it('should run without errors', async () => {
-    // 捕获控制台输出
+    // Capture console output
     const originalConsoleLog = console.log;
     let output = '';
     
@@ -100,152 +100,152 @@ describe('Binding Example', () => {
       output = message;
     };
     
-    // 运行示例
+    // Run the example
     await main();
     
-    // 恢复控制台
+    // Restore console
     console.log = originalConsoleLog;
     
-    // 验证输出
+    // Verify output
     expect(output).toBe('Hello, World!');
   });
 });
 ```
 
-## 将代码示例集成到文档中
+## Integrating Code Examples into Documentation
 
-要将代码示例集成到文档中，请使用特殊的标记来指示代码示例的位置：
+To integrate code examples into the documentation, use special markers to indicate where the code example should be placed:
 
 ```markdown
 <!-- CODE:binding-example:START -->
 ```typescript
-// 这里的内容将被自动更新
+// Content here will be automatically updated
 ```
 <!-- CODE:binding-example:END -->
 ```
 
-这些标记告诉文档更新系统在何处插入代码示例。
+These markers tell the documentation update system where to insert the code example.
 
-## 文档更新流程
+## Documentation Update Process
 
-当代码结构发生变化时，请遵循以下流程来更新文档：
+When code structure changes, follow this process to update the documentation:
 
-1. 更新 `docs-code` 中的代码示例，使其与新的代码结构保持一致
-2. 运行测试以确保代码示例正常工作
-3. 使用文档更新脚本将更改同步到文档中
+1. Update code examples in `docs-code` to match the new code structure
+2. Run tests to ensure code examples work correctly
+3. Use the documentation update scripts to synchronize changes to the documentation
 
-### 自动化文档更新
+### Automated Documentation Updates
 
-Contexify 提供了几个脚本来自动化文档更新流程：
+Contexify provides several scripts to automate the documentation update process:
 
-#### 验证文档代码
+#### Validating Documentation Code
 
-运行以下命令来验证文档中的所有代码示例：
+Run the following command to validate all code examples in the documentation:
 
 ```bash
 npm run docs:validate
 ```
 
-这个命令会：
-- 从文档中提取所有代码示例
-- 将它们转换为可执行的 TypeScript 文件
-- 运行这些文件以确保它们没有错误
+This command will:
+- Extract all code examples from the documentation
+- Convert them to executable TypeScript files
+- Run these files to ensure they have no errors
 
-#### 更新文档代码
+#### Updating Documentation Code
 
-运行以下命令来更新文档中的代码示例：
+Run the following command to update code examples in the documentation:
 
 ```bash
 npm run docs:update
 ```
 
-这个命令会：
-- 读取 `docs-code` 目录中的所有 TypeScript 文件
-- 提取代码内容（移除导入和导出语句）
-- 更新文档中相应的代码示例
+This command will:
+- Read all TypeScript files in the `docs-code` directory
+- Extract code content (removing import and export statements)
+- Update corresponding code examples in the documentation
 
-#### 测试文档代码
+#### Testing Documentation Code
 
-运行以下命令来测试文档代码：
+Run the following command to test the documentation code:
 
 ```bash
 npm run docs:test
 ```
 
-这个命令会运行 `docs-code` 目录中的所有测试，确保代码示例正常工作。
+This command will run all tests in the `docs-code` directory to ensure code examples work correctly.
 
-## 本地预览文档
+## Previewing Documentation Locally
 
-要在本地预览文档网站，请运行：
+To preview the documentation website locally, run:
 
 ```bash
 npm run docs:start
 ```
 
-这个命令会启动 Docusaurus 开发服务器，并在浏览器中打开文档网站。您可以实时查看更改。
+This command will start the Docusaurus development server and open the documentation website in your browser. You can see changes in real-time.
 
-## 构建文档
+## Building Documentation
 
-要构建文档网站，请运行：
+To build the documentation website, run:
 
 ```bash
 npm run docs:build
 ```
 
-这个命令会生成静态 HTML 文件，可以部署到任何静态网站托管服务。
+This command will generate static HTML files that can be deployed to any static website hosting service.
 
-## 本地服务文档
+## Serving Documentation Locally
 
-要在本地服务已构建的文档，请运行：
+To serve the built documentation locally, run:
 
 ```bash
 npm run docs:serve
 ```
 
-这个命令会启动一个本地服务器，提供已构建的文档网站。
+This command will start a local server serving the built documentation website.
 
-## 最佳实践
+## Best Practices
 
-- **保持同步**：确保 `docs-code` 中的代码示例与实际代码库保持同步
-- **完整示例**：提供完整的、可运行的代码示例，而不是片段
-- **测试覆盖**：为所有代码示例编写测试
-- **定期验证**：定期运行 `docs:validate` 命令，确保文档中的代码示例仍然有效
-- **更新文档**：在代码结构发生变化后，立即更新文档
+- **Keep in Sync**: Ensure code examples in `docs-code` stay in sync with the actual codebase
+- **Complete Examples**: Provide complete, runnable code examples rather than fragments
+- **Test Coverage**: Write tests for all code examples
+- **Regular Validation**: Regularly run the `docs:validate` command to ensure code examples in the documentation are still valid
+- **Update Documentation**: Update documentation immediately after code structure changes
 
-## 文档发布流程
+## Documentation Release Process
 
-当准备发布新版本的文档时，请遵循以下步骤：
+When preparing to release a new version of the documentation, follow these steps:
 
-1. 确保所有代码示例都已更新并通过测试
-2. 运行 `npm run docs:validate` 确保文档中的代码示例有效
-3. 运行 `npm run docs:build` 构建文档网站
-4. 检查构建的文档网站是否正确
-5. 部署文档网站
+1. Ensure all code examples are updated and pass tests
+2. Run `npm run docs:validate` to ensure code examples in the documentation are valid
+3. Run `npm run docs:build` to build the documentation website
+4. Check that the built documentation website is correct
+5. Deploy the documentation website
 
-## 故障排除
+## Troubleshooting
 
-### 文档验证失败
+### Documentation Validation Fails
 
-如果 `docs:validate` 命令失败，可能是因为：
+If the `docs:validate` command fails, it may be because:
 
-- 文档中的代码示例包含错误
-- 代码示例依赖于未安装的包
-- 代码示例使用了不兼容的 API
+- Code examples in the documentation contain errors
+- Code examples depend on packages that are not installed
+- Code examples use incompatible APIs
 
-解决方法：
-1. 检查错误消息以确定问题所在
-2. 更新代码示例以修复错误
-3. 再次运行 `docs:validate` 命令
+Solution:
+1. Check the error message to determine the issue
+2. Update the code examples to fix the errors
+3. Run the `docs:validate` command again
 
-### 文档更新失败
+### Documentation Update Fails
 
-如果 `docs:update` 命令失败，可能是因为：
+If the `docs:update` command fails, it may be because:
 
-- 文档中缺少必要的标记
-- `docs-code` 目录中缺少相应的代码文件
-- 文件权限问题
+- The documentation is missing necessary markers
+- The `docs-code` directory is missing corresponding code files
+- File permission issues
 
-解决方法：
-1. 确保文档中包含正确的标记
-2. 确保 `docs-code` 目录中存在相应的代码文件
-3. 检查文件权限
+Solution:
+1. Ensure the documentation contains the correct markers
+2. Ensure the `docs-code` directory contains the corresponding code files
+3. Check file permissions

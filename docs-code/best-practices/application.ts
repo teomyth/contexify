@@ -101,5 +101,5 @@ export { run };
 
 // If running directly
 if (typeof require !== 'undefined' && require.main === module) {
-  run().catch(err => console.error(err));
+  run().catch((err) => console.error(err));
 }

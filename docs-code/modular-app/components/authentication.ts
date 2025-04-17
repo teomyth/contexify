@@ -14,12 +14,12 @@ export class AuthComponent {
     Binding.create(AuthBindings.COMPONENT)
       .to(this)
       .tag('component'),
-    
+
     // Bind the auth service
     createBindingFromClass(DefaultAuthService, {
       key: AuthBindings.SERVICE,
     }).tag('service'),
-    
+
     // Bind the auth provider
     createBindingFromClass(DefaultAuthProvider, {
       key: AuthBindings.PROVIDER,

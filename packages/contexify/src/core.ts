@@ -31,4 +31,4 @@ export {
 } from './utils/unique-id.js';
 
 // Export version
-export { VERSION } from './index.js';
+export { VERSION } from './version.js';

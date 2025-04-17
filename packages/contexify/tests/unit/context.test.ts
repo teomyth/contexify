@@ -1,6 +1,6 @@
 import { format } from 'util';
 
-import { Debugger } from 'debug';
+import { Debugger } from '../../src/utils/debug.js';
 import { describe, it, expect, beforeEach } from 'vitest';
 
 import {
@@ -1145,7 +1145,7 @@ describe('Context', () => {
     });
   });
 
-  describe('debug', () => {
+  describe('debugger', () => {
     it('allows override of debug from subclasses', () => {
       let debugOutput = '';
       const myDebug = (formatter: string, ...args: unknown[]) => {
@@ -1180,7 +1180,7 @@ describe('Context', () => {
       }
 
       const myCtx = new MyContext();
-      // Our custom logger doesn't expose namespace in the same way as debug
+      // Our custom debugger doesn't expose namespace in the same way as debug
       // Just verify it's a function
       expect(typeof myCtx.debugFn).toEqual('function');
     });
@@ -1201,7 +1201,7 @@ describe('Context', () => {
       }
 
       const myCtx = new MyContext();
-      // Our custom logger doesn't expose namespace in the same way as debug
+      // Our custom debugger doesn't expose namespace in the same way as debug
       // Just verify it's a function
       expect(typeof myCtx.debugFn).toEqual('function');
     });

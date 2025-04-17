@@ -2,13 +2,13 @@
 sidebar_position: 1
 ---
 
-# 入门指南
+# Getting Started
 
-欢迎使用 **Contexify**，这是一个强大的 TypeScript 依赖注入容器，提供基于上下文的 IoC 功能。
+Welcome to **Contexify**, a powerful TypeScript dependency injection container with context-based IoC capabilities.
 
-## 安装
+## Installation
 
-使用您喜欢的包管理器安装 Contexify：
+Install Contexify using your favorite package manager:
 
 ```bash
 # Using npm
@@ -21,9 +21,9 @@ yarn add contexify
 pnpm add contexify
 ```
 
-## 基本用法
+## Basic Usage
 
-以下是一个简单的示例，展示了 Contexify 的基本用法：
+Here's a simple example demonstrating the basic usage of Contexify:
 
 ```typescript
 import { Context, injectable, inject } from 'contexify';
@@ -39,7 +39,7 @@ class LoggerService {
   }
 }
 
-// Define a service that depends on logger
+// Define a service that depends on the logger
 @injectable()
 class UserService {
   constructor(@inject('services.LoggerService') private logger: LoggerService) {}
@@ -50,28 +50,28 @@ class UserService {
   }
 }
 
-// Bind services to the context
+// Bind the services to the context
 context.bind('services.LoggerService').toClass(LoggerService);
 context.bind('services.UserService').toClass(UserService);
 
 // Use the services
 async function run() {
-  // Resolve UserService from the context
+  // Resolve the UserService from the context
   const userService = await context.get<UserService>('services.UserService');
 
   // Create a user
-  const user = userService.createUser('John Doe');
+  const user = userService.createUser('John');
   console.log('Created user:', user);
 }
 
 run().catch(err => console.error(err));
 ```
 
-## 核心概念
+## Core Concepts
 
-### Context（上下文）
+### Context
 
-Context 是 Contexify 的核心，它作为依赖的注册表，允许您管理应用程序中的所有依赖项。
+Context is the core of Contexify. It serves as a registry for dependencies, allowing you to manage all dependencies in your application.
 
 ```typescript
 // Create a root context
@@ -81,9 +81,9 @@ const rootContext = new Context('root');
 const childContext = new Context(rootContext, 'child');
 ```
 
-### Binding（绑定）
+### Binding
 
-绑定将键连接到值、类或工厂函数。
+Bindings connect keys to values, classes, or factory functions.
 
 ```typescript
 // Bind a value
@@ -98,9 +98,9 @@ context.bind('services.DbConnection').toDynamicValue(() => {
 });
 ```
 
-### 依赖注入
+### Dependency Injection
 
-Contextify 支持使用 `@inject` 装饰器进行构造函数注入。
+Contexify supports constructor injection using the `@inject` decorator.
 
 ```typescript
 @injectable()
@@ -111,16 +111,16 @@ class UserController {
   ) {}
 
   async getUser(id: string) {
-    // Use injected dependencies
+    // Use the injected dependencies
     return this.userService.findById(id);
   }
 }
 ```
 
-## 下一步
+## Next Steps
 
-现在您已经了解了 Contexify 的基础知识，可以探索更多高级功能：
+Now that you have a basic understanding of Contexify, you can explore more advanced features:
 
-- [核心概念](./category/core-concepts) - 了解 Contexify 的基本概念
-- [API 参考](./api) - 查看详细的 API 文档
-- [示例](./category/examples) - 查看 Contexify 在实际应用中的示例
+- [Core Concepts](./category/core-concepts) - Learn about the fundamental concepts of Contexify
+- [API Reference](./api) - View the detailed API documentation
+- [Examples](./category/examples) - See examples of Contexify in action

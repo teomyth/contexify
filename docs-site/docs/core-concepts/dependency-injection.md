@@ -2,24 +2,24 @@
 sidebar_position: 3
 ---
 
-# 依赖注入
+# Dependency Injection
 
-## 什么是依赖注入？
+## What is Dependency Injection?
 
-依赖注入（DI）是一种设计模式，允许您将依赖项注入到类中，而不是在类内部创建它们。这使您的代码更加模块化、可测试和可维护。
+Dependency Injection (DI) is a design pattern that allows you to inject dependencies into your classes rather than creating them inside the class. This makes your code more modular, testable, and maintainable.
 
-在 Contexify 中，依赖注入是通过 Context 系统和装饰器实现的。
+In Contexify, dependency injection is implemented through the Context system and decorators.
 
-## 依赖注入的好处
+## Benefits of Dependency Injection
 
-- **解耦**：类不需要知道如何创建其依赖项
-- **可测试性**：依赖项可以轻松地为测试进行模拟
-- **灵活性**：可以在不修改类的情况下更改依赖项
-- **可重用性**：类可以与不同的依赖项重复使用
+- **Decoupling**: Classes don't need to know how to create their dependencies
+- **Testability**: Dependencies can be easily mocked for testing
+- **Flexibility**: Dependencies can be changed without modifying the class
+- **Reusability**: Classes can be reused with different dependencies
 
-## 基本依赖注入
+## Basic Dependency Injection
 
-最常见的依赖注入形式是构造函数注入，其中依赖项通过构造函数提供。
+The most common form of dependency injection is constructor injection, where dependencies are provided through the constructor.
 
 ```typescript
 import { injectable, inject } from 'contexify';
@@ -39,17 +39,17 @@ class UserService {
 }
 ```
 
-在这个例子中：
-- `@injectable()` 将类标记为可注入，允许 Contexify 创建它的实例
-- `@inject('repositories.UserRepository')` 告诉 Contexify 注入具有键 'repositories.UserRepository' 的依赖项
+In this example:
+- `@injectable()` marks the class as injectable, allowing Contexify to create instances of it
+- `@inject('repositories.UserRepository')` tells Contexify to inject the dependency with the key 'repositories.UserRepository'
 
-## 注入装饰器
+## Injection Decorators
 
-Contexify 提供了几个用于依赖注入的装饰器：
+Contexify provides several decorators for dependency injection:
 
 ### @injectable()
 
-将类标记为可注入，允许 Contexify 创建它的实例。
+Marks a class as injectable, allowing Contexify to create instances of it.
 
 ```typescript
 import { injectable } from 'contexify';
@@ -62,7 +62,7 @@ class UserService {
 
 ### @inject()
 
-通过其绑定键注入依赖项。
+Injects a dependency by its binding key.
 
 ```typescript
 import { injectable, inject } from 'contexify';
@@ -77,7 +77,7 @@ class UserController {
 
 ### @inject.tag()
 
-注入匹配特定标签的所有依赖项。
+Injects all dependencies that match a specific tag.
 
 ```typescript
 import { injectable, inject } from 'contexify';
@@ -92,7 +92,7 @@ class PluginManager {
 
 ### @inject.getter()
 
-注入一个可以稍后用于获取依赖项的函数。
+Injects a function that can be used to get the dependency later.
 
 ```typescript
 import { injectable, inject, Getter } from 'contexify';
@@ -113,7 +113,7 @@ class UserController {
 
 ### @inject.view()
 
-注入一个跟踪匹配过滤器的绑定的 ContextView。
+Injects a ContextView that tracks bindings matching a filter.
 
 ```typescript
 import { injectable, inject, ContextView } from 'contexify';
@@ -133,7 +133,7 @@ class PluginManager {
 
 ### @config()
 
-为当前绑定注入配置。
+Injects configuration for the current binding.
 
 ```typescript
 import { injectable, config } from 'contexify';
@@ -146,9 +146,9 @@ class EmailService {
 }
 ```
 
-## 属性注入
+## Property Injection
 
-除了构造函数注入外，Contexify 还支持属性注入。
+In addition to constructor injection, Contexify also supports property injection.
 
 ```typescript
 import { injectable, inject } from 'contexify';
@@ -164,9 +164,9 @@ class UserController {
 }
 ```
 
-## 方法注入
+## Method Injection
 
-Contexify 还支持方法注入。
+Contexify also supports method injection.
 
 ```typescript
 import { injectable, inject } from 'contexify';
@@ -181,9 +181,9 @@ class UserController {
 }
 ```
 
-## 可选依赖项
+## Optional Dependencies
 
-您可以将依赖项标记为可选，这意味着如果找不到它们，它们不会导致错误。
+You can mark dependencies as optional, which means they won't cause an error if they're not found.
 
 ```typescript
 import { injectable, inject } from 'contexify';
@@ -203,9 +203,9 @@ class UserService {
 }
 ```
 
-## 循环依赖
+## Circular Dependencies
 
-循环依赖发生在两个或多个类相互依赖时。Contexify 提供了使用 `@inject.getter()` 处理循环依赖的方法。
+Circular dependencies occur when two or more classes depend on each other. Contexify provides ways to handle circular dependencies using `@inject.getter()`.
 
 ```typescript
 import { injectable, inject, Getter } from 'contexify';
@@ -235,19 +235,19 @@ class ServiceB {
 }
 ```
 
-## 最佳实践
+## Best Practices
 
-- 对必需的依赖项使用构造函数注入
-- 对可选依赖项使用属性注入
-- 对循环依赖使用 `@inject.getter()`
-- 使用遵循一致命名约定的有意义的绑定键
-- 保持类专注并具有单一责任
-- 使用接口作为依赖项，使代码更可测试
+- Use constructor injection for required dependencies
+- Use property injection for optional dependencies
+- Use `@inject.getter()` for circular dependencies
+- Use meaningful binding keys that follow a consistent naming convention
+- Keep your classes focused and with a single responsibility
+- Use interfaces for dependencies to make your code more testable
 
-## 下一步
+## Next Steps
 
-现在您已经了解了依赖注入，可以了解：
+Now that you understand Dependency Injection, you can learn about:
 
-- [Context](./context) - 依赖项的容器
-- [Binding](./binding) - 如何注册依赖项
-- [API 参考](../api) - 查看详细的 API 文档
+- [Context](./context) - The container for dependencies
+- [Binding](./binding) - How to register dependencies
+- [API Reference](../api) - View the detailed API documentation

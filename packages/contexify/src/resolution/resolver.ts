@@ -10,7 +10,7 @@ import {
   describeInjectedArguments,
   describeInjectedProperties,
 } from '../inject/inject.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   BoundValue,
   Constructor,
@@ -27,7 +27,7 @@ import {
   ResolutionSession,
 } from './resolution-session.js';
 
-const debug = createLogger('contexify:resolver');
+const debug = createDebugger('contexify:resolver');
 const getTargetName = DecoratorFactory.getTargetName;
 
 /**

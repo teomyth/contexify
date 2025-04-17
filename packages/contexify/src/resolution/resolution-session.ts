@@ -4,14 +4,14 @@ import { BindingSelector } from '../binding/binding-filter.js';
 import { Binding } from '../binding/binding.js';
 import { Context } from '../context/context.js';
 import { Injection, InjectionMetadata } from '../inject/inject.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   BoundValue,
   ValueOrPromise,
   tryWithFinally,
 } from '../utils/value-promise.js';
 
-const debugSession = createLogger('contexify:resolver:session');
+const debugSession = createDebugger('contexify:resolver:session');
 const getTargetName = DecoratorFactory.getTargetName;
 
 /**

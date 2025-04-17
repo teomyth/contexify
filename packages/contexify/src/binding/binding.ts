@@ -16,7 +16,7 @@ import {
 import { instantiateClass } from '../resolution/resolver.js';
 import { JSONObject } from '../utils/json-types.js';
 import { ContextTags } from '../utils/keys.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   BoundValue,
   Constructor,
@@ -29,7 +29,7 @@ import {
 import { bindingTemplateFor } from './binding-inspector.js';
 import { BindingAddress, BindingKey } from './binding-key.js';
 
-const debug = createLogger('contexify:binding');
+const debug = createDebugger('contexify:binding');
 
 /**
  * Scope for binding values

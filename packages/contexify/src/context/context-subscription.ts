@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import * as pEvent from '../utils/p-event.js';
 
 import { ContextEvent, ContextEventListener } from './context-event.js';
@@ -11,7 +11,7 @@ import {
 } from './context-observer.js';
 import { Context } from './context.js';
 
-const debug = createLogger('contexify:subscription');
+const debug = createDebugger('contexify:subscription');
 
 /**
  * Subscription of context events. It's modeled after

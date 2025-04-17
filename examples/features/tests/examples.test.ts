@@ -29,12 +29,14 @@ describe('context examples', () => {
     const fixturesExists = existsSync(path.join(__dirname, '../fixtures'));
     expect(fixturesExists).toBe(true);
 
+    // Check if examples directory exists
+    const examplesExists = existsSync(path.join(__dirname, '../src/examples'));
+    expect(examplesExists).toBe(true);
+
     // Check if at least one example file exists
-    const srcFiles = readdirSync(path.join(__dirname, '../src'));
-    const exampleFiles = srcFiles.filter(
-      (f: string) => f.endsWith('.ts') && f !== 'index.ts'
-    );
-    expect(exampleFiles.length).toBeGreaterThan(0);
+    const exampleFiles = readdirSync(path.join(__dirname, '../src/examples'));
+    const tsFiles = exampleFiles.filter((f: string) => f.endsWith('.ts'));
+    expect(tsFiles.length).toBeGreaterThan(0);
   });
 
   // This test is temporarily skipped because import.meta.resolve is not available in the test environment

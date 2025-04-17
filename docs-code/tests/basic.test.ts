@@ -11,7 +11,7 @@ describe('Basic Context Test', () => {
   it('should bind and resolve a value', async () => {
     const context = new Context('test');
     context.bind('test.value').to('test-value');
-    
+
     const value = await context.get<string>('test.value');
     expect(value).toBe('test-value');
   });

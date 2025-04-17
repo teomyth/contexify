@@ -2,11 +2,11 @@
 sidebar_position: 1
 ---
 
-# 基本示例
+# Basic Example
 
-本示例展示了 Contexify 的基本用法，包括创建上下文、绑定服务和使用依赖注入。
+This example demonstrates the basic usage of Contexify, including creating a context, binding services, and using dependency injection.
 
-## 完整示例
+## Complete Example
 
 ```typescript
 import { Context, injectable, inject } from 'contexify';
@@ -60,11 +60,11 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 逐步解释
+## Step-by-Step Explanation
 
-### 1. 定义接口
+### 1. Define Interfaces
 
-首先，我们定义了服务的接口：
+First, we define interfaces for our services:
 
 ```typescript
 interface Logger {
@@ -81,11 +81,11 @@ interface User {
 }
 ```
 
-定义接口有助于实现松耦合和更好的可测试性。
+Defining interfaces helps with loose coupling and better testability.
 
-### 2. 实现服务
+### 2. Implement Services
 
-接下来，我们实现了服务：
+Next, we implement our services:
 
 ```typescript
 @injectable()
@@ -106,30 +106,30 @@ class DefaultUserService implements UserService {
 }
 ```
 
-注意：
-- `@injectable()` 装饰器标记类为可注入
-- `@inject('services.Logger')` 装饰器注入 Logger 服务
+Note:
+- The `@injectable()` decorator marks the class as injectable
+- The `@inject('services.Logger')` decorator injects the Logger service
 
-### 3. 创建上下文
+### 3. Create a Context
 
-然后，我们创建一个上下文：
+Then, we create a context:
 
 ```typescript
 const context = new Context('application');
 ```
 
-### 4. 绑定服务
+### 4. Bind Services
 
-我们将服务绑定到上下文：
+We bind our services to the context:
 
 ```typescript
 context.bind('services.Logger').toClass(ConsoleLogger);
 context.bind('services.UserService').toClass(DefaultUserService);
 ```
 
-### 5. 使用服务
+### 5. Use Services
 
-最后，我们从上下文中获取服务并使用它：
+Finally, we get the service from the context and use it:
 
 ```typescript
 async function run() {
@@ -141,16 +141,16 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 关键点
+## Key Points
 
-- **依赖注入**：`UserService` 通过构造函数注入依赖于 `Logger`
-- **控制反转**：服务的创建和生命周期由 Context 管理
-- **松耦合**：服务通过接口而不是具体实现进行交互
+- **Dependency Injection**: `UserService` depends on `Logger` through constructor injection
+- **Inversion of Control**: The creation and lifecycle of services are managed by the Context
+- **Loose Coupling**: Services interact through interfaces rather than concrete implementations
 
-## 下一步
+## Next Steps
 
-查看更多高级示例：
+Check out more advanced examples:
 
-- [模块化应用程序](./modular-app)
-- [拦截器](./interceptors)
-- [观察者和事件](./observers)
+- [Modular Application](./modular-app)
+- [Interceptors](./interceptors)
+- [Observers and Events](./observers)

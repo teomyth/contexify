@@ -76,12 +76,16 @@ async function run() {
   console.log('Created user:', user);
 
   // Use property injection
-  const userController = await context.get<UserController>('controllers.UserController');
+  const userController = await context.get<UserController>(
+    'controllers.UserController'
+  );
   const user2 = await userController.createUser('Jane');
   console.log('Created user via controller:', user2);
 
   // Use method injection
-  const adminController = await context.get<AdminController>('controllers.AdminController');
+  const adminController = await context.get<AdminController>(
+    'controllers.AdminController'
+  );
   const adminUser = await adminController.createUser('Bob');
   console.log('Created admin user:', adminUser);
 }
@@ -91,5 +95,5 @@ export { run };
 
 // If running directly
 if (typeof require !== 'undefined' && require.main === module) {
-  run().catch(err => console.error(err));
+  run().catch((err) => console.error(err));
 }

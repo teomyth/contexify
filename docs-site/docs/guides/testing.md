@@ -2,29 +2,29 @@
 sidebar_position: 3
 ---
 
-# 测试指南
+# Testing Guide
 
-本指南提供了使用 Contexify 构建的应用程序的测试说明。
+This guide provides instructions for testing applications built with Contexify.
 
-## 概述
+## Overview
 
-测试是软件开发的重要组成部分。Contexify 的依赖注入系统通过允许您模拟依赖项，使测试应用程序变得容易。
+Testing is an essential part of software development. Contexify's dependency injection system makes it easy to test your application by allowing you to mock dependencies.
 
-## 测试类型
+## Types of Tests
 
-在测试 Contexify 应用程序时，您通常会编写以下类型的测试：
+When testing a Contexify application, you'll typically write the following types of tests:
 
-- **单元测试**：隔离测试单个类或函数
-- **集成测试**：测试多个组件如何一起工作
-- **端到端测试**：从用户角度测试整个应用程序
+- **Unit Tests**: Test individual classes or functions in isolation
+- **Integration Tests**: Test how multiple components work together
+- **End-to-End Tests**: Test the entire application from the user's perspective
 
-## 单元测试
+## Unit Testing
 
-单元测试专注于隔离测试单个代码单元。在 Contexify 应用程序中，这通常意味着测试单个类或函数。
+Unit tests focus on testing a single unit of code in isolation. In Contexify applications, this typically means testing a single class or function.
 
-### 测试服务
+### Testing Services
 
-以下是测试服务的示例：
+Here's an example of testing a service:
 
 ```typescript
 import { Context } from 'contexify';
@@ -85,9 +85,9 @@ describe('UserService', () => {
 });
 ```
 
-### 测试控制器
+### Testing Controllers
 
-以下是测试控制器的示例：
+Here's an example of testing a controller:
 
 ```typescript
 import { Context } from 'contexify';
@@ -148,9 +148,9 @@ describe('UserController', () => {
 });
 ```
 
-## 集成测试
+## Integration Testing
 
-集成测试专注于测试多个组件如何一起工作。在 Contexify 应用程序中，这通常意味着测试服务、仓库和其他组件如何交互。
+Integration tests focus on testing how multiple components work together. In Contexify applications, this typically means testing how services, repositories, and other components interact.
 
 ```typescript
 import { Context } from 'contexify';
@@ -205,9 +205,9 @@ describe('User Integration', () => {
 });
 ```
 
-## 端到端测试
+## End-to-End Testing
 
-端到端测试专注于从用户角度测试整个应用程序。在 Contexify 应用程序中，这通常意味着测试 API 端点或用户界面。
+End-to-end tests focus on testing the entire application from the user's perspective. In Contexify applications, this typically means testing the API endpoints or user interface.
 
 ```typescript
 import { Application } from '../application';
@@ -259,9 +259,9 @@ describe('User API', () => {
 });
 ```
 
-## 测试组件
+## Testing Components
 
-在测试组件时，您通常会测试组件如何与应用程序集成。
+When testing components, you'll typically test how the component integrates with the application.
 
 ```typescript
 import { Context } from 'contexify';
@@ -301,9 +301,9 @@ describe('LoggerComponent', () => {
 });
 ```
 
-## 测试拦截器
+## Testing Interceptors
 
-在测试拦截器时，您通常会测试它们如何修改方法行为。
+When testing interceptors, you'll typically test how they modify method behavior.
 
 ```typescript
 import { Context, intercept, injectable } from 'contexify';
@@ -354,21 +354,21 @@ describe('LogInterceptor', () => {
 });
 ```
 
-## 最佳实践
+## Best Practices
 
-- **隔离测试**：每个测试应该独立于其他测试
-- **模拟依赖项**：使用模拟来隔离被测试的代码
-- **测试边缘情况**：测试错误条件和边缘情况
-- **使用测试替身**：根据需要使用间谍、存根和模拟
-- **清理**：测试后清理资源
-- **使用测试夹具**：使用夹具设置测试数据
-- **测试覆盖率**：争取高测试覆盖率
-- **持续集成**：在代码更改时自动运行测试
+- **Isolate Tests**: Each test should be independent of others
+- **Mock Dependencies**: Use mocks to isolate the code being tested
+- **Test Edge Cases**: Test error conditions and edge cases
+- **Use Test Doubles**: Use spies, stubs, and mocks as needed
+- **Clean Up**: Clean up resources after tests
+- **Use Test Fixtures**: Use fixtures to set up test data
+- **Test Coverage**: Aim for high test coverage
+- **Continuous Integration**: Run tests automatically on code changes
 
-## 下一步
+## Next Steps
 
-现在您已经了解了如何测试应用程序，可以了解：
+Now that you understand how to test your application, you can learn about:
 
-- [应用程序结构](./application-structure) - 如何构建应用程序
-- [组件创建](./component-creation) - 如何创建可重用组件
-- [核心概念](../category/core-concepts) - 了解 Contexify 的核心概念
+- [Application Structure](./application-structure) - How to structure your application
+- [Component Creation](./component-creation) - How to create reusable components
+- [Core Concepts](../category/core-concepts) - Learn about the core concepts of Contexify

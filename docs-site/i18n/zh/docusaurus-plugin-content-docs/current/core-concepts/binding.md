@@ -2,7 +2,8 @@
 sidebar_position: 2
 ---
 
-# Binding（绑定）
+# 绑定
+## Binding
 
 ## 什么是 Binding？
 

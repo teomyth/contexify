@@ -2,13 +2,13 @@
 sidebar_position: 2
 ---
 
-# 功能示例
+# Features Examples
 
-本节提供了 Contexify 各种功能的独立示例。
+This section provides standalone examples of various features of Contexify.
 
-## 基本的 Context 和 Binding
+## Basic Context and Binding
 
-此示例演示了 Context 和 Binding 的基本用法。
+This example demonstrates the basic usage of Context and Binding.
 
 ```typescript
 import { Context } from 'contexify';
@@ -28,9 +28,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 依赖注入
+## Dependency Injection
 
-此示例演示了使用 `@inject` 装饰器进行依赖注入。
+This example demonstrates dependency injection using the `@inject` decorator.
 
 ```typescript
 import { Context, injectable, inject } from 'contexify';
@@ -84,9 +84,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## Context 层次结构
+## Context Hierarchy
 
-此示例演示了上下文层次结构。
+This example demonstrates the context hierarchy.
 
 ```typescript
 import { Context } from 'contexify';
@@ -121,9 +121,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 绑定作用域
+## Binding Scopes
 
-此示例演示了不同的绑定作用域。
+This example demonstrates the different binding scopes.
 
 ```typescript
 import { Context, BindingScope, injectable } from 'contexify';
@@ -201,9 +201,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 拦截器
+## Interceptors
 
-此示例演示了拦截器的使用。
+This example demonstrates the use of interceptors.
 
 ```typescript
 import { Context, injectable, intercept, Interceptor, InvocationContext, ValueOrPromise } from 'contexify';
@@ -277,9 +277,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## Context 事件和观察者
+## Context Events and Observers
 
-此示例演示了上下文事件和观察者。
+This example demonstrates context events and observers.
 
 ```typescript
 import { Context, ContextObserver } from 'contexify';
@@ -326,9 +326,9 @@ context.unbind('services.OrderService');
 // Service unregistered: services.OrderService
 ```
 
-## Context 视图
+## Context Views
 
-此示例演示了上下文视图。
+This example demonstrates context views.
 
 ```typescript
 import { Context } from 'contexify';
@@ -380,9 +380,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 配置
+## Configuration
 
-此示例演示了配置管理。
+This example demonstrates configuration management.
 
 ```typescript
 import { Context, injectable, config } from 'contexify';
@@ -440,9 +440,9 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 提供者
+## Providers
 
-此示例演示了提供者的使用。
+This example demonstrates the use of providers.
 
 ```typescript
 import { Context, Provider, injectable, inject } from 'contexify';
@@ -511,10 +511,10 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 下一步
+## Next Steps
 
-现在您已经看到了 Contexify 各种功能的示例，您可以：
+Now that you've seen examples of various features of Contexify, you can:
 
-- 探索[模块化应用程序示例](./modular-app)，了解这些功能如何在完整应用程序中使用
-- 阅读[核心概念](../category/core-concepts)文档，了解有关这些示例中演示的概念的更多信息
-- 查看[指南](../category/guides)，获取最佳实践和操作说明
+- Explore the [Modular Application Example](./modular-app) to see how these features are used in a complete application
+- Read the [Core Concepts](../category/core-concepts) documentation to learn more about the concepts demonstrated in these examples
+- Check out the [Guides](../category/guides) for best practices and how-to instructions

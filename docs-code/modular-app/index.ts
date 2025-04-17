@@ -30,7 +30,7 @@ export { main };
 
 // If running directly
 if (typeof require !== 'undefined' && require.main === module) {
-  main().catch(err => {
+  main().catch((err) => {
     console.error('Failed to start application:', err);
     process.exit(1);
   });

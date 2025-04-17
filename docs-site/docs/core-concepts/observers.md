@@ -2,21 +2,21 @@
 sidebar_position: 5
 ---
 
-# 观察者和事件
+# Observers and Events
 
-## 什么是 Context 事件？
+## What are Context Events?
 
-Context 事件是当绑定被添加或移除时由 Context 发出的通知。这些事件允许您对 Context 中的变化做出反应，例如当新服务被注册或配置被更新时。
+Context events are notifications emitted by a Context when bindings are added or removed. These events allow you to react to changes in the Context, such as when a new service is registered or when a configuration is updated.
 
-Context 发出以下事件：
+The Context emits the following events:
 
-- `bind`：当新绑定添加到上下文时发出
-- `unbind`：当现有绑定从上下文中移除时发出
-- `error`：当观察者在通知过程中抛出错误时发出
+- `bind`: Emitted when a new binding is added to the context
+- `unbind`: Emitted when an existing binding is removed from the context
+- `error`: Emitted when an observer throws an error during the notification process
 
-## Context 事件监听器
+## Context Event Listeners
 
-您可以使用标准的事件发射器模式监听上下文事件。
+You can listen to context events using the standard event emitter pattern.
 
 ```typescript
 import { Context } from 'contexify';
@@ -42,15 +42,15 @@ context.unbind('greeting');
 // Output: Binding removed: greeting
 ```
 
-## 什么是 Context 观察者？
+## What are Context Observers?
 
-Context 观察者提供了一种更结构化的方式来响应上下文事件。与事件监听器不同，观察者：
+Context observers provide a more structured way to react to context events. Unlike event listeners, observers:
 
-- 可以过滤它们感兴趣的绑定
-- 可以执行异步操作
-- 以受控方式接收通知
+- Can filter which bindings they are interested in
+- Can perform asynchronous operations
+- Are notified in a controlled manner
 
-上下文观察者是实现 `ContextObserver` 接口的对象：
+A context observer is an object that implements the `ContextObserver` interface:
 
 ```typescript
 interface ContextObserver {
@@ -62,9 +62,9 @@ interface ContextObserver {
 }
 ```
 
-## 创建和使用 Context 观察者
+## Creating and Using Context Observers
 
-以下是创建和使用上下文观察者的示例：
+Here's an example of creating and using a context observer:
 
 ```typescript
 import { Context, ContextObserver } from 'contexify';
@@ -98,9 +98,9 @@ context.bind('services.UserService')
 // Output: Service registered: services.UserService
 ```
 
-## 观察者函数
+## Observer Function
 
-如果您不需要过滤功能，可以使用简单的函数作为观察者：
+If you don't need the filtering capability, you can use a simple function as an observer:
 
 ```typescript
 import { Context } from 'contexify';
@@ -116,9 +116,9 @@ const observerFn = (event, binding, ctx) => {
 context.subscribe(observerFn);
 ```
 
-## Context 视图
+## Context Views
 
-Context 视图是建立在观察者之上的更高级抽象。它们允许您跟踪匹配特定过滤器的一组绑定并获取其解析值。
+Context views are a higher-level abstraction built on top of observers. They allow you to track a set of bindings that match a specific filter and get their resolved values.
 
 ```typescript
 import { Context } from 'contexify';
@@ -144,9 +144,9 @@ context.bind('controllers.UserController')
 // Now getControllers() will include UserController
 ```
 
-### Context 视图事件
+### Context View Events
 
-当绑定从视图中添加或移除时，Context 视图会发出事件：
+A Context View emits events when bindings are added or removed from the view:
 
 ```typescript
 import { Context } from 'contexify';
@@ -167,14 +167,14 @@ controllersView.on('resolve', () => {
 });
 ```
 
-## 观察者错误处理
+## Observer Error Handling
 
-上下文观察者抛出的错误通过上下文链报告：
+Errors thrown by context observers are reported through the context chain:
 
-1. 如果链中的任何上下文有 `error` 监听器，则在该上下文上发出 `error` 事件
-2. 如果没有上下文有 `error` 监听器，则在当前上下文上发出 `error` 事件，这可能导致进程退出
+1. If any context in the chain has `error` listeners, an `error` event is emitted on that context
+2. If no context has `error` listeners, an `error` event is emitted on the current context, which may cause the process to exit
 
-建议在观察者中处理错误：
+It's recommended to handle errors in your observers:
 
 ```typescript
 const observer: ContextObserver = {
@@ -191,19 +191,19 @@ const observer: ContextObserver = {
 };
 ```
 
-## 最佳实践
+## Best Practices
 
-- 使用观察者进行组件的动态发现
-- 保持观察者专注于单一关注点
-- 在观察者中正确处理错误
-- 使用上下文视图跟踪相关绑定
-- 注意观察者对性能的影响，特别是对于频繁变化的绑定
-- 在不再需要上下文视图时关闭它们以避免内存泄漏
+- Use observers for dynamic discovery of components
+- Keep observers focused on a single concern
+- Handle errors properly in observers
+- Use context views for tracking related bindings
+- Be mindful of the performance impact of observers, especially for frequently changing bindings
+- Close context views when they are no longer needed to avoid memory leaks
 
-## 下一步
+## Next Steps
 
-现在您已经了解了观察者和事件，可以了解：
+Now that you understand Observers and Events, you can learn about:
 
-- [Context](./context) - 绑定的容器
-- [Binding](./binding) - 如何注册依赖项
-- [依赖注入](./dependency-injection) - 如何将依赖项注入到类中
+- [Context](./context) - The container for bindings
+- [Binding](./binding) - How to register dependencies
+- [Dependency Injection](./dependency-injection) - How to inject dependencies into your classes

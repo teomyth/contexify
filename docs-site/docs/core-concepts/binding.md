@@ -2,22 +2,22 @@
 sidebar_position: 2
 ---
 
-# Binding（绑定）
+# Binding
 
-## 什么是 Binding？
+## What is a Binding?
 
-Binding 是 Context 中键和值之间的连接。它是 Contexify 中依赖注入系统的基本构建块。
+A Binding is a connection between a key and a value in the Context. It's the fundamental building block of the dependency injection system in Contexify.
 
-绑定允许您：
+Bindings allow you to:
 
-- 在 Context 中注册值、类或工厂函数
-- 控制依赖项的生命周期
-- 为发现和分组标记绑定
-- 配置依赖项的解析方式
+- Register values, classes, or factory functions in the Context
+- Control the lifecycle of dependencies
+- Tag bindings for discovery and grouping
+- Configure how dependencies are resolved
 
-## 绑定键
+## Binding Keys
 
-绑定键是用于在 Context 中查找值的唯一标识符。它们通常是遵循命名约定的字符串。
+Binding keys are unique identifiers used to look up values in the Context. They are typically strings that follow a naming convention.
 
 ```typescript
 import { Context } from 'contexify';
@@ -31,21 +31,21 @@ context.bind('greeting').to('Hello, world!');
 context.bind('services.UserService').toClass(UserService);
 ```
 
-### 命名约定
+### Naming Conventions
 
-建议为绑定键使用一致的命名约定。以下是一些常见模式：
+It's recommended to use a consistent naming convention for binding keys. Here are some common patterns:
 
-- `{namespace}.{name}`：使用命名空间和名称（例如，`services.UserService`）
-- 为命名空间使用复数形式（例如，`services`、`repositories`、`controllers`）
-- 对于配置，使用 `config.{component}`（例如，`config.api`）
+- `{namespace}.{name}`: Use namespace and name (e.g., `services.UserService`)
+- Use plural forms for namespaces (e.g., `services`, `repositories`, `controllers`)
+- For configurations, use `config.{component}` (e.g., `config.api`)
 
-## 绑定类型
+## Binding Types
 
-Contexify 支持几种类型的绑定：
+Contexify supports several types of bindings:
 
-### 值绑定
+### Value Binding
 
-将常量值绑定到键。
+Bind a constant value to a key.
 
 ```typescript
 // Bind a string
@@ -62,9 +62,9 @@ context.bind('config.database').to({
 });
 ```
 
-### 类绑定
+### Class Binding
 
-将类构造函数绑定到键。解析绑定时，将实例化该类。
+Bind a class constructor to a key. The class will be instantiated when the binding is resolved.
 
 ```typescript
 import { Context, injectable } from 'contexify';
@@ -79,14 +79,14 @@ class UserService {
 const context = new Context();
 context.bind('services.UserService').toClass(UserService);
 
-// 稍后，解析时
+// Later, when resolved
 const userService = await context.get('services.UserService');
 console.log(userService.getUsers()); // ['user1', 'user2']
 ```
 
-### 工厂函数绑定
+### Factory Function Binding
 
-绑定一个在解析绑定时创建值的工厂函数。
+Bind a factory function that creates the value when the binding is resolved.
 
 ```typescript
 context.bind('services.DbConnection').toDynamicValue(() => {
@@ -95,9 +95,9 @@ context.bind('services.DbConnection').toDynamicValue(() => {
 });
 ```
 
-### 提供者绑定
+### Provider Binding
 
-绑定一个在解析绑定时创建值的提供者类。
+Bind a provider class that creates the value when the binding is resolved.
 
 ```typescript
 import { Context, Provider, injectable } from 'contexify';
@@ -115,9 +115,9 @@ class DbConnectionProvider implements Provider<DbConnection> {
 context.bind('services.DbConnection').toProvider(DbConnectionProvider);
 ```
 
-## 绑定作用域
+## Binding Scopes
 
-绑定作用域控制解析值的生命周期。
+Binding scopes control the lifecycle of the resolved values.
 
 ```typescript
 import { Context, BindingScope } from 'contexify';
@@ -130,7 +130,7 @@ context
   .toClass(ConfigService)
   .inScope(BindingScope.SINGLETON);
 
-// 瞬态：每次解析时新实例
+// Transient: New instance each time it's resolved
 context
   .bind('services.RequestHandler')
   .toClass(RequestHandler)
@@ -143,15 +143,15 @@ context
   .inScope(BindingScope.CONTEXT);
 ```
 
-### 作用域指南
+### Scope Guidelines
 
-- **SINGLETON**：用于具有共享状态的服务（配置、数据库连接）
-- **TRANSIENT**：用于每次使用时需要新实例的组件
-- **CONTEXT**：用于在特定上下文中共享的组件
+- **SINGLETON**: For services with shared state (configurations, database connections)
+- **TRANSIENT**: For components that need a new instance each time they're used
+- **CONTEXT**: For components shared within a specific context
 
-## 绑定标签
+## Binding Tags
 
-标签允许您对绑定进行分类和发现。
+Tags allow you to categorize and discover bindings.
 
 ```typescript
 import { Context } from 'contexify';
@@ -171,9 +171,9 @@ async function findControllers() {
 }
 ```
 
-## 绑定配置
+## Binding Configuration
 
-您可以使用其他元数据配置绑定。
+You can configure bindings with additional metadata.
 
 ```typescript
 import { Context } from 'contexify';
@@ -191,9 +191,9 @@ context
   });
 ```
 
-## 创建和管理绑定
+## Creating and Managing Bindings
 
-### 添加绑定
+### Adding Bindings
 
 ```typescript
 import { Context, Binding } from 'contexify';
@@ -211,14 +211,14 @@ const binding = Binding.create('services.UserService')
 context.add(binding);
 ```
 
-### 移除绑定
+### Removing Bindings
 
 ```typescript
 // Remove a binding
 context.unbind('greeting');
 ```
 
-### 检查绑定是否存在
+### Checking if a Binding Exists
 
 ```typescript
 // Check if a binding exists
@@ -226,7 +226,7 @@ const exists = context.contains('greeting');
 console.log(exists); // true or false
 ```
 
-### 查找绑定
+### Finding Bindings
 
 ```typescript
 // Find bindings by tag
@@ -236,10 +236,10 @@ const serviceBindings = await context.findByTag('service');
 const userBindings = await context.find(/^services\.User/);
 ```
 
-## 下一步
+## Next Steps
 
-现在您已经了解了绑定，可以了解：
+Now that you understand Bindings, you can learn about:
 
-- [依赖注入](./dependency-injection) - 如何将依赖项注入到类中
-- [Context](./context) - 绑定的容器
-- [API 参考](../api) - 查看详细的 API 文档
+- [Dependency Injection](./dependency-injection) - How to inject dependencies into your classes
+- [Context](./context) - The container for bindings
+- [API Reference](../api) - View the detailed API documentation

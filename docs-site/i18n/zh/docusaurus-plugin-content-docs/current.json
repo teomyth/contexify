@@ -42,5 +42,37 @@
   "sidebar.tutorialSidebar.category.API 参考.link.generated-index.description": {
     "message": "Contexify API 的参考文档。",
     "description": "The generated-index page description for category API 参考 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Core Concepts": {
+    "message": "核心概念",
+    "description": "The label for category Core Concepts in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Core Concepts.link.generated-index.description": {
+    "message": "了解 Contexify 的核心概念，包括上下文、绑定、依赖注入等。",
+    "description": "The generated-index page description for category Core Concepts in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Examples": {
+    "message": "示例",
+    "description": "The label for category Examples in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Examples.link.generated-index.description": {
+    "message": "查看 Contexify 在不同场景中的使用示例。",
+    "description": "The generated-index page description for category Examples in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Guides": {
+    "message": "指南",
+    "description": "The label for category Guides in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Guides.link.generated-index.description": {
+    "message": "在应用程序中使用 Contexify 的实用指南。",
+    "description": "The generated-index page description for category Guides in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.API Reference": {
+    "message": "API 参考",
+    "description": "The label for category API Reference in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.API Reference.link.generated-index.description": {
+    "message": "Contexify API 的参考文档。",
+    "description": "The generated-index page description for category API Reference in sidebar tutorialSidebar"
   }
 }

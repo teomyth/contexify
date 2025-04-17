@@ -13,4 +13,4 @@ export * from './inject/inject.js';
 export * from './inject/inject-config.js';
 
 // Export version
-export { VERSION } from './index.js';
+export { VERSION } from './version.js';

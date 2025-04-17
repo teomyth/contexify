@@ -2,23 +2,23 @@
 sidebar_position: 2
 ---
 
-# 模块化应用程序示例
+# Modular Application Example
 
-本示例演示如何使用 Contexify 构建模块化应用程序。
+This example demonstrates how to build a modular application using Contexify.
 
-## 概述
+## Overview
 
-模块化应用程序示例展示了如何：
+The modular application example shows how to:
 
-- 构建模块化应用程序
-- 创建和使用组件
-- 管理组件之间的依赖关系
-- 配置应用程序
-- 处理应用程序生命周期
+- Structure a modular application
+- Create and use components
+- Manage dependencies between components
+- Configure the application
+- Handle application lifecycle
 
-## 应用程序类
+## Application Class
 
-应用程序类是模块化应用程序的核心。它扩展了 `Context` 类，并作为应用程序的根上下文。
+The application class is the core of the modular application. It extends the `Context` class and serves as the root context for the application.
 
 ```typescript
 // Application class
@@ -78,9 +78,9 @@ export class ModularApplication extends Context {
 }
 ```
 
-## 认证组件
+## Authentication Component
 
-认证组件为应用程序提供认证服务。
+The authentication component provides authentication services for the application.
 
 ```typescript
 // Authentication component
@@ -109,9 +109,9 @@ export class AuthComponent {
 }
 ```
 
-## API 组件
+## API Component
 
-API 组件为应用程序的 API 提供控制器。
+The API component provides controllers for the application's API.
 
 ```typescript
 // API component
@@ -134,9 +134,9 @@ export class ApiComponent {
 }
 ```
 
-## 配置
+## Configuration
 
-配置目录包含应用程序的配置。
+The configuration directory contains the configuration for the application.
 
 ```typescript
 // Configuration
@@ -157,9 +157,9 @@ export function configureApplication(app: Context) {
 }
 ```
 
-## 入口点
+## Entry Point
 
-应用程序的入口点创建并启动应用程序。
+The entry point of the application creates and starts the application.
 
 ```typescript
 // Entry point
@@ -191,13 +191,13 @@ main().catch(err => {
 });
 ```
 
-## 关键要点
+## Key Points
 
-- **模块化架构**：应用程序被组织成组件，每个组件都有自己的职责
-- **依赖注入**：组件通过依赖注入相互依赖
-- **配置**：应用程序通过上下文进行配置
-- **生命周期管理**：应用程序管理其组件的生命周期
+- **Modular Architecture**: The application is organized into components, each with its own responsibilities
+- **Dependency Injection**: Components depend on each other through dependency injection
+- **Configuration**: The application is configured through the context
+- **Lifecycle Management**: The application manages the lifecycle of its components
 
-## 完整示例
+## Complete Example
 
-完整的示例代码可以在 [examples/modular-app](https://github.com/teomyth/contexify/tree/main/examples/modular-app) 目录中找到。
+The complete example code can be found in the [examples/modular-app](https://github.com/teomyth/contexify/tree/main/examples/modular-app) directory.

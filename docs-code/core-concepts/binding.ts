@@ -42,17 +42,19 @@ async function run() {
   // Get value binding
   const greeting = await context.get('greeting');
   console.log('Greeting:', greeting);
-  
+
   // Get class binding
   const userService = await context.get<UserService>('services.UserService');
   console.log('Users:', userService.getUsers());
-  
+
   // Get factory function binding
   const dbConnection = await context.get('services.DbConnection');
   dbConnection.connect();
-  
+
   // Get singleton binding
-  const configService = await context.get<ConfigService>('services.ConfigService');
+  const configService = await context.get<ConfigService>(
+    'services.ConfigService'
+  );
   console.log('Config:', configService.getConfig());
 }
 
@@ -61,5 +63,5 @@ export { run };
 
 // If running directly
 if (typeof require !== 'undefined' && require.main === module) {
-  run().catch(err => console.error(err));
+  run().catch((err) => console.error(err));
 }

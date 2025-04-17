@@ -2,18 +2,18 @@
 sidebar_position: 4
 ---
 
-# 最佳实践
+# Best Practices
 
-本文档提供了在 Contexify 框架中使用 Context 系统的最佳实践，参考了 LoopBack 框架的设计概念和实践经验。
+This document provides best practices for using the Context system in the Contexify framework, referencing design concepts and practical experience from the LoopBack framework.
 
-## Context 使用模式
+## Context Usage Patterns
 
-使用 Context 时，有几种常见模式。以下是对这些模式的分析和推荐的最佳实践。
+When using Context, there are several common patterns. Below is an analysis of these patterns and recommended best practices.
 
-### 不推荐：全局 Context 对象
+### Not Recommended: Global Context Object
 
 ```typescript
-// NOT recommended pattern
+// Not recommended pattern
 const globalContext = new Context();
 globalContext.bind('service').toClass(MyService);
 
@@ -22,29 +22,29 @@ const service = globalContext.getSync('service');
 service.doSomething();
 ```
 
-**问题**：
+**Problems**:
 
-- 创建全局状态，使测试和管理变得困难
-- 隐藏依赖项，使代码更难理解和维护
-- 无法轻松替换或模拟测试依赖项
+- Creates global state, making it difficult to test and manage
+- Hides dependencies, making code harder to understand and maintain
+- Cannot easily replace or mock dependencies for testing
 
-### 不推荐：Context 作为参数
+### Not Recommended: Context as a Parameter
 
 ```typescript
-// NOT recommended pattern
+// Not recommended pattern
 function doSomething(context: Context) {
   const service = context.getSync('service');
   service.doSomething();
 }
 ```
 
-**问题**：
+**Problems**:
 
-- 仍然隐藏了实际的依赖项
-- 使函数依赖于 Context API 而不是它实际需要的服务
-- 难以测试，因为您需要创建和配置 Context
+- Still hides the actual dependencies
+- Makes the function dependent on the Context API rather than the services it actually needs
+- Difficult to test because you need to create and configure a Context
 
-### 推荐：扩展 Context 创建特定领域的应用程序核心
+### Recommended: Extending Context to Create a Domain-Specific Application Core
 
 ```typescript
 // Recommended pattern
@@ -60,18 +60,18 @@ const app = new MyApplication();
 app.start();
 ```
 
-**好处**：
+**Benefits**:
 
-- 应用程序本身是一个 Context，提供清晰的架构边界
-- 组件可以通过依赖注入获取其依赖项
-- 易于测试，因为依赖项可以被模拟或替换
-- 支持模块化设计和可扩展性
+- The application itself is a Context, providing clear architectural boundaries
+- Components can get their dependencies through dependency injection
+- Easy to test because dependencies can be mocked or replaced
+- Supports modular design and extensibility
 
-## 应用程序架构
+## Application Architecture
 
-### 应用程序类扩展 Context
+### Application Class Extending Context
 
-创建一个扩展 Context 的应用程序类作为应用程序的核心：
+Create an application class that extends Context as the core of your application:
 
 ```typescript
 import { Context, injectable } from 'contexify';
@@ -89,7 +89,7 @@ export class MyApplication extends Context {
     this.component(AuthComponent);
     this.component(ApiComponent);
 
-    // You can perform async initialization here
+    // You could perform async initialization here
     // For example, connecting to databases, loading configurations, etc.
     await Promise.resolve(); // Placeholder for actual async operations
 
@@ -112,9 +112,9 @@ export class MyApplication extends Context {
 }
 ```
 
-### 组件和模块化设计
+### Components and Modular Design
 
-组件是用于扩展应用程序功能的相关绑定的集合：
+Components are collections of related bindings used to extend application functionality:
 
 ```typescript
 import { injectable, Binding } from 'contexify';
@@ -133,16 +133,16 @@ export class AuthComponent implements Component {
 }
 ```
 
-使用组件可以：
+Using components allows you to:
 
-- 将相关功能组合在一起
-- 促进模块化设计
-- 支持可插拔架构
-- 简化依赖项管理
+- Group related functionality together
+- Promote modular design
+- Support a pluggable architecture
+- Simplify dependency management
 
-### 生命周期管理
+### Lifecycle Management
 
-您的应用程序应该管理组件和服务的生命周期：
+Your application should manage the lifecycle of components and services:
 
 ```typescript
 export class MyApplication extends Context {
@@ -152,7 +152,7 @@ export class MyApplication extends Context {
     // Get all services that need initialization
     const initializers = await this.findByTag('initializer');
 
-    // Initialize in order
+    // Initialize in sequence
     for (const initializer of initializers) {
       const service = await this.get(initializer.key);
       await service.initialize();
@@ -165,7 +165,7 @@ export class MyApplication extends Context {
     // Get all services that need cleanup
     const cleaners = await this.findByTag('cleaner');
 
-    // Cleanup in order
+    // Clean up in sequence
     for (const cleaner of cleaners) {
       const service = await this.get(cleaner.key);
       await service.cleanup();
@@ -177,11 +177,11 @@ export class MyApplication extends Context {
 }
 ```
 
-## 依赖注入最佳实践
+## Dependency Injection Best Practices
 
-### 使用装饰器进行依赖注入
+### Use Decorators for Dependency Injection
 
-建议使用装饰器进行依赖注入，而不是直接从 Context 检索依赖项：
+It's recommended to use decorators for dependency injection instead of directly retrieving dependencies from the Context:
 
 ```typescript
 import { inject, injectable } from 'contexify';
@@ -201,15 +201,15 @@ export class UserController {
 }
 ```
 
-好处：
+Benefits:
 
-- 依赖项是明确和可见的
-- 易于测试，因为依赖项可以被模拟
-- 代码更清晰和可维护
+- Dependencies are explicit and visible
+- Easy to test, as dependencies can be mocked
+- Code is cleaner and more maintainable
 
-### 绑定键命名约定
+### Binding Key Naming Conventions
 
-使用一致的命名约定来组织绑定键：
+Use consistent naming conventions to organize binding keys:
 
 ```typescript
 // Services
@@ -228,15 +228,15 @@ app.bind('config.api').to({
 });
 ```
 
-推荐的命名模式：
+Recommended naming patterns:
 
-- `{namespace}.{name}`：使用命名空间和名称
-- 对命名空间使用复数形式（services、repositories、controllers）
-- 对于配置，使用 `config.{component}`
+- `{namespace}.{name}`: Use namespace and name
+- Use plural forms for namespaces (services, repositories, controllers)
+- For configurations, use `config.{component}`
 
-### 作用域管理
+### Scope Management
 
-根据组件的性质选择适当的作用域：
+Choose appropriate scopes based on the nature of the component:
 
 ```typescript
 import { BindingScope } from 'contexify';
@@ -260,17 +260,17 @@ app
   .inScope(BindingScope.CONTEXT);
 ```
 
-作用域指南：
+Scope guidelines:
 
-- **SINGLETON**：用于具有共享状态的服务（配置、数据库连接）
-- **TRANSIENT**：用于每次使用时需要新实例的组件
-- **CONTEXT**：用于在特定上下文中共享的组件
+- **SINGLETON**: For services with shared state (configurations, database connections)
+- **TRANSIENT**: For components that need a new instance each time they're used
+- **CONTEXT**: For components shared within a specific context
 
-## 高级模式
+## Advanced Patterns
 
-### 使用拦截器
+### Using Interceptors
 
-拦截器允许您在方法调用前后执行代码：
+Interceptors allow you to execute code before and after method calls:
 
 ```typescript
 import { injectable, intercept } from 'contexify';
@@ -285,17 +285,17 @@ export class UserService {
 }
 ```
 
-拦截器用例：
+Interceptor use cases:
 
-- 日志记录
-- 性能监控
-- 错误处理
-- 事务管理
-- 缓存
+- Logging
+- Performance monitoring
+- Error handling
+- Transaction management
+- Caching
 
-### 使用观察者模式
+### Using the Observer Pattern
 
-观察 Context 中的绑定变化：
+Observe binding changes in the Context:
 
 ```typescript
 import { ContextObserver } from 'contexify';
@@ -310,7 +310,7 @@ export class ServiceRegistry implements ContextObserver {
       // Handle new service
     } else if (event === 'unbind') {
       console.log(`Service unregistered: ${binding.key}`);
-      // Cleanup service
+      // Clean up service
     }
   }
 }
@@ -319,15 +319,15 @@ export class ServiceRegistry implements ContextObserver {
 app.subscribe(new ServiceRegistry());
 ```
 
-观察者用例：
+Observer use cases:
 
-- 动态服务发现和注册
-- 监控绑定变化
-- 实现插件系统
+- Dynamic service discovery and registration
+- Monitoring binding changes
+- Implementing plugin systems
 
-### 配置管理
+### Configuration Management
 
-使用 Context 的配置功能管理应用程序配置：
+Use Context's configuration capabilities to manage application configuration:
 
 ```typescript
 // Register configuration
@@ -337,7 +337,7 @@ app.configure('services.EmailService').to({
   secure: true,
 });
 
-// Use configuration in a service
+// Use configuration in services
 @injectable()
 export class EmailService {
   constructor(@config() private config: EmailConfig) {}
@@ -348,21 +348,21 @@ export class EmailService {
 }
 ```
 
-配置最佳实践：
+Configuration best practices:
 
-- 使用 `configure()` 和 `@config()` 而不是硬编码配置键
-- 为配置提供默认值
-- 支持特定环境的配置覆盖
+- Use `configure()` and `@config()` instead of hardcoding configuration keys
+- Provide default values for configuration
+- Support environment-specific configuration overrides
 
-## 总结
+## Summary
 
-使用 Context 作为应用程序核心的最佳实践：
+Best practices for using Context as your application core:
 
-1. **应用程序扩展 Context**：让您的应用程序类扩展 Context 以作为依赖注入容器
-2. **使用组件实现模块化**：使用组件组织相关功能和绑定
-3. **依赖注入优于直接访问**：使用 `@inject` 和其他装饰器注入依赖项
-4. **一致的命名约定**：对绑定键使用一致的命名模式
-5. **适当的作用域管理**：根据组件性质选择合适的绑定作用域
-6. **利用高级功能**：使用拦截器、观察者和配置管理来增强您的应用程序
+1. **Application extends Context**: Let your application class extend Context to serve as a dependency injection container
+2. **Use Components for Modularity**: Organize related functionality and bindings with components
+3. **Dependency Injection over Direct Access**: Use `@inject` and other decorators to inject dependencies
+4. **Consistent Naming Conventions**: Use consistent naming patterns for binding keys
+5. **Appropriate Scope Management**: Choose suitable binding scopes based on component nature
+6. **Leverage Advanced Features**: Use interceptors, observers, and configuration management to enhance your application
 
-通过遵循这些最佳实践，您可以构建模块化、可测试和可维护的应用程序，利用 Contexify 框架的强大功能。
+By following these best practices, you can build modular, testable, and maintainable applications that leverage the powerful capabilities of the Contexify framework.

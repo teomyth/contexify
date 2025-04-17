@@ -10,7 +10,7 @@ import {
   ResolutionSession,
   asResolutionOptions,
 } from '../resolution/resolution-session.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   ValueOrPromise,
   isPromiseLike,
@@ -22,7 +22,7 @@ import { ContextEventType, ContextObserver } from './context-observer.js';
 import { Subscription } from './context-subscription.js';
 import { Context } from './context.js';
 
-const debug = createLogger('contexify:view');
+const debug = createDebugger('contexify:view');
 
 /**
  * An event emitted by a `ContextView`

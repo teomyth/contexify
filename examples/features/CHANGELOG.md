@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.0.0
+
+### Major Changes
+
+- eb718fd: Migrate from release-it to changesets for better monorepo version management
+
+### Patch Changes
+
+- Updated dependencies [eb718fd]
+  - contexify@1.0.3
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

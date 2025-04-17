@@ -2,7 +2,7 @@ import { BindingFilter } from '../binding/binding-filter.js';
 import { BindingAddress } from '../binding/binding-key.js';
 import { BindingComparator } from '../binding/binding-sorter.js';
 import { Context } from '../context/context.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   ValueOrPromise,
   transformValueOrPromise,
@@ -10,7 +10,7 @@ import {
 
 import { InvocationResult } from './invocation.js';
 
-const debug = createLogger('contexify:interceptor-chain');
+const debug = createDebugger('contexify:interceptor-chain');
 
 /**
  * Any type except `void`. We use this type to enforce that interceptor functions

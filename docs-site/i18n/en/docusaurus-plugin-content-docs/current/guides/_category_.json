@@ -1,8 +1,0 @@
-{
-  "label": "Guides",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "Practical guides for using Contexify in your applications."
-  }
-}

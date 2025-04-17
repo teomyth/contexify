@@ -2,48 +2,48 @@
 sidebar_position: 2
 ---
 
-# 组件创建指南
+# Component Creation Guide
 
-本指南提供了使用 Contexify 创建可重用组件的说明。
+This guide provides instructions for creating reusable components with Contexify.
 
-## 什么是组件？
+## What is a Component?
 
-组件是可以在应用程序之间重用的相关绑定的集合。组件是组织代码和促进模块化的好方法。
+A component is a collection of related bindings that can be reused across applications. Components are a great way to organize your code and promote modularity.
 
-组件通常包括：
+Components typically include:
 
-- 服务
-- 提供者
-- 绑定键
-- 类型定义
-- 配置
+- Services
+- Providers
+- Binding keys
+- Type definitions
+- Configuration
 
-## 组件结构
+## Component Structure
 
-以下是组件的推荐结构：
+Here's a recommended structure for a component:
 
 ```
 components/
 └── my-component/
-    ├── index.ts              # 组件导出
-    ├── keys.ts               # 绑定键
-    ├── types.ts              # 类型定义
-    ├── services/             # 服务
-    │   ├── index.ts          # 服务导出
-    │   └── my-service.ts     # 服务实现
-    ├── providers/            # 提供者
-    │   ├── index.ts          # 提供者导出
-    │   └── my-provider.ts    # 提供者实现
-    └── config.ts             # 组件配置
+    ├── index.ts              # Component exports
+    ├── keys.ts               # Binding keys
+    ├── types.ts              # Type definitions
+    ├── services/             # Services
+    │   ├── index.ts          # Service exports
+    │   └── my-service.ts     # Service implementation
+    ├── providers/            # Providers
+    │   ├── index.ts          # Provider exports
+    │   └── my-provider.ts    # Provider implementation
+    └── config.ts             # Component configuration
 ```
 
-## 创建组件
+## Creating a Component
 
-让我们创建一个简单的日志组件作为示例。
+Let's create a simple logging component as an example.
 
-### 1. 定义绑定键
+### 1. Define Binding Keys
 
-首先，为您的组件定义绑定键：
+First, define the binding keys for your component:
 
 ```typescript
 // components/logger/keys.ts
@@ -54,9 +54,9 @@ export namespace LoggerBindings {
 }
 ```
 
-### 2. 定义类型
+### 2. Define Types
 
-接下来，为您的组件定义类型：
+Next, define the types for your component:
 
 ```typescript
 // components/logger/types.ts
@@ -73,9 +73,9 @@ export interface Logger {
 }
 ```
 
-### 3. 实现服务
+### 3. Implement Services
 
-现在，实现组件的服务：
+Now, implement the services for your component:
 
 ```typescript
 // components/logger/services/console-logger.ts
@@ -133,9 +133,9 @@ export class ConsoleLogger implements Logger {
 export * from './console-logger';
 ```
 
-### 4. 创建组件类
+### 4. Create Component Class
 
-现在，创建组件类：
+Now, create the component class:
 
 ```typescript
 // components/logger/index.ts
@@ -173,9 +173,9 @@ export * from './types';
 export * from './services';
 ```
 
-## 使用组件
+## Using the Component
 
-现在您可以在应用程序中使用该组件：
+Now you can use the component in your application:
 
 ```typescript
 import { Context } from 'contexify';
@@ -203,11 +203,11 @@ async function run() {
 run().catch(err => console.error(err));
 ```
 
-## 带提供者的组件
+## Component with Providers
 
-提供者是一种特殊类型的绑定，可用于动态创建值。它们对于创建需要复杂初始化的依赖项很有用。
+Providers are a special type of binding that can be used to create values dynamically. They are useful for creating dependencies that require complex initialization.
 
-让我们向日志组件添加一个文件日志提供者：
+Let's add a file logger provider to our logger component:
 
 ```typescript
 // components/logger/providers/file-logger.provider.ts
@@ -267,7 +267,7 @@ export class FileLoggerProvider implements Provider<Logger> {
 export * from './file-logger.provider';
 ```
 
-现在，更新组件类以包含文件日志提供者：
+Now, update the component class to include the file logger provider:
 
 ```typescript
 // components/logger/index.ts
@@ -315,9 +315,9 @@ export * from './services';
 export * from './providers';
 ```
 
-## 带扩展点的组件
+## Component with Extension Points
 
-扩展点允许其他组件扩展您组件的功能。让我们向日志组件添加一个扩展点：
+Extension points allow other components to extend your component's functionality. Let's add an extension point to our logger component:
 
 ```typescript
 // components/logger/keys.ts
@@ -403,7 +403,7 @@ export class ConsoleLogger implements Logger {
 }
 ```
 
-现在，其他组件可以扩展日志组件：
+Now, other components can extend the logger component:
 
 ```typescript
 // components/metrics/index.ts
@@ -435,20 +435,20 @@ export class MetricsComponent {
 }
 ```
 
-## 最佳实践
+## Best Practices
 
-- **单一职责**：每个组件应该有一个单一的职责
-- **清晰的接口**：为组件的服务定义清晰的接口
-- **配置**：使组件可配置
-- **扩展点**：为其他组件提供扩展点
-- **文档**：记录组件的 API 和配置选项
-- **测试**：为组件编写测试
-- **版本控制**：为组件使用语义版本控制
+- **Single Responsibility**: Each component should have a single responsibility
+- **Clear Interfaces**: Define clear interfaces for your component's services
+- **Configuration**: Make your component configurable
+- **Extension Points**: Provide extension points for other components
+- **Documentation**: Document your component's API and configuration options
+- **Testing**: Write tests for your component
+- **Versioning**: Use semantic versioning for your component
 
-## 下一步
+## Next Steps
 
-现在您已经了解了如何创建组件，可以了解：
+Now that you understand how to create components, you can learn about:
 
-- [应用程序结构](./application-structure) - 如何构建应用程序
-- [测试](./testing) - 如何测试组件
-- [核心概念](../category/core-concepts) - 了解 Contexify 的核心概念
+- [Application Structure](./application-structure) - How to structure your application
+- [Testing](./testing) - How to test your components
+- [Core Concepts](../category/core-concepts) - Learn about the core concepts of Contexify

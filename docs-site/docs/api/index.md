@@ -2,15 +2,15 @@
 sidebar_position: 1
 ---
 
-# API 参考
+# API Reference
 
-本节提供 Contexify API 的参考。
+This section provides a reference for the Contexify API.
 
-## 核心类
+## Core Classes
 
 ### Context
 
-`Context` 类是 Contexify 框架的核心。它作为绑定的注册表，并提供管理依赖项的方法。
+The `Context` class is the core of the Contexify framework. It serves as a registry for bindings and provides methods for managing dependencies.
 
 ```typescript
 class Context {
@@ -53,7 +53,7 @@ class Context {
 
 ### Binding
 
-`Binding` 类表示 Context 中键和值之间的连接。
+The `Binding` class represents a connection between a key and a value in the Context.
 
 ```typescript
 class Binding<T = unknown> {
@@ -87,7 +87,7 @@ class Binding<T = unknown> {
 
 ### ContextView
 
-`ContextView` 类允许您跟踪匹配特定过滤器的一组绑定。
+The `ContextView` class allows you to track a set of bindings that match a specific filter.
 
 ```typescript
 class ContextView<T> {
@@ -113,11 +113,11 @@ class ContextView<T> {
 }
 ```
 
-## 装饰器
+## Decorators
 
 ### @injectable()
 
-将类标记为可注入，允许 Contexify 创建其实例。
+Marks a class as injectable, allowing Contexify to create instances of it.
 
 ```typescript
 function injectable(): ClassDecorator;
@@ -125,7 +125,7 @@ function injectable(): ClassDecorator;
 
 ### @inject()
 
-通过绑定键注入依赖项。
+Injects a dependency by its binding key.
 
 ```typescript
 function inject(
@@ -136,7 +136,7 @@ function inject(
 
 ### @inject.tag()
 
-注入匹配特定标签的所有依赖项。
+Injects all dependencies that match a specific tag.
 
 ```typescript
 namespace inject {
@@ -149,7 +149,7 @@ namespace inject {
 
 ### @inject.getter()
 
-注入一个可以稍后用于获取依赖项的函数。
+Injects a function that can be used to get the dependency later.
 
 ```typescript
 namespace inject {
@@ -162,7 +162,7 @@ namespace inject {
 
 ### @inject.view()
 
-注入一个跟踪匹配过滤器的绑定的 ContextView。
+Injects a ContextView that tracks bindings matching a filter.
 
 ```typescript
 namespace inject {
@@ -175,7 +175,7 @@ namespace inject {
 
 ### @config()
 
-为当前绑定注入配置。
+Injects configuration for the current binding.
 
 ```typescript
 function config(
@@ -185,7 +185,7 @@ function config(
 
 ### @intercept()
 
-将拦截器应用于方法或类。
+Applies interceptors to a method or class.
 
 ```typescript
 function intercept(
@@ -193,11 +193,11 @@ function intercept(
 ): MethodDecorator & ClassDecorator;
 ```
 
-## 接口
+## Interfaces
 
 ### Provider
 
-`Provider` 接口定义了一个可以动态创建值的类。
+The `Provider` interface defines a class that can create values dynamically.
 
 ```typescript
 interface Provider<T> {
@@ -207,7 +207,7 @@ interface Provider<T> {
 
 ### Interceptor
 
-`Interceptor` 接口定义了一个可以拦截方法调用的类。
+The `Interceptor` interface defines a class that can intercept method calls.
 
 ```typescript
 interface Interceptor {
@@ -220,7 +220,7 @@ interface Interceptor {
 
 ### ContextObserver
 
-`ContextObserver` 接口定义了一个可以观察上下文事件的类。
+The `ContextObserver` interface defines a class that can observe context events.
 
 ```typescript
 interface ContextObserver {
@@ -233,11 +233,11 @@ interface ContextObserver {
 }
 ```
 
-## 枚举
+## Enums
 
 ### BindingScope
 
-`BindingScope` 枚举定义了绑定的作用域。
+The `BindingScope` enum defines the scope of a binding.
 
 ```typescript
 enum BindingScope {
@@ -247,11 +247,11 @@ enum BindingScope {
 }
 ```
 
-## 类型
+## Types
 
 ### Constructor
 
-`Constructor` 类型表示类构造函数。
+The `Constructor` type represents a class constructor.
 
 ```typescript
 type Constructor<T> = new (...args: any[]) => T;
@@ -259,7 +259,7 @@ type Constructor<T> = new (...args: any[]) => T;
 
 ### ValueOrPromise
 
-`ValueOrPromise` 类型表示值或值的 Promise。
+The `ValueOrPromise` type represents a value or a promise of a value.
 
 ```typescript
 type ValueOrPromise<T> = T | Promise<T>;
@@ -267,7 +267,7 @@ type ValueOrPromise<T> = T | Promise<T>;
 
 ### Getter
 
-`Getter` 类型表示返回值或值的 Promise 的函数。
+The `Getter` type represents a function that returns a value or a promise of a value.
 
 ```typescript
 type Getter<T> = () => ValueOrPromise<T>;
@@ -275,7 +275,7 @@ type Getter<T> = () => ValueOrPromise<T>;
 
 ### BindingFilter
 
-`BindingFilter` 类型表示过滤绑定的函数。
+The `BindingFilter` type represents a function that filters bindings.
 
 ```typescript
 type BindingFilter = (binding: Readonly<Binding<unknown>>) => boolean;
@@ -283,12 +283,12 @@ type BindingFilter = (binding: Readonly<Binding<unknown>>) => boolean;
 
 ### BindingComparator
 
-`BindingComparator` 类型表示比较绑定的函数。
+The `BindingComparator` type represents a function that compares bindings.
 
 ```typescript
 type BindingComparator = (a: Readonly<Binding<unknown>>, b: Readonly<Binding<unknown>>) => number;
 ```
 
-## 更多信息
+## For More Information
 
-有关 API 的更详细信息，请参阅源代码中的 TypeScript 定义或生成的 API 文档。
+For more detailed information about the API, please refer to the TypeScript definitions in the source code or the generated API documentation.

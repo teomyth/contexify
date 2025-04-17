@@ -2,25 +2,25 @@
 sidebar_position: 4
 ---
 
-# 拦截器
+# Interceptors
 
-## 什么是拦截器？
+## What are Interceptors?
 
-拦截器是 Contexify 中的一个强大功能，允许您向方法添加横切关注点。它们拦截方法调用，可以在方法执行前后执行代码，甚至修改方法的行为。
+Interceptors are a powerful feature in Contexify that allow you to add cross-cutting concerns to your methods. They intercept method calls and can execute code before and after the method execution, or even modify the method's behavior.
 
-拦截器的常见用例包括：
+Common use cases for interceptors include:
 
-- 日志记录
-- 性能监控
-- 错误处理
-- 事务管理
-- 缓存
-- 授权
-- 验证
+- Logging
+- Performance monitoring
+- Error handling
+- Transaction management
+- Caching
+- Authorization
+- Validation
 
-## 拦截器如何工作
+## How Interceptors Work
 
-拦截器通过将原始方法包装在拦截器函数链中来工作。当调用方法时，请求在到达方法之前流经拦截器链，然后响应再流回链。
+Interceptors work by wrapping the original method in a chain of interceptor functions. When a method is called, the request flows through the interceptor chain before reaching the method, and then the response flows back through the chain.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -42,9 +42,9 @@ sidebar_position: 4
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## 创建拦截器
+## Creating an Interceptor
 
-拦截器是实现 `Interceptor` 接口的类。
+An interceptor is a class that implements the `Interceptor` interface.
 
 ```typescript
 import { Interceptor, InvocationContext, ValueOrPromise } from 'contexify';
@@ -75,11 +75,11 @@ class LogInterceptor implements Interceptor {
 }
 ```
 
-## 使用拦截器
+## Using Interceptors
 
-### 方法级拦截器
+### Method-level Interceptors
 
-您可以使用 `@intercept` 装饰器将拦截器应用于特定方法：
+You can apply interceptors to specific methods using the `@intercept` decorator.
 
 ```typescript
 import { injectable, intercept } from 'contexify';
@@ -95,9 +95,9 @@ class UserService {
 }
 ```
 
-### 类级拦截器
+### Class-level Interceptors
 
-您可以将拦截器应用于类的所有方法：
+You can apply interceptors to all methods of a class.
 
 ```typescript
 import { injectable, intercept } from 'contexify';
@@ -118,9 +118,9 @@ class UserService {
 }
 ```
 
-### 多个拦截器
+### Multiple Interceptors
 
-您可以将多个拦截器应用于方法或类。它们将按照指定的顺序执行：
+You can apply multiple interceptors to a method or class. They will be executed in the order they are specified.
 
 ```typescript
 import { injectable, intercept } from 'contexify';
@@ -136,9 +136,9 @@ class UserService {
 }
 ```
 
-## 拦截器上下文
+## Interceptor Context
 
-`InvocationContext` 提供有关被拦截方法的信息。
+The `InvocationContext` provides information about the method being intercepted.
 
 ```typescript
 interface InvocationContext {
@@ -156,11 +156,11 @@ interface InvocationContext {
 }
 ```
 
-您可以在拦截器中使用此信息，根据被调用的方法、其参数或目标对象做出决策。
+You can use this information in your interceptor to make decisions based on the method being called, its arguments, or the target object.
 
-## 常见拦截器模式
+## Common Interceptor Patterns
 
-### 日志拦截器
+### Logging Interceptor
 
 ```typescript
 class LogInterceptor implements Interceptor {
@@ -186,7 +186,7 @@ class LogInterceptor implements Interceptor {
 }
 ```
 
-### 缓存拦截器
+### Caching Interceptor
 
 ```typescript
 class CacheInterceptor implements Interceptor {
@@ -215,7 +215,7 @@ class CacheInterceptor implements Interceptor {
 }
 ```
 
-### 错误处理拦截器
+### Error Handling Interceptor
 
 ```typescript
 class ErrorHandlingInterceptor implements Interceptor {
@@ -236,19 +236,19 @@ class ErrorHandlingInterceptor implements Interceptor {
 }
 ```
 
-## 最佳实践
+## Best Practices
 
-- 保持拦截器专注于单一关注点
-- 使用组合来组合多个拦截器
-- 注意拦截器的顺序
-- 在拦截器中正确处理错误
-- 如果拦截器需要访问服务，请使用依赖注入
-- 考虑拦截器对性能的影响，特别是对于频繁调用的方法
+- Keep interceptors focused on a single concern
+- Use composition to combine multiple interceptors
+- Be mindful of the order of interceptors
+- Handle errors properly in interceptors
+- Use dependency injection in interceptors if they need access to services
+- Consider the performance impact of interceptors, especially for frequently called methods
 
-## 下一步
+## Next Steps
 
-现在您已经了解了拦截器，可以了解：
+Now that you understand Interceptors, you can learn about:
 
-- [观察者](./observers) - 如何对 Context 中的变化做出反应
-- [依赖注入](./dependency-injection) - 如何将依赖项注入到类中
-- [绑定](./binding) - 如何注册依赖项
+- [Observers](./observers) - How to react to changes in the Context
+- [Dependency Injection](./dependency-injection) - How to inject dependencies into your classes
+- [Binding](./binding) - How to register dependencies

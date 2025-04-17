@@ -5,7 +5,7 @@ import { DecoratorFactory } from 'metarize';
 import { Context } from '../context/context.js';
 import { ResolutionSession } from '../resolution/resolution-session.js';
 import { resolveInjectedArguments } from '../resolution/resolver.js';
-import createLogger from '../utils/logger.js';
+import createDebugger from '../utils/debug.js';
 import {
   ValueOrPromise,
   transformValueOrPromise,
@@ -13,7 +13,7 @@ import {
 
 import { invokeMethodWithInterceptors } from './interceptor.js';
 
-const debug = createLogger('contexify:invocation');
+const debug = createDebugger('contexify:invocation');
 const getTargetName = DecoratorFactory.getTargetName;
 
 /**
