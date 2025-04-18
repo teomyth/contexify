@@ -41,9 +41,7 @@ export async function syncVersions(
   }
 
   if (verbose) {
-    logger.info(
-      `Found ${configFiles.length} packages with version sync configuration.`
-    );
+    logger.group(`Version Synchronization (${configFiles.length} packages)`);
   }
 
   const results: VersionSyncResult[] = [];
@@ -64,7 +62,7 @@ export async function syncVersions(
     const packageName = packageJson.name;
 
     if (verbose) {
-      logger.info(`Processing ${packageName} (${version})...`);
+      logger.nestedGroup(`[${results.length + 1}/${configFiles.length}] ${packageName} (${version})`);
     }
 
     // Read the sync configuration
@@ -86,8 +84,9 @@ export async function syncVersions(
 
       if (!fs.existsSync(filePath)) {
         if (verbose) {
-          logger.error(
-            `File ${fileConfig.path} not found in package ${packageName}`
+          logger.fileStatus(
+            `${fileConfig.path} not found in package ${packageName}`,
+            'error'
           );
         }
         result.errorFiles[fileConfig.path] = 'File not found';
@@ -109,12 +108,12 @@ export async function syncVersions(
 
         if (results[0].hasChanged) {
           if (verbose) {
-            logger.success(`Updated ${fileConfig.path}`);
+            logger.fileStatus(`${fileConfig.path} updated to version ${version}`, 'success');
           }
           result.updatedFiles.push(fileConfig.path);
         } else {
           if (verbose) {
-            logger.info(`${fileConfig.path} is already up to date`);
+            logger.fileStatus(`${fileConfig.path} is already up to date`, 'success');
           }
           result.upToDateFiles.push(fileConfig.path);
         }
@@ -122,7 +121,7 @@ export async function syncVersions(
         const errorMessage =
           error instanceof Error ? error.message : String(error);
         if (verbose) {
-          logger.error(`Error updating ${fileConfig.path}: ${errorMessage}`);
+          logger.fileStatus(`${fileConfig.path}: ${errorMessage}`, 'error');
         }
         result.errorFiles[fileConfig.path] = errorMessage;
       }
