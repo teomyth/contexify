@@ -1,5 +1,8 @@
 packages:
-  - 'packages/*'
-  - 'examples/*'
-  - 'docs-code'
-  - 'docs-site'
+  - packages/*
+  - examples/*
+  - docs-code
+  - docs-site
+
+onlyBuiltDependencies:
+  - '@swc/core'
