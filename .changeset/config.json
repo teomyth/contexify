@@ -12,8 +12,5 @@
     "@contexify/docs-*",
     "@contexify/docs-site",
     "@contexify/docs-code"
-  ],
-  "hooks": {
-    "afterVersionChange": "pnpm sync:version"
-  }
+  ]
 }
