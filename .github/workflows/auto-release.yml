@@ -1,0 +1,131 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.changeset/**'
+      - '!.changeset/README.md'
+      - '!.changeset/config.json'
+  # Check for unprocessed changesets every Monday
+  schedule:
+    - cron: '0 0 * * 1'
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        type: boolean
+        default: false
+      skip_tests:
+        description: 'Skip tests'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    # Avoid running multiple publish jobs simultaneously
+    concurrency: ${{ github.workflow }}-${{ github.ref }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # A complete git history is required to generate the correct changelog
+          fetch-depth: 0
+          # Make sure action can create and push tags
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Lint check
+        if: ${{ github.event.inputs.skip_tests != 'true' }}
+        run: pnpm lint
+
+      - name: Run tests
+        if: ${{ github.event.inputs.skip_tests != 'true' }}
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      # Use changesets/action to handle version updates and releases
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # If there is a changeset, create or update the PR
+          # If PR is merged, publish to npm
+          publish: pnpm publish
+          version: pnpm version
+          commit: "chore: update versions"
+          title: "chore: update versions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # If a new version is released, create and push git tags
+      - name: Create and push git tags
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "Creating git tags for published packages..."
+          
+          # Find all published packages
+          PUBLISHED_PACKAGES=$(find packages -name "package.json" -not -path "*/node_modules/*" -not -path "*/dist/*")
+          
+          for PKG_PATH in $PUBLISHED_PACKAGES; do
+            PKG_DIR=$(dirname "$PKG_PATH")
+            PKG_JSON=$(cat "$PKG_PATH")
+            
+            # Extract package name and version
+            PKG_NAME=$(echo "$PKG_JSON" | grep -o '"name": *"[^"]*"' | cut -d'"' -f4)
+            PKG_VERSION=$(echo "$PKG_JSON" | grep -o '"version": *"[^"]*"' | cut -d'"' -f4)
+            
+            # Skip private packages
+            IS_PRIVATE=$(echo "$PKG_JSON" | grep -o '"private": *true')
+            if [ -n "$IS_PRIVATE" ]; then
+              echo "Skipping private package: $PKG_NAME"
+              continue
+            fi
+            
+            # Create tag
+            TAG_NAME="$PKG_NAME@$PKG_VERSION"
+            echo "Creating tag: $TAG_NAME"
+            
+            # Check if tag already exists
+            if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+              echo "Tag $TAG_NAME already exists, skipping."
+            else
+              git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+              echo "Created tag: $TAG_NAME"
+            fi
+          done
+          
+          # Push all tags
+          git push --follow-tags
+          echo "All tags pushed successfully."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

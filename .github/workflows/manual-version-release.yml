@@ -1,4 +1,8 @@
-name: Release and Publish
+name: Manual Version and Release
+
+# NOTE: This workflow is for manual versioning and releasing.
+# In most cases, you should use the 'Auto Release' workflow
+# which handles both version updates and npm publishing automatically.
 
 on:
   workflow_dispatch:
@@ -32,6 +36,10 @@ on:
         required: false
         default: false
         type: boolean
+
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   release:

@@ -9,6 +9,9 @@ on:
       - 'docs-code/**'
       - '.github/workflows/docs.yml'
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

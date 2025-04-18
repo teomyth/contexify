@@ -1,8 +1,9 @@
-name: Publish Existing Version to npm
+name: Manual npm Publish
 
 # NOTE: This workflow is for special cases only.
-# In most cases, you should use the 'Release and Publish' workflow
-# which handles both GitHub release and npm publishing in one step.
+# In most cases, you should use the 'Auto Release' workflow
+# which handles both version updates and npm publishing automatically.
+# Or use the 'Manual Version and Release' workflow for manual versioning.
 
 on:
   workflow_dispatch:
@@ -26,6 +27,10 @@ on:
         required: false
         default: false
         type: boolean
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   publish:
