@@ -38,12 +38,6 @@
     "version": "changeset version && cx-sync-versions",
     "publish": "changeset publish",
     "publish:dry": "echo 'DRY RUN: Would publish packages to npm' && changeset version --snapshot dry-run",
-    "release": "node scripts/release.js",
-    "release:patch": "node scripts/release.js patch",
-    "release:minor": "node scripts/release.js minor",
-    "release:major": "node scripts/release.js major",
-    "release:yes": "node scripts/release.js --yes",
-    "release:dry": "node scripts/release.js --dry-run",
 
     "docs:build": "turbo run build --filter=@contexify/docs-site",
     "docs:start": "turbo run start --filter=@contexify/docs-site",
