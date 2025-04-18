@@ -39,7 +39,7 @@
       "outputs": []
     },
     "prepub": {
-      "dependsOn": [],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
 
