@@ -1,6 +1,9 @@
 {
   "name": "@contexify/build",
   "version": "0.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Build tools and utilities for Contexify projects",
   "type": "module",
   "main": "src/index.js",
