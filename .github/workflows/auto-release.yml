@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     # Avoid running multiple publish jobs simultaneously
     concurrency: ${{ github.workflow }}-${{ github.ref }}
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -79,7 +79,7 @@ jobs:
           # If there is a changeset, create or update the PR
           # If PR is merged, publish to npm
           publish: pnpm publish
-          version: pnpm version
+          version: pnpm run version
           commit: "chore: update versions"
           title: "chore: update versions"
         env:
@@ -92,29 +92,29 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         run: |
           echo "Creating git tags for published packages..."
-          
+
           # Find all published packages
           PUBLISHED_PACKAGES=$(find packages -name "package.json" -not -path "*/node_modules/*" -not -path "*/dist/*")
-          
+
           for PKG_PATH in $PUBLISHED_PACKAGES; do
             PKG_DIR=$(dirname "$PKG_PATH")
             PKG_JSON=$(cat "$PKG_PATH")
-            
+
             # Extract package name and version
             PKG_NAME=$(echo "$PKG_JSON" | grep -o '"name": *"[^"]*"' | cut -d'"' -f4)
             PKG_VERSION=$(echo "$PKG_JSON" | grep -o '"version": *"[^"]*"' | cut -d'"' -f4)
-            
+
             # Skip private packages
             IS_PRIVATE=$(echo "$PKG_JSON" | grep -o '"private": *true')
             if [ -n "$IS_PRIVATE" ]; then
               echo "Skipping private package: $PKG_NAME"
               continue
             fi
-            
+
             # Create tag
             TAG_NAME="$PKG_NAME@$PKG_VERSION"
             echo "Creating tag: $TAG_NAME"
-            
+
             # Check if tag already exists
             if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
               echo "Tag $TAG_NAME already exists, skipping."
@@ -123,7 +123,7 @@ jobs:
               echo "Created tag: $TAG_NAME"
             fi
           done
-          
+
           # Push all tags
           git push --follow-tags
           echo "All tags pushed successfully."
