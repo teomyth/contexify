@@ -84,8 +84,8 @@ function showErrorSummary() {
 // Main execution
 console.log(`${colors.magenta}${colors.bold}Starting pre-publish validation...${colors.reset}`);
 
-// Step 1: Run prepub for the main package
-runCommand('pnpm turbo run prepub --filter=contexify', 'Main package validation (clean, fix, build, test)');
+// Step 1: Run prepub for all packages
+runCommand('pnpm turbo run prepub', 'All packages validation (clean, fix, build, test)');
 
 // Step 2: Check documentation code syntax
 // We'll run a modified command that forces color output and filters out the build logs
