@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "teomyth/contexify" }
+  ],
   "commit": true,
   "fixed": [],
   "linked": [],
@@ -8,12 +11,12 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "contexify-features-examples",
-    "modular-app-example",
-    "docs-code",
-    "docs-site"
+    "@contexify/examples-*",
+    "@contexify/docs-*",
+    "@contexify/docs-site",
+    "@contexify/docs-code"
   ],
   "hooks": {
-    "afterVersionChange": "node scripts/sync-versions.js"
+    "afterVersionChange": "cx-sync-versions"
   }
 }

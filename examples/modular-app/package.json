@@ -1,5 +1,5 @@
 {
-  "name": "modular-app-example",
+  "name": "@contexify/examples-modular-app",
   "version": "1.0.0",
   "description": "Example application demonstrating best practices for using the Contexify framework",
   "type": "module",

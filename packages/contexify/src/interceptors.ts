@@ -13,4 +13,4 @@ export * from './interceptor/invocation.js';
 export * from './interceptor/interception-proxy.js';
 
 // Export version
-export { VERSION } from './index.js';
+export { VERSION } from './version.js';

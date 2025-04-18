@@ -1,6 +1,6 @@
-# contexify
+# @contexify/build
 
-## 1.0.8
+## 0.1.5
 
 ### Patch Changes
 
@@ -27,7 +27,7 @@
   - chore: revert to quick-release as primary release method (a4bbb8e) by teomyth
   - chore: implement platform-independent release process with release-it and fix build package issues (0bb71c1) by teomyth
 
-## 1.0.7
+## 0.1.4
 
 ### Patch Changes
 
@@ -57,7 +57,7 @@
   - chore: revert to quick-release as primary release method (a4bbb8e) by teomyth
   - chore: implement platform-independent release process with release-it and fix build package issues (0bb71c1) by teomyth
 
-## 1.0.6
+## 0.1.3
 
 ### Patch Changes
 
@@ -65,20 +65,14 @@
 
   Bug fixes and minor updates
 
-## 1.0.5
+## 0.1.2
 
 ### Patch Changes
 
 - Bug fixes and minor updates
 
-## 1.0.4
+## 0.1.1
 
 ### Patch Changes
 
 - Bug fixes and minor updates
-
-## 1.0.3
-
-### Patch Changes
-
-- Migrate from release-it to changesets for better monorepo version management

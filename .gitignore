@@ -4,10 +4,11 @@ node_modules/
 
 # Build outputs
 dist/
-build/
 out/
 .next/
 .turbo/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
 
 # Coverage directory
 coverage/
@@ -42,4 +43,10 @@ Thumbs.db
 temp
 tmp
 *_backup
-/*.sh
+
+# Temporary changeset files
+.changeset/quick-release-*.md
+.changeset/release-*.md
+
+# Release state file
+.release-state.json

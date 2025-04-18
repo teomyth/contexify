@@ -1,8 +1,9 @@
 {
-  "name": "contexify-features-examples",
+  "name": "@contexify/examples-features",
   "description": "Standalone examples to illustrate various features provided by contexify",
   "version": "1.0.0",
   "type": "module",
+  "private": true,
   "keywords": ["contexify", "context", "example", "tutorial"],
   "license": "MIT",
   "main": "dist/index.js",

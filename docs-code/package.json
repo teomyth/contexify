@@ -1,5 +1,5 @@
 {
-  "name": "docs-code",
+  "name": "@contexify/docs-code",
   "version": "0.0.0",
   "private": true,
   "description": "Executable code examples for Contexify documentation",

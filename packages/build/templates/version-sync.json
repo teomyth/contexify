@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "src/version.ts",
+      "pattern": "export const VERSION = ['\"](.*?)['\"]",
+      "replacement": "export const VERSION = '${version}'"
+    }
+  ]
+}

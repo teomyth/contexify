@@ -7,7 +7,7 @@
 /**
  * Version of the library
  */
-export const VERSION = '2.0.0';
+export { VERSION } from './version.js';
 
 // Export all modules
 export * from './binding/index.js';

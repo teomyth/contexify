@@ -1,8 +1,15 @@
 # Release Guide
 
-This project uses [Changesets](https://github.com/changesets/changesets) to manage versioning and releases.
+This project uses [Changesets](https://github.com/changesets/changesets) with a custom quick-release script to manage versioning and releases in a platform-independent way.
 
-## Release Process
+## Release Process Options
+
+We provide two main options for releasing packages:
+
+1. **Standard Changesets Flow** - Manual multi-step process
+2. **One-Command Release Flow** - Streamlined one-command process
+
+## Option 1: Standard Changesets Flow
 
 ### 1. Create a Changeset
 
@@ -50,17 +57,95 @@ This command will:
 Finally, run the following command to publish the packages:
 
 ```bash
-pnpm release
+pnpm publish
 ```
 
 This command will publish all packages with updated versions to npm.
+
+## Option 2: One-Command Release Flow
+
+For a more streamlined release process, we've created a custom release script that integrates with Changesets to provide a one-command release process with idempotent execution and recovery capabilities.
+
+### Using release Commands
+
+```bash
+pnpm release         # Interactive release (prompts for version)
+pnpm release:patch   # Release a patch version
+pnpm release:minor   # Release a minor version
+pnpm release:major   # Release a major version
+pnpm release:dry     # Dry run (no actual changes)
+pnpm release:yes     # Non-interactive release (skips prompts)
+```
+
+These commands will:
+
+1. Run tests and linting checks
+2. Bump the version in the root package.json
+3. Create a changeset for all packages
+4. Update all package versions using Changesets
+5. Synchronize version constants in source files
+6. Commit changes and create a Git tag
+7. Push changes and tags to the remote repository
+8. Publish packages to npm (if configured)
+
+### Advanced Release Options
+
+The release script supports additional options for more control:
+
+```bash
+# Recovery options
+pnpm release --resume          # Resume from last failed step
+pnpm release --clean-state     # Clean previous release state and exit
+
+# Force options (override state checks)
+pnpm release --force-changeset # Force re-creation of changeset
+pnpm release --force-version   # Force version update
+pnpm release --force-publish   # Force package publishing
+pnpm release --force-tags      # Force tag creation
+
+# Skip options
+pnpm release --skip-changeset  # Skip changeset creation
+pnpm release --skip-version    # Skip version update
+pnpm release --skip-publish    # Skip package publishing
+pnpm release --skip-tags       # Skip tag creation
+pnpm release --skip-git-check  # Skip checking if working directory is clean
+```
+
+### Idempotent Execution and Recovery
+
+The release script implements idempotent execution, meaning it can be safely re-run after failures without duplicating work. If the release process is interrupted, the script will:
+
+1. Detect the incomplete state
+2. Offer options to resume, restart, clean state, or exit
+3. Continue from the last successful step if resuming
+
+This ensures that you can recover from failures without leaving the repository in an inconsistent state.
+
+#### Recovery Process
+
+If a release fails midway (e.g., network issues during publishing):
+
+1. Simply run `pnpm release` again
+2. The script will detect the incomplete state and offer recovery options
+3. Select "Resume from last step" to continue where it left off
+
+#### Forcing Cancellation
+
+If you need to cancel an incomplete release:
+
+```bash
+pnpm release --clean-state
+```
+
+This will remove the state file and allow you to start fresh.
 
 ## Common Commands
 
 - `pnpm changeset` - Create a new changeset
 - `pnpm version` - Update version numbers and CHANGELOG files
-- `pnpm release` - Publish packages to npm
-- `pnpm release:dry` - Simulate the publishing process without actually publishing
+- `pnpm publish` - Publish packages to npm
+- `pnpm release` - One-command release process
+- `pnpm release:dry` - Simulate the release process without making changes
 
 ## Automatic VERSION Constant Update
 
@@ -108,9 +193,11 @@ If you need to manually synchronize version constants, you can run:
 pnpm sync:versions  # Synchronize all version constants
 ```
 
-## Example Release Workflow
+## Example Release Workflows
 
-Here's a complete example of the release workflow:
+### Standard Multi-Step Workflow
+
+Here's a complete example of the standard multi-step release workflow:
 
 1. Create a changeset
 
@@ -141,7 +228,7 @@ git commit -m "chore: update versions and CHANGELOG.md files"
 5. Publish packages
 
 ```bash
-pnpm release
+pnpm publish
 ```
 
 6. Push to GitHub
@@ -149,3 +236,41 @@ pnpm release
 ```bash
 git push --follow-tags
 ```
+
+### One-Command Workflow
+
+Here's how to use the streamlined one-command release workflow:
+
+1. Ensure your working directory is clean (commit or stash changes)
+
+2. Run the release command
+
+```bash
+pnpm release       # Interactive mode (recommended for first-time users)
+# OR
+pnpm release:minor # For a minor version bump
+```
+
+3. Follow the interactive prompts
+
+4. The script will handle everything: creating changesets, updating versions, publishing packages, and creating Git tags
+
+### Recovery Workflow
+
+If a release process is interrupted:
+
+1. Run the release command again
+
+```bash
+pnpm release
+```
+
+2. When prompted about the incomplete release, select "Resume from last step"
+
+3. The script will continue from where it left off
+
+### Git Tag Strategy
+
+Our release process creates Git tags based on the main package version. For example, if the main package is released as version 1.2.3, a tag `v1.2.3` will be created.
+
+The tag message includes version information for all released packages, making it easy to track which versions were released together.

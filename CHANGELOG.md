@@ -1,5 +1,37 @@
 # Changelog
 
+## [1.0.5](https://github.com/teomyth/contexify/compare/v1.0.1...v1.0.5) (2025-04-17)
+
+
+### Bug Fixes
+
+* add --no-git-checks option to pnpm publish command ([2865ad4](https://github.com/teomyth/contexify/commit/2865ad49badeca263acdcc3a8dd3c7af98ea6c60))
+* add debug.enabled checks before logging messages ([fd459ab](https://github.com/teomyth/contexify/commit/fd459ab8b9a55b6f3b132e8b28029904816cb8dd))
+* add process global declaration to fix ESLint errors ([7f2f6da](https://github.com/teomyth/contexify/commit/7f2f6dad231e0b47eee20a9d62be79de92792670))
+* ensure dry run mode does not actually publish packages ([140eda2](https://github.com/teomyth/contexify/commit/140eda2e12b08a684299ab5efd6fae271885c745))
+* ensure version synchronization works in dry run mode ([9cb6b3a](https://github.com/teomyth/contexify/commit/9cb6b3ae31045e00e9e064c73a5d950a5138d14d))
+* handle ignored changeset files in release script ([12f17da](https://github.com/teomyth/contexify/commit/12f17da58fdef9480b43b4c84976b4ca6971d4c2))
+* improve NPM authentication in release workflow ([01a8e29](https://github.com/teomyth/contexify/commit/01a8e29ba9a0010f60aabcc5ef10c6d49d50d04d))
+* update documentation check command to include organization prefix ([8bc2a82](https://github.com/teomyth/contexify/commit/8bc2a82f6383ac9d7ce3bd6c92865a37088c84db))
+* update documentation script filters to include namespace ([1870f7a](https://github.com/teomyth/contexify/commit/1870f7a2333e28f23a8bd439ebaad3b829258c6c))
+* update NPM authentication in release workflow ([5081f14](https://github.com/teomyth/contexify/commit/5081f1427f6eeef9fe6fdf2b1b338ebeceb61604))
+* update package names in changeset config ([a30b7c1](https://github.com/teomyth/contexify/commit/a30b7c159cfc9fcbda38a82032676bd1c041a088))
+* update prepub script to avoid circular dependency ([c16b95c](https://github.com/teomyth/contexify/commit/c16b95c44a57411ec60a4c5b49cef36e62b0333e))
+* update version script to fix ESLint errors ([8fa662f](https://github.com/teomyth/contexify/commit/8fa662fd703c251cdd4fdc7e6e04ebfd13fc4da0))
+* use direct npm publish for packages ([6f2dfb7](https://github.com/teomyth/contexify/commit/6f2dfb705c1cc530ebbc645bfdc5fbfdc498cf49))
+
+
+### Features
+
+* add automated and scheduled release workflows ([fc9d36b](https://github.com/teomyth/contexify/commit/fc9d36b1806b2d2a374ceca49944b3ae7a73eedd))
+* add changeset release workflow ([a728516](https://github.com/teomyth/contexify/commit/a7285162b947de59ec64fe7c728b5ad0cc2b08eb))
+* add official Changesets Action workflow ([9ac42f6](https://github.com/teomyth/contexify/commit/9ac42f696be6125e562bcbd6762e26029c619e00))
+* add simplified release commands ([033cef6](https://github.com/teomyth/contexify/commit/033cef65202783b4dde677b6b0a2f523fb6157aa))
+* add simplified release workflow with CI checks and npm publishing ([7156805](https://github.com/teomyth/contexify/commit/7156805ccfdd5793b76847783cdac8136a57f8f0))
+* enhance changelog generation with detailed commit information ([3f6a22f](https://github.com/teomyth/contexify/commit/3f6a22ffa2354cb2ebe7e2016e1d002a0ee51231))
+* implement streamlined release process with Changesets ([31362c1](https://github.com/teomyth/contexify/commit/31362c119ada378e6ff736bbd975808d0bc0bf6b))
+* update version numbers and changelogs for @contexify/build and contexify packages ([19f7d14](https://github.com/teomyth/contexify/commit/19f7d14b292e9481786bcbd27bd86fad98ee59c2))
+
 ## 1.1.0 (2025-04-17)
 
 * chore: add test:coverage script to monorepo ([ef4030d](https://github.com/teomyth/contexify/commit/ef4030d))

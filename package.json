@@ -1,5 +1,6 @@
 {
   "name": "contexify-monorepo",
+  "version": "1.0.5",
   "private": true,
   "description": "A TypeScript library providing a powerful dependency injection container with context-based IoC capabilities, inspired by LoopBack's Context system.",
   "author": "teomyth <teomyth@gmail.com>",
@@ -18,32 +19,39 @@
     "url": "https://github.com/teomyth/contexify/issues"
   },
   "scripts": {
-    "clean": "turbo run clean",
     "build": "turbo run build",
+    "clean": "turbo run clean",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage --filter=contexify",
-    "validate:all": "npm run test && npm run docs:test",
+    "test:version": "cx-check-versions --throw-on-error",
     "lint": "turbo run lint",
     "lint:fix": "biome check --write .",
     "format": "turbo run format",
     "format:fix": "biome format --write .",
     "fix": "biome check --write . && biome format --write .",
-    "prepub": "turbo run prepub --filter=contexify",
-    "prepub:all": "node scripts/prepub-all.js",
+    "validate:all": "npm run test && npm run docs:test",
     "prepare": "husky",
     "lint-staged": "lint-staged",
-    "docs:test": "turbo run test --filter=docs-code",
-    "docs:validate": "turbo run docs:validate",
-    "docs:update": "turbo run docs:update",
-    "docs:check": "turbo run docs:check --filter=docs-code",
-    "docs:build": "turbo run build --filter=docs-site",
-    "docs:start": "turbo run start --filter=docs-site",
-    "docs:serve": "turbo run serve --filter=docs-site",
+    "prepub": "node scripts/prepub.js",
+    "sync:version": "cx-sync-versions",
     "changeset": "changeset",
-    "version": "changeset version && node scripts/update-version.js",
-    "release": "changeset publish",
-    "release:dry": "changeset publish --dry-run",
-    "test:version": "node scripts/test-version-update.js"
+    "version": "changeset version && cx-sync-versions",
+    "publish": "changeset publish",
+    "publish:dry": "echo 'DRY RUN: Would publish packages to npm' && changeset version --snapshot dry-run",
+    "release": "node scripts/release.js",
+    "release:patch": "node scripts/release.js patch",
+    "release:minor": "node scripts/release.js minor",
+    "release:major": "node scripts/release.js major",
+    "release:yes": "node scripts/release.js --yes",
+    "release:dry": "node scripts/release.js --dry-run",
+
+    "docs:build": "turbo run build --filter=@contexify/docs-site",
+    "docs:start": "turbo run start --filter=@contexify/docs-site",
+    "docs:serve": "turbo run serve --filter=@contexify/docs-site",
+    "docs:check": "turbo run docs:check --filter=@contexify/docs-code",
+    "docs:test": "turbo run test --filter=@contexify/docs-code",
+    "docs:validate": "turbo run docs:validate",
+    "docs:update": "turbo run docs:update"
   },
   "lint-staged": {
     "packages/contexify/src/**/*.{js,ts}": [
@@ -54,16 +62,19 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@contexify/build": "workspace:*",
 
     "@types/node": "^22.14.1",
     "@vitest/coverage-v8": "^3.1.1",
-
+    "fast-glob": "^3.3.3",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
 
+    "replace-in-file": "^8.3.0",
     "turbo": "^2.5.0",
     "typescript": "^5.8.3",
     "vitest": "^3.1.1"
