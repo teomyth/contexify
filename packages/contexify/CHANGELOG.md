@@ -1,5 +1,11 @@
 # contexify
 
+## 1.1.0
+
+### Minor Changes
+
+- 449ad01: Restore project to use pure Changesets for releases
+
 ## 1.0.8
 
 ### Patch Changes

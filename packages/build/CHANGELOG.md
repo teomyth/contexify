@@ -1,5 +1,11 @@
 # @contexify/build
 
+## 0.2.0
+
+### Minor Changes
+
+- 449ad01: Restore project to use pure Changesets for releases
+
 ## 0.1.5
 
 ### Patch Changes
