@@ -78,7 +78,7 @@ jobs:
         with:
           # If there is a changeset, create or update the PR
           # If PR is merged, publish to npm
-          publish: pnpm publish
+          publish: pnpm publish --no-git-checks
           version: pnpm run version
           commit: "chore: update versions"
           title: "chore: update versions"
