@@ -16,9 +16,9 @@
  * -Can be manually run with `pnpm version-commit` after version changes
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 // Define the commit message constant
 // All submission messages are defined here for unified management and modification
