@@ -11,6 +11,9 @@
  * 1. When Changesets is configured with `commit: false` -commits all version-related changes
  * 2. When Changesets is configured with `commit: true` -only commits additional changes from version sync
  *
+ * Note: This script uses the `--no-verify` option when committing to skip Git hooks,
+ * as version-related changes don't need code formatting or linting checks.
+ *
  * Typical usage:
  * -Automatically executed after `pnpm version` via postversion hook
  * -Can be manually run with `pnpm version-commit` after version changes
@@ -44,52 +47,66 @@ function exec(command) {
   }
 }
 
+// Commit changes with the specified message
+function commitChanges(message) {
+  // Add all changes
+  exec('git add .');
+
+  // Commit changes, skip hooks with --no-verify
+  exec(`git commit -m "${message}" --no-verify`);
+
+  console.log(`Changes have been committed successfully with message: "${message}"`);
+}
+
 // Check for uncommitted changes
 function getChanges() {
   const status = exec('git status --porcelain');
   return status;
 }
 
-// Check if changes are version-related
-function hasVersionChanges(changes) {
-  // Check for changes to package.json or CHANGELOG.md files
-  const versionRelatedPatterns = [
-    /package\.json$/,      // package.json file
-    /CHANGELOG\.md$/,     // CHANGELOG.md file
-    /\.changeset\/.*$/,  // Files in the .changeset directory
-    /src\/version\.(js|ts)$/  // Version-related source files
-  ];
+// File patterns for version-related files
+const FILE_PATTERNS = {
+  PACKAGE_JSON: /package\.json$/,
+  CHANGELOG: /CHANGELOG\.md$/,
+  CHANGESET: /\.changeset\/.*$/,
+  SOURCE_VERSION: /src\/version\.(js|ts)$/
+};
 
+// Check if changes match specific patterns
+function checkChanges(changes, patterns) {
   const lines = changes.split('\n').filter(line => line.trim());
 
   return lines.some(line => {
     const file = line.substring(3); // Skip status marks and spaces
-    return versionRelatedPatterns.some(pattern => pattern.test(file));
+    return patterns.some(pattern => pattern.test(file));
   });
+}
+
+// Check if changes are version-related
+function hasVersionChanges(changes) {
+  // All version-related patterns
+  const patterns = [
+    FILE_PATTERNS.PACKAGE_JSON,
+    FILE_PATTERNS.CHANGELOG,
+    FILE_PATTERNS.CHANGESET,
+    FILE_PATTERNS.SOURCE_VERSION
+  ];
+
+  return checkChanges(changes, patterns);
 }
 
 // Check if only source version files were changed (sync:version result)
 function hasOnlySourceVersionChanges(changes) {
-  const sourceVersionPattern = /src\/version\.(js|ts)$/;
-  const packageJsonPattern = /package\.json$/;
-  const changelogPattern = /CHANGELOG\.md$/;
-  const changesetPattern = /\.changeset\/.*$/;
+  // Check if there are source version file changes
+  const hasSourceVersionChanges = checkChanges(changes, [FILE_PATTERNS.SOURCE_VERSION]);
 
-  const lines = changes.split('\n').filter(line => line.trim());
-
-  // Check if there are only source version file changes
-  const hasSourceVersionChanges = lines.some(line => {
-    const file = line.substring(3); // Skip status marks and spaces
-    return sourceVersionPattern.test(file);
-  });
-
-  // Check if there are no package.json, CHANGELOG.md, or .changeset changes
-  const hasOtherChanges = lines.some(line => {
-    const file = line.substring(3); // Skip status marks and spaces
-    return packageJsonPattern.test(file) ||
-           changelogPattern.test(file) ||
-           changesetPattern.test(file);
-  });
+  // Check if there are other version-related changes
+  const otherPatterns = [
+    FILE_PATTERNS.PACKAGE_JSON,
+    FILE_PATTERNS.CHANGELOG,
+    FILE_PATTERNS.CHANGESET
+  ];
+  const hasOtherChanges = checkChanges(changes, otherPatterns);
 
   // Return true if there are source version changes but no other changes
   return hasSourceVersionChanges && !hasOtherChanges;
@@ -128,15 +145,9 @@ function main() {
     // If Changesets is already committing changes, we only need to commit source version changes
     if (hasOnlySourceVersionChanges(changes)) {
       console.log('Only source version changes detected after Changesets commit.');
-      console.log(`Committing these additional changes with message: "${COMMIT_MESSAGES.VERSION_SYNC_ONLY}"...`);
-
-      // Add all changes
-      exec('git add .');
 
       // Commit only the version sync changes
-      exec(`git commit -m "${COMMIT_MESSAGES.VERSION_SYNC_ONLY}"`);
-
-      console.log('Source version changes have been committed successfully.');
+      commitChanges(COMMIT_MESSAGES.VERSION_SYNC_ONLY);
     } else {
       console.log('Changesets is configured to commit changes automatically.');
       console.log('No additional source-only changes detected. Nothing to commit.');
@@ -151,15 +162,9 @@ function main() {
   }
 
   console.log('Version-related changes detected, preparing to commit...');
-  console.log(`Using commit message: "${COMMIT_MESSAGES.VERSION_ALL}"...`);
 
-  // Add all changes
-  exec('git add .');
-
-  // Commit changes
-  exec(`git commit -m "${COMMIT_MESSAGES.VERSION_ALL}"`);
-
-  console.log('Version changes have been committed successfully.');
+  // Commit all version-related changes
+  commitChanges(COMMIT_MESSAGES.VERSION_ALL);
 }
 
 // Execute the main function
