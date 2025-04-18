@@ -30,7 +30,7 @@
     "format:fix": "biome format --write .",
     "fix": "biome check --write . && biome format --write .",
     "validate:all": "npm run test && npm run docs:test",
-    "prepare": "husky",
+    "prepare": "husky husky && turbo telemetry disable",
     "lint-staged": "lint-staged",
     "prepub": "node scripts/prepub.js",
     "sync:version": "cx-sync-versions",
@@ -38,7 +38,6 @@
     "version": "changeset version && cx-sync-versions",
     "publish": "changeset publish",
     "publish:dry": "echo 'DRY RUN: Would publish packages to npm' && changeset version --snapshot dry-run",
-
     "docs:build": "turbo run build --filter=@contexify/docs-site",
     "docs:start": "turbo run start --filter=@contexify/docs-site",
     "docs:serve": "turbo run serve --filter=@contexify/docs-site",
