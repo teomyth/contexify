@@ -4,7 +4,12 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
-  "keywords": ["contexify", "context", "example", "tutorial"],
+  "keywords": [
+    "contexify",
+    "context",
+    "example",
+    "tutorial"
+  ],
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

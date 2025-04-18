@@ -1,6 +1,6 @@
 {
   "name": "contexify",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "A TypeScript library providing a powerful dependency injection container with context-based IoC capabilities, inspired by LoopBack's Context system.",
   "author": "teomyth <teomyth@gmail.com>",
   "license": "MIT",
@@ -40,7 +40,13 @@
       "default": "./dist/interceptors.js"
     }
   },
-  "files": ["README.md", "NOTICE.md", "LICENSE", "dist", "src"],
+  "files": [
+    "README.md",
+    "NOTICE.md",
+    "LICENSE",
+    "dist",
+    "src"
+  ],
   "engines": {
     "node": ">=18"
   },
