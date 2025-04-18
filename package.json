@@ -35,7 +35,7 @@
     "prepub": "node scripts/prepub.js",
     "sync:version": "cx-sync-versions",
     "changeset": "changeset",
-    "version": "changeset version && cx-sync-versions",
+    "version": "changeset version",
     "publish": "changeset publish",
     "publish:dry": "echo 'DRY RUN: Would publish packages to npm' && changeset version --snapshot dry-run",
     "docs:build": "turbo run build --filter=@contexify/docs-site",
