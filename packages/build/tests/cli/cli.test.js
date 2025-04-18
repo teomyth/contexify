@@ -21,7 +21,7 @@ const mockExit = vi.fn();
 describe('cli', () => {
   beforeEach(() => {
     // Mock process.exit
-    process.exit = mockExit as any;
+    process.exit = mockExit;
 
     // Mock console.error
     vi.spyOn(console, 'error').mockImplementation(() => {});

@@ -2,6 +2,8 @@
 
 Build tools and utilities for Contexify projects.
 
+> **Note**: This package is written in pure JavaScript and can be used without compilation.
+
 ## Installation
 
 ```bash
@@ -23,7 +25,7 @@ pnpm add --save-dev @contexify/build
 
 ### Version Synchronization
 
-```typescript
+```javascript
 import { syncVersions } from '@contexify/build/version';
 
 // Synchronize versions in all packages

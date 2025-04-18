@@ -7,4 +7,3 @@
 
 export * from './sync-versions.js';
 export * from './check-versions.js';
-export * from './types.js';

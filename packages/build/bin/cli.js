@@ -4,7 +4,7 @@
  * CLI entry point for @contexify/build
  */
 
-import { cli } from '../dist/cli/index.js';
+import { cli } from '../src/cli/index.js';
 
 // Run the CLI
 cli(process.argv)

@@ -9,7 +9,7 @@ import * as fgPkg from 'fast-glob';
 const fg = fgPkg.default || fgPkg;
 import fs from 'fs';
 import path from 'path';
-import { VersionSyncOptions, VersionSyncResult } from './types.js';
+// No types needed in JavaScript
 import { logger } from '../utils/logger.js';
 
 /**
@@ -18,9 +18,7 @@ import { logger } from '../utils/logger.js';
  * @param options Options for version synchronization
  * @returns Results of the synchronization
  */
-export async function syncVersions(
-  options: VersionSyncOptions = {}
-): Promise<VersionSyncResult[]> {
+export async function syncVersions(options = {}) {
   const {
     rootDir = process.cwd(),
     packagesPattern = 'packages/*',
@@ -44,7 +42,7 @@ export async function syncVersions(
     logger.group(`Version Synchronization (${configFiles.length} packages)`);
   }
 
-  const results: VersionSyncResult[] = [];
+  const results = [];
 
   for (const configFile of configFiles) {
     const packageDir = path.dirname(path.resolve(rootDir, configFile));
@@ -72,7 +70,7 @@ export async function syncVersions(
       fs.readFileSync(path.resolve(rootDir, configFile), 'utf8')
     );
 
-    const result: VersionSyncResult = {
+    const result = {
       packageName,
       version,
       updatedFiles: [],

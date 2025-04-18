@@ -11,7 +11,7 @@ import { logger } from '../utils/logger.js';
  * Create and configure the CLI
  * @returns The configured CLI
  */
-function createCli(): Command {
+function createCli() {
   const program = new Command();
 
   program
@@ -89,7 +89,7 @@ function createCli(): Command {
  * @param args Command-line arguments
  * @returns A promise that resolves when the CLI is done
  */
-export async function cli(args: string[]): Promise<void> {
+export async function cli(args) {
   const program = createCli();
   await program.parseAsync(args);
 }

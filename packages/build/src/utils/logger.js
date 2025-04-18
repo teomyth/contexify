@@ -12,7 +12,7 @@ export const logger = {
    * Log an info message
    * @param message Message to log
    */
-  info(message: string): void {
+  info(message) {
     console.log(message);
   },
 
@@ -20,7 +20,7 @@ export const logger = {
    * Log a success message
    * @param message Message to log
    */
-  success(message: string): void {
+  success(message) {
     console.log(chalk.green(`✅ ${message}`));
   },
 
@@ -28,7 +28,7 @@ export const logger = {
    * Log a warning message
    * @param message Message to log
    */
-  warn(message: string): void {
+  warn(message) {
     console.log(chalk.yellow(`⚠ ${message}`));
   },
 
@@ -36,7 +36,7 @@ export const logger = {
    * Log an error message
    * @param message Message to log
    */
-  error(message: string): void {
+  error(message) {
     console.error(chalk.red(`❌ ${message}`));
   },
 
@@ -44,7 +44,7 @@ export const logger = {
    * Log a debug message
    * @param message Message to log
    */
-  debug(message: string): void {
+  debug(message) {
     if (process.env.DEBUG) {
       console.log(chalk.gray(`🔍 ${message}`));
     }
@@ -54,7 +54,7 @@ export const logger = {
    * Start a group in the log
    * @param title Group title
    */
-  group(title: string): void {
+  group(title) {
     console.log(chalk.blue(`▶ ${title}`));
   },
 
@@ -62,7 +62,7 @@ export const logger = {
    * Start a nested group in the log
    * @param title Group title
    */
-  nestedGroup(title: string): void {
+  nestedGroup(title) {
     console.log(chalk.blue(`  ▶ ${title}`));
   },
 
@@ -72,9 +72,9 @@ export const logger = {
    * @param status Status type (success, warning, error)
    */
   fileStatus(
-    message: string,
-    status: 'success' | 'warning' | 'error' = 'success'
-  ): void {
+    message,
+    status = 'success'
+  ) {
     const icon = status === 'success' ? '✓' : status === 'warning' ? '⚠' : '✗';
     const color =
       status === 'success'

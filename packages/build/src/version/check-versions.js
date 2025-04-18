@@ -8,7 +8,7 @@ import * as fgPkg from 'fast-glob';
 const fg = fgPkg.default || fgPkg;
 import fs from 'fs';
 import path from 'path';
-import { VersionCheckOptions, VersionSyncResult } from './types.js';
+// No types needed in JavaScript
 import { logger } from '../utils/logger.js';
 
 /**
@@ -17,9 +17,7 @@ import { logger } from '../utils/logger.js';
  * @param options Options for version checking
  * @returns Results of the check
  */
-export async function checkVersions(
-  options: VersionCheckOptions = {}
-): Promise<VersionSyncResult[]> {
+export async function checkVersions(options = {}) {
   const {
     rootDir = process.cwd(),
     packagesPattern = 'packages/*',
@@ -44,7 +42,7 @@ export async function checkVersions(
     logger.group(`Version Check (${configFiles.length} packages)`);
   }
 
-  const results: VersionSyncResult[] = [];
+  const results = [];
   let hasErrors = false;
 
   for (const configFile of configFiles) {
@@ -77,7 +75,7 @@ export async function checkVersions(
       fs.readFileSync(path.resolve(rootDir, configFile), 'utf8')
     );
 
-    const result: VersionSyncResult = {
+    const result = {
       packageName,
       version,
       updatedFiles: [],
