@@ -20,6 +20,8 @@
   },
   "scripts": {
     "build": "turbo run build",
+    "build:packages": "turbo run build --filter=!@contexify/docs-site --filter=!@contexify/docs-code",
+    "build:docs": "turbo run build --filter=@contexify/docs-site --filter=@contexify/docs-code",
     "clean": "turbo run clean",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage --filter=contexify",
@@ -34,7 +36,7 @@
     "lint-staged": "lint-staged",
     "prepub": "node scripts/prepub.js",
     "version": "node ./scripts/version.js",
-    "publish": "pnpm build && pnpm changeset publish",
+    "publish": "pnpm build:packages && pnpm changeset publish",
     "publish:dry": "echo 'DRY RUN: Would publish packages to npm' && changeset version --snapshot dry-run",
     "docs:build": "turbo run build --filter=@contexify/docs-site",
     "docs:start": "turbo run start --filter=@contexify/docs-site",
