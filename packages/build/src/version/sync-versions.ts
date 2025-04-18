@@ -62,7 +62,9 @@ export async function syncVersions(
     const packageName = packageJson.name;
 
     if (verbose) {
-      logger.nestedGroup(`[${results.length + 1}/${configFiles.length}] ${packageName} (${version})`);
+      logger.nestedGroup(
+        `[${results.length + 1}/${configFiles.length}] ${packageName} (${version})`
+      );
     }
 
     // Read the sync configuration
@@ -108,12 +110,18 @@ export async function syncVersions(
 
         if (results[0].hasChanged) {
           if (verbose) {
-            logger.fileStatus(`${fileConfig.path} updated to version ${version}`, 'success');
+            logger.fileStatus(
+              `${fileConfig.path} updated to version ${version}`,
+              'success'
+            );
           }
           result.updatedFiles.push(fileConfig.path);
         } else {
           if (verbose) {
-            logger.fileStatus(`${fileConfig.path} is already up to date`, 'success');
+            logger.fileStatus(
+              `${fileConfig.path} is already up to date`,
+              'success'
+            );
           }
           result.upToDateFiles.push(fileConfig.path);
         }

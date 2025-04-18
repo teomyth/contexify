@@ -71,9 +71,17 @@ export const logger = {
    * @param message Status message
    * @param status Status type (success, warning, error)
    */
-  fileStatus(message: string, status: 'success' | 'warning' | 'error' = 'success'): void {
+  fileStatus(
+    message: string,
+    status: 'success' | 'warning' | 'error' = 'success'
+  ): void {
     const icon = status === 'success' ? '✓' : status === 'warning' ? '⚠' : '✗';
-    const color = status === 'success' ? chalk.green : status === 'warning' ? chalk.yellow : chalk.red;
+    const color =
+      status === 'success'
+        ? chalk.green
+        : status === 'warning'
+          ? chalk.yellow
+          : chalk.red;
     console.log(`    ${color(icon)} ${message}`);
   },
 };

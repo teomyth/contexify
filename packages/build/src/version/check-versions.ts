@@ -53,7 +53,10 @@ export async function checkVersions(
 
     if (!fs.existsSync(packageJsonPath)) {
       if (verbose) {
-        logger.fileStatus(`Package.json not found for config ${configFile}`, 'error');
+        logger.fileStatus(
+          `Package.json not found for config ${configFile}`,
+          'error'
+        );
       }
       hasErrors = true;
       continue;
@@ -64,7 +67,9 @@ export async function checkVersions(
     const packageName = packageJson.name;
 
     if (verbose) {
-      logger.nestedGroup(`[${results.length + 1}/${configFiles.length}] ${packageName} (${version})`);
+      logger.nestedGroup(
+        `[${results.length + 1}/${configFiles.length}] ${packageName} (${version})`
+      );
     }
 
     // Read the sync configuration
@@ -127,7 +132,10 @@ export async function checkVersions(
           hasErrors = true;
         } else {
           if (verbose) {
-            logger.fileStatus(`${fileConfig.path} has correct version ${version}`, 'success');
+            logger.fileStatus(
+              `${fileConfig.path} has correct version ${version}`,
+              'success'
+            );
           }
           result.upToDateFiles.push(fileConfig.path);
         }
@@ -147,7 +155,9 @@ export async function checkVersions(
 
   if (hasErrors) {
     if (verbose) {
-      logger.error('Version check failed. Some files are not in sync with package.json versions.');
+      logger.error(
+        'Version check failed. Some files are not in sync with package.json versions.'
+      );
     }
     if (throwOnError) {
       throw new Error(
@@ -155,7 +165,9 @@ export async function checkVersions(
       );
     }
   } else if (verbose) {
-    logger.success('Version check passed. All files are in sync with package.json versions.');
+    logger.success(
+      'Version check passed. All files are in sync with package.json versions.'
+    );
   }
 
   return results;
