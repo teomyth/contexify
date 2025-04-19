@@ -93,8 +93,28 @@ jobs:
         run: |
           echo "Creating git tags for published packages..."
 
+          # Configure git user
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          # Debug: Show if any packages were published
+          echo "Published packages: ${{ steps.changesets.outputs.publishedPackages }}"
+
           # Find all published packages
           PUBLISHED_PACKAGES=$(find packages -name "package.json" -not -path "*/node_modules/*" -not -path "*/dist/*")
+
+          # Debug: Show found packages
+          echo "Found package.json files:"
+          echo "$PUBLISHED_PACKAGES"
+
+          # Check if any packages were found
+          if [ -z "$PUBLISHED_PACKAGES" ]; then
+            echo "No packages found. Skipping tag creation."
+            exit 0
+          fi
+
+          # Track if we created any tags
+          CREATED_TAGS=false
 
           for PKG_PATH in $PUBLISHED_PACKAGES; do
             PKG_DIR=$(dirname "$PKG_PATH")
@@ -104,10 +124,19 @@ jobs:
             PKG_NAME=$(echo "$PKG_JSON" | grep -o '"name": *"[^"]*"' | cut -d'"' -f4)
             PKG_VERSION=$(echo "$PKG_JSON" | grep -o '"version": *"[^"]*"' | cut -d'"' -f4)
 
+            # Debug: Show package info
+            echo "Package: $PKG_NAME, Version: $PKG_VERSION"
+
             # Skip private packages
             IS_PRIVATE=$(echo "$PKG_JSON" | grep -o '"private": *true')
             if [ -n "$IS_PRIVATE" ]; then
               echo "Skipping private package: $PKG_NAME"
+              continue
+            fi
+
+            # Skip if name or version is empty
+            if [ -z "$PKG_NAME" ] || [ -z "$PKG_VERSION" ]; then
+              echo "Skipping package with missing name or version: $PKG_PATH"
               continue
             fi
 
@@ -121,11 +150,17 @@ jobs:
             else
               git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
               echo "Created tag: $TAG_NAME"
+              CREATED_TAGS=true
             fi
           done
 
-          # Push all tags
-          git push --follow-tags
-          echo "All tags pushed successfully."
+          # Only push if we created new tags
+          if [ "$CREATED_TAGS" = true ]; then
+            echo "Pushing tags to remote..."
+            git push --tags
+            echo "All tags pushed successfully."
+          else
+            echo "No new tags created. Skipping push."
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
