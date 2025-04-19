@@ -1,7 +1,7 @@
 /**
  * @contexify/build
  *
- * Build tools and utilities for Contexify projects.
+ * Version management utilities for Contexify projects.
  */
 
 /**

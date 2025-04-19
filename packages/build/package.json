@@ -4,28 +4,18 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Build tools and utilities for Contexify projects",
+  "description": "Version management utilities for Contexify projects",
   "type": "module",
   "main": "src/index.js",
   "exports": {
     ".": "./src/index.js",
-    "./version": "./src/version/index.js",
-    "./test": "./src/test/index.js",
-    "./cli": "./src/cli/index.js"
+    "./version": "./src/version/index.js"
   },
   "bin": {
-    "contexify-build": "./bin/cli.js",
-    "cx-build": "./bin/cli.js",
     "cx-sync-versions": "./bin/sync-versions.js",
     "cx-check-versions": "./bin/check-versions.js"
   },
-  "files": [
-    "bin",
-    "src",
-    "templates",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["bin", "src", "templates", "README.md", "LICENSE"],
   "scripts": {
     "clean": "rm -rf dist",
     "build": "echo 'No build step required - using JavaScript directly'",
@@ -36,13 +26,7 @@
     "fix": "biome check --write . && biome format --write .",
     "prepub": "pnpm fix && pnpm test"
   },
-  "keywords": [
-    "contexify",
-    "build",
-    "tools",
-    "typescript",
-    "monorepo"
-  ],
+  "keywords": ["contexify", "build", "tools", "typescript", "monorepo"],
   "author": "teomyth <teomyth@gmail.com>",
   "license": "MIT",
   "repository": {
