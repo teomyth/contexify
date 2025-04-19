@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# API Reference
+# API Overview
 
 This section provides a comprehensive reference for the Contexify API. Each class, method, and interface is documented in detail with examples to help you understand how to use them effectively.
 
@@ -41,9 +41,13 @@ Contextify defines several interfaces and types that are used throughout the fra
 - [BindingFilter](./interfaces.md#bindingfilter) - Represents a function that filters bindings
 - [BindingComparator](./interfaces.md#bindingcomparator) - Represents a function that compares bindings
 
-## Examples
+## Usage Examples
 
-For practical examples of using the Contexify API, see the [API Usage Examples](./examples.md) page. This page provides a variety of examples that demonstrate how to use the API in real-world scenarios.
+For practical examples of using the Contexify API, see the [API Usage Examples](./usage-examples.md) page. This page provides a variety of examples that demonstrate how to use the API in real-world scenarios.
+
+## Related Resources
+
+To learn how to use Contexify effectively in your applications, see the [Best Practices](/docs/best-practices) section. This section provides guidance on application architecture, dependency injection, and advanced patterns.
 
 ## For More Information
 

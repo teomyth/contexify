@@ -122,5 +122,5 @@ class UserController {
 Now that you have a basic understanding of Contexify, you can explore more advanced features:
 
 - [Core Concepts](./category/core-concepts) - Learn about the fundamental concepts of Contexify
-- [API Reference](./api) - View the detailed API documentation
+- [API Reference](./api/overview) - View the detailed API documentation
 - [Examples](./category/examples) - See examples of Contexify in action

@@ -213,4 +213,4 @@ Now that you understand the Context concept, you can learn about:
 
 - [Binding](./binding) - How to register and manage dependencies
 - [Dependency Injection](./dependency-injection) - How to inject dependencies into your classes
-- [API Reference](../api) - View the detailed API documentation
+- [API Reference](../api/overview) - View the detailed API documentation

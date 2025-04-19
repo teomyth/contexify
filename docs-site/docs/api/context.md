@@ -1,16 +1,21 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# Context Class
+# Context
 
 The `Context` class is the core of the Contexify framework. It serves as a registry for bindings and provides methods for managing dependencies.
 
 ## Constructor
 
-### `constructor(parent?: Context, name?: string)`
+### constructor
 
 Creates a new Context instance.
+
+**Signature:**
+```typescript
+constructor(parent?: Context, name?: string)
+```
 
 **Parameters:**
 - `parent` (optional): A parent Context. If provided, this Context will inherit bindings from the parent.
@@ -29,9 +34,14 @@ const childContext = new Context(rootContext, 'child');
 
 ## Binding Methods
 
-### `bind(key: string): Binding`
+### bind
 
 Creates a new Binding with the given key and adds it to the Context.
+
+**Signature:**
+```typescript
+bind(key: string): Binding
+```
 
 **Parameters:**
 - `key`: The binding key. This is a string that uniquely identifies the binding within the Context.
@@ -48,9 +58,14 @@ binding.to('Hello, world!');
 context.bind('services.UserService').toClass(UserService);
 ```
 
-### `add(binding: Binding): this`
+### add
 
 Adds an existing Binding to the Context.
+
+**Signature:**
+```typescript
+add(binding: Binding): this
+```
 
 **Parameters:**
 - `binding`: The Binding to add.
@@ -67,9 +82,14 @@ binding.to('Hello, world!');
 context.add(binding);
 ```
 
-### `unbind(key: string): boolean`
+### unbind
 
 Removes a Binding from the Context.
+
+**Signature:**
+```typescript
+unbind(key: string): boolean
+```
 
 **Parameters:**
 - `key`: The binding key to remove.
@@ -83,9 +103,14 @@ const wasRemoved = context.unbind('greeting');
 console.log(wasRemoved); // true or false
 ```
 
-### `contains(key: string): boolean`
+### contains
 
 Checks if the Context contains a Binding with the given key.
+
+**Signature:**
+```typescript
+contains(key: string): boolean
+```
 
 **Parameters:**
 - `key`: The binding key to check.
@@ -101,9 +126,14 @@ console.log(exists); // true or false
 
 ## Resolution Methods
 
-### `get<T>(key: string, options?: ResolutionOptions): Promise<T>`
+### get
 
 Resolves a value from the Context asynchronously.
+
+**Signature:**
+```typescript
+get<T>(key: string, options?: ResolutionOptions): Promise<T>
+```
 
 **Parameters:**
 - `key`: The binding key to resolve.
@@ -121,9 +151,14 @@ console.log(greeting); // Hello, world!
 const userService = await context.get<UserService>('services.UserService');
 ```
 
-### `getSync<T>(key: string, options?: ResolutionOptions): T`
+### getSync
 
 Resolves a value from the Context synchronously.
+
+**Signature:**
+```typescript
+getSync<T>(key: string, options?: ResolutionOptions): T
+```
 
 **Parameters:**
 - `key`: The binding key to resolve.
@@ -140,9 +175,14 @@ const greeting = context.getSync<string>('greeting');
 console.log(greeting); // Hello, world!
 ```
 
-### `getBinding(key: string): Binding | undefined`
+### getBinding
 
 Gets a Binding from the Context.
+
+**Signature:**
+```typescript
+getBinding(key: string): Binding | undefined
+```
 
 **Parameters:**
 - `key`: The binding key to get.
@@ -158,9 +198,14 @@ if (binding) {
 }
 ```
 
-### `find(pattern: string | RegExp): Promise<Binding[]>`
+### find
 
 Finds all Bindings that match the given pattern.
+
+**Signature:**
+```typescript
+find(pattern: string | RegExp): Promise<Binding[]>
+```
 
 **Parameters:**
 - `pattern`: A string or RegExp pattern to match against binding keys.
@@ -174,9 +219,14 @@ const serviceBindings = await context.find(/^services\./);
 console.log(`Found ${serviceBindings.length} service bindings`);
 ```
 
-### `findByTag(tag: string): Promise<Binding[]>`
+### findByTag
 
 Finds all Bindings that have the given tag.
+
+**Signature:**
+```typescript
+findByTag(tag: string): Promise<Binding[]>
+```
 
 **Parameters:**
 - `tag`: The tag to search for.
@@ -192,9 +242,14 @@ console.log(`Found ${serviceBindings.length} service bindings`);
 
 ## Configuration Methods
 
-### `configure(key: string): Binding`
+### configure
 
 Creates a configuration binding for the given key.
+
+**Signature:**
+```typescript
+configure(key: string): Binding
+```
 
 **Parameters:**
 - `key`: The binding key to configure.
@@ -211,9 +266,14 @@ context.configure('services.EmailService').to({
 });
 ```
 
-### `getConfig<T>(key: string, options?: ResolutionOptions): Promise<T>`
+### getConfig
 
 Gets the configuration for a binding.
+
+**Signature:**
+```typescript
+getConfig<T>(key: string, options?: ResolutionOptions): Promise<T>
+```
 
 **Parameters:**
 - `key`: The binding key to get the configuration for.
@@ -230,9 +290,14 @@ console.log(emailConfig.host); // smtp.example.com
 
 ## Context View Methods
 
-### `createView<T>(filter: BindingFilter, comparator?: BindingComparator): ContextView<T>`
+### createView
 
 Creates a ContextView that tracks bindings matching the given filter.
+
+**Signature:**
+```typescript
+createView<T>(filter: BindingFilter, comparator?: BindingComparator): ContextView<T>
+```
 
 **Parameters:**
 - `filter`: A function that filters bindings.
@@ -254,9 +319,14 @@ const services = await serviceView.resolve();
 
 ## Observer Methods
 
-### `subscribe(observer: ContextEventObserver): this`
+### subscribe
 
 Subscribes an observer to context events.
+
+**Signature:**
+```typescript
+subscribe(observer: ContextEventObserver): this
+```
 
 **Parameters:**
 - `observer`: The observer to subscribe.
@@ -268,7 +338,7 @@ Subscribes an observer to context events.
 // Create an observer
 class ServiceObserver implements ContextObserver {
   filter = binding => binding.tags.has('service');
-  
+
   observe(event: string, binding: Binding) {
     console.log(`Service event: ${event}, binding: ${binding.key}`);
   }
@@ -278,9 +348,14 @@ class ServiceObserver implements ContextObserver {
 context.subscribe(new ServiceObserver());
 ```
 
-### `unsubscribe(observer: ContextEventObserver): boolean`
+### unsubscribe
 
 Unsubscribes an observer from context events.
+
+**Signature:**
+```typescript
+unsubscribe(observer: ContextEventObserver): boolean
+```
 
 **Parameters:**
 - `observer`: The observer to unsubscribe.
@@ -302,9 +377,14 @@ console.log(wasRemoved); // true or false
 
 ## Event Methods
 
-### `on(event: string, listener: ContextEventListener): this`
+### on
 
 Adds an event listener for the given event.
+
+**Signature:**
+```typescript
+on(event: string, listener: ContextEventListener): this
+```
 
 **Parameters:**
 - `event`: The event name.
@@ -320,9 +400,14 @@ context.on('bind', (binding, context) => {
 });
 ```
 
-### `once(event: string, listener: ContextEventListener): this`
+### once
 
 Adds a one-time event listener for the given event.
+
+**Signature:**
+```typescript
+once(event: string, listener: ContextEventListener): this
+```
 
 **Parameters:**
 - `event`: The event name.
@@ -338,9 +423,14 @@ context.once('bind', (binding, context) => {
 });
 ```
 
-### `off(event: string, listener: ContextEventListener): this`
+### off
 
 Removes an event listener for the given event.
+
+**Signature:**
+```typescript
+off(event: string, listener: ContextEventListener): this
+```
 
 **Parameters:**
 - `event`: The event name.
@@ -364,9 +454,14 @@ context.off('bind', listener);
 
 ## Lifecycle Methods
 
-### `close(): void`
+### close
 
 Closes the Context, releasing all resources and removing all bindings.
+
+**Signature:**
+```typescript
+close(): void
+```
 
 **Example:**
 ```typescript
@@ -406,7 +501,7 @@ class LoggerService {
 @injectable()
 class UserService {
   constructor(@inject('services.LoggerService') private logger: LoggerService) {}
-  
+
   createUser(name: string) {
     this.logger.log(`Creating user: ${name}`);
     return { id: Date.now().toString(), name };
@@ -426,11 +521,11 @@ context.on('bind', (binding) => {
 async function run() {
   // Resolve the UserService from the context
   const userService = await context.get<UserService>('services.UserService');
-  
+
   // Create a user
   const user = userService.createUser('John');
   console.log('Created user:', user);
-  
+
   // Close the context when done
   context.close();
 }

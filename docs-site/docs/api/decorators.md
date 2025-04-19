@@ -1,5 +1,5 @@
 ---
-sidebar_position: 5
+sidebar_position: 4
 ---
 
 # Decorators
@@ -22,7 +22,7 @@ class UserService {
   constructor() {
     console.log('UserService created');
   }
-  
+
   getUsers() {
     return ['user1', 'user2', 'user3'];
   }
@@ -61,7 +61,7 @@ class UserRepository {
 @injectable()
 class UserService {
   constructor(@inject('repositories.UserRepository') private userRepo: UserRepository) {}
-  
+
   getUsers() {
     return this.userRepo.findAll();
   }
@@ -82,7 +82,7 @@ console.log(userService.getUsers()); // Output: ['user1', 'user2', 'user3']
 class UserService {
   @inject('repositories.UserRepository')
   private userRepo: UserRepository;
-  
+
   getUsers() {
     return this.userRepo.findAll();
   }
@@ -112,7 +112,7 @@ namespace inject {
 @injectable()
 class Logger {
   constructor(private name: string) {}
-  
+
   log(message: string) {
     console.log(`[${this.name}] ${message}`);
   }
@@ -121,7 +121,7 @@ class Logger {
 @injectable()
 class Application {
   constructor(@inject.tag('logger') private loggers: Logger[]) {}
-  
+
   run() {
     this.loggers.forEach(logger => logger.log('Application started'));
   }
@@ -163,7 +163,7 @@ namespace inject {
 @injectable()
 class ConfigService {
   constructor(@inject.getter('config.database') private getDbConfig: Getter<any>) {}
-  
+
   async connectToDatabase() {
     // Get the configuration only when needed
     const dbConfig = await this.getDbConfig();
@@ -209,7 +209,7 @@ namespace inject {
 @injectable()
 class Plugin {
   constructor(public name: string) {}
-  
+
   initialize() {
     console.log(`Plugin ${this.name} initialized`);
   }
@@ -221,7 +221,7 @@ class PluginManager {
     @inject.view(binding => binding.tags.has('plugin'))
     private pluginView: ContextView<Plugin>
   ) {}
-  
+
   async initializePlugins() {
     const plugins = await this.pluginView.resolve();
     plugins.forEach(plugin => plugin.initialize());
@@ -265,7 +265,7 @@ class DatabaseService {
     @config('database.host') private host: string,
     @config('database.port') private port: number
   ) {}
-  
+
   connect() {
     console.log(`Connecting to database at ${this.host}:${this.port}`);
   }
@@ -308,14 +308,14 @@ class LoggingInterceptor implements Interceptor {
     console.log(`Calling ${invocationCtx.methodName} with args:`, invocationCtx.args);
     const start = Date.now();
     const result = next();
-    
+
     if (result instanceof Promise) {
       return result.then(value => {
         console.log(`${invocationCtx.methodName} completed in ${Date.now() - start}ms`);
         return value;
       });
     }
-    
+
     console.log(`${invocationCtx.methodName} completed in ${Date.now() - start}ms`);
     return result;
   }
@@ -352,7 +352,7 @@ class UserService {
   async findUsers() {
     // ...
   }
-  
+
   async createUser(name: string) {
     // ...
   }
@@ -364,15 +364,15 @@ class UserService {
 Here's a complete example showing how to use the decorators together:
 
 ```typescript
-import { 
-  Context, 
-  injectable, 
-  inject, 
-  config, 
-  intercept, 
-  Interceptor, 
-  InvocationContext, 
-  ValueOrPromise 
+import {
+  Context,
+  injectable,
+  inject,
+  config,
+  intercept,
+  Interceptor,
+  InvocationContext,
+  ValueOrPromise
 } from 'contexify';
 
 // Define an interceptor
@@ -400,7 +400,7 @@ class UserRepository {
     @config('database') private dbConfig: DatabaseConfig,
     @inject('services.LoggerService') private logger: LoggerService
   ) {}
-  
+
   findAll() {
     this.logger.log(`Finding all users using ${this.dbConfig.host}:${this.dbConfig.port}`);
     return ['user1', 'user2', 'user3'];
@@ -423,7 +423,7 @@ class UserService {
     @inject('repositories.UserRepository') private userRepo: UserRepository,
     @inject.getter('config.appName') private getAppName: Getter<string>
   ) {}
-  
+
   async getUsers() {
     const appName = await this.getAppName();
     console.log(`Getting users for ${appName}`);

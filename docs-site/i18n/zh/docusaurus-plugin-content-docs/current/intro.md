@@ -122,5 +122,5 @@ class UserController {
 现在您已经了解了 Contexify 的基础知识，可以探索更多高级功能：
 
 - [核心概念](./category/core-concepts) - 了解 Contexify 的基本概念
-- [API 参考](./api) - 查看详细的 API 文档
+- [API 参考](./api/overview) - 查看详细的 API 文档
 - [示例](./category/examples) - 查看 Contexify 在实际应用中的示例

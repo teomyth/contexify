@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 5
 ---
 
 # Interfaces and Types
@@ -62,25 +62,25 @@ interface Interceptor {
 // Define a caching interceptor
 class CachingInterceptor implements Interceptor {
   private cache = new Map<string, any>();
-  
+
   intercept(invocationCtx: InvocationContext, next: () => ValueOrPromise<any>) {
     const cacheKey = `${invocationCtx.targetClass.name}.${invocationCtx.methodName}(${JSON.stringify(invocationCtx.args)})`;
-    
+
     if (this.cache.has(cacheKey)) {
       console.log(`Cache hit for ${cacheKey}`);
       return this.cache.get(cacheKey);
     }
-    
+
     console.log(`Cache miss for ${cacheKey}`);
     const result = next();
-    
+
     if (result instanceof Promise) {
       return result.then(value => {
         this.cache.set(cacheKey, value);
         return value;
       });
     }
-    
+
     this.cache.set(cacheKey, result);
     return result;
   }
@@ -126,7 +126,7 @@ interface ContextObserver {
 class BindingObserver implements ContextObserver {
   // Only observe bindings with the 'service' tag
   filter = (binding: Readonly<Binding<unknown>>) => binding.tags.has('service');
-  
+
   observe(eventType: string, binding: Readonly<Binding<unknown>>, context: Context) {
     console.log(`Event: ${eventType}, Binding: ${binding.key}`);
   }
@@ -263,7 +263,7 @@ type Getter<T> = () => ValueOrPromise<T>;
 @injectable()
 class ConfigService {
   constructor(@inject.getter('config.database') private getDbConfig: Getter<any>) {}
-  
+
   async connectToDatabase() {
     // Get the configuration only when needed
     const dbConfig = await this.getDbConfig();
@@ -313,21 +313,21 @@ const serviceView = context.createView<any>(serviceFilter, keyComparator);
 Here's a complete example showing how to use these interfaces and types together:
 
 ```typescript
-import { 
-  Context, 
-  Binding, 
-  BindingScope, 
-  Provider, 
-  Interceptor, 
-  ContextObserver, 
-  InvocationContext, 
-  ValueOrPromise, 
-  Constructor, 
-  Getter, 
-  BindingFilter, 
-  BindingComparator, 
-  injectable, 
-  intercept 
+import {
+  Context,
+  Binding,
+  BindingScope,
+  Provider,
+  Interceptor,
+  ContextObserver,
+  InvocationContext,
+  ValueOrPromise,
+  Constructor,
+  Getter,
+  BindingFilter,
+  BindingComparator,
+  injectable,
+  intercept
 } from 'contexify';
 
 // Create a context
@@ -357,7 +357,7 @@ class LoggingInterceptor implements Interceptor {
 // Define an observer
 class ServiceObserver implements ContextObserver {
   filter: BindingFilter = binding => binding.tags.has('service');
-  
+
   observe(eventType: string, binding: Readonly<Binding<unknown>>, context: Context): ValueOrPromise<void> {
     console.log(`Service event: ${eventType}, binding: ${binding.key}`);
   }
@@ -391,11 +391,11 @@ async function run() {
   // Resolve the config
   const config = await context.get<any>('config');
   console.log('Config:', config);
-  
+
   // Resolve the user service
   const userService = await context.get<UserService>('services.UserService');
   console.log('Users:', userService.getUsers());
-  
+
   // Get all service bindings
   const serviceBindings = serviceView.bindings();
   console.log(`Found ${serviceBindings.length} service bindings`);

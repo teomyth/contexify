@@ -1,14 +1,14 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 ---
 
-# Binding Class
+# Binding
 
 The `Binding` class represents a connection between a key and a value in the Context. It provides methods for configuring how values are resolved.
 
 ## Static Methods
 
-### `static create<T>(key: string): Binding<T>`
+### create
 
 Creates a new Binding with the given key.
 
@@ -26,7 +26,7 @@ binding.to('Hello, world!');
 
 ## Properties
 
-### `readonly key: string`
+### key
 
 The key of the binding.
 
@@ -36,7 +36,7 @@ const binding = Binding.create('greeting');
 console.log(binding.key); // greeting
 ```
 
-### `readonly scope: BindingScope`
+### scope
 
 The scope of the binding.
 
@@ -47,7 +47,7 @@ binding.inScope(BindingScope.SINGLETON);
 console.log(binding.scope); // singleton
 ```
 
-### `readonly tags: Set<string>`
+### tags
 
 The tags associated with the binding.
 
@@ -58,7 +58,7 @@ binding.tag('message');
 console.log(binding.tags.has('message')); // true
 ```
 
-### `readonly tagMap: { [tag: string]: unknown }`
+### tagMap
 
 The tag map associated with the binding.
 
@@ -72,7 +72,7 @@ console.log(binding.tagMap.priority); // 1
 
 ## Binding Methods
 
-### `to(value: T): this`
+### to
 
 Binds the key to a specific value.
 
@@ -93,7 +93,7 @@ context.bind('config').to({
 });
 ```
 
-### `toClass(ctor: Constructor<T>): this`
+### toClass
 
 Binds the key to a class constructor. When resolved, a new instance of the class will be created.
 
@@ -111,7 +111,7 @@ context.bind('services.UserService').toClass(UserService);
 const userService = await context.get<UserService>('services.UserService');
 ```
 
-### `toDynamicValue(factory: (context: Context) => ValueOrPromise<T>): this`
+### toDynamicValue
 
 Binds the key to a factory function that creates the value dynamically.
 
@@ -132,7 +132,7 @@ context.bind('greeting').toDynamicValue(async (ctx) => {
 });
 ```
 
-### `toProvider(providerClass: Constructor<Provider<T>>): this`
+### toProvider
 
 Binds the key to a provider class. When resolved, an instance of the provider will be created, and its `value()` method will be called.
 
@@ -158,7 +158,7 @@ context.bind('currentTime').toProvider(TimeProvider);
 const time = await context.get<string>('currentTime');
 ```
 
-### `toAlias(key: string): this`
+### toAlias
 
 Binds the key to another binding key. When resolved, the target binding will be resolved instead.
 
@@ -182,7 +182,7 @@ console.log(apiUrl); // https://api.example.com
 
 ## Scope Methods
 
-### `inScope(scope: BindingScope): this`
+### inScope
 
 Sets the scope of the binding.
 
@@ -205,7 +205,7 @@ context.bind('contextScoped').toDynamicValue(() => new Date()).inScope(BindingSc
 
 ## Tag Methods
 
-### `tag(tag: string | { [tag: string]: unknown }): this`
+### tag
 
 Adds a tag or tag map to the binding.
 
@@ -231,7 +231,7 @@ context.bind('service.user')
   .tag({ type: 'service', priority: 1 });
 ```
 
-### `tagMap(tagMap: { [tag: string]: unknown }): this`
+### tagMap
 
 Adds a tag map to the binding.
 
@@ -250,7 +250,7 @@ context.bind('service.user')
 
 ## Configuration Methods
 
-### `configure(key: string): Binding`
+### configure
 
 Creates a configuration binding for this binding.
 
@@ -273,7 +273,7 @@ context.bind('services.EmailService').configure('options').to({
 @injectable()
 class EmailService {
   constructor(@config() private options: EmailOptions) {}
-  
+
   sendEmail(to: string, subject: string, body: string) {
     console.log(`Sending email using ${this.options.host}:${this.options.port}`);
   }
@@ -332,17 +332,17 @@ async function run() {
   // Resolve values
   const greeting = await context.get<string>('greeting');
   console.log(greeting); // Hello, world!
-  
+
   const userService = await context.get<UserService>('services.UserService');
   console.log(userService.getUsers()); // ['user1', 'user2', 'user3']
-  
+
   const time1 = await context.get<string>('currentTime');
   const time2 = await context.get<string>('currentTime');
   console.log(time1 !== time2); // true (transient scope)
-  
+
   const config = await context.get<any>('config');
   console.log(config.apiUrl); // https://api.example.com
-  
+
   const apiConfig = await context.get<any>('apiConfig');
   console.log(apiConfig === config); // true (alias)
 }

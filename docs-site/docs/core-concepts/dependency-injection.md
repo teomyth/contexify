@@ -250,4 +250,4 @@ Now that you understand Dependency Injection, you can learn about:
 
 - [Context](./context) - The container for dependencies
 - [Binding](./binding) - How to register dependencies
-- [API Reference](../api) - View the detailed API documentation
+- [API Reference](../api/overview) - View the detailed API documentation

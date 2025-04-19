@@ -4,7 +4,9 @@ sidebar_position: 2
 
 # Component Creation Guide
 
-This guide provides instructions for creating reusable components with Contexify.
+> **Note:** Component support is planned for the second phase of development and is not yet available in the current version of Contexify. This guide outlines the planned approach and will be updated when component support is implemented.
+
+This guide provides instructions for creating reusable components with Contexify, following patterns inspired by LoopBack 4's component architecture.
 
 ## What is a Component?
 
@@ -20,22 +22,28 @@ Components typically include:
 
 ## Component Structure
 
-Here's a recommended structure for a component:
+Here's a recommended structure for a component, following LoopBack 4's component patterns:
 
 ```
-components/
-└── my-component/
-    ├── index.ts              # Component exports
-    ├── keys.ts               # Binding keys
-    ├── types.ts              # Type definitions
-    ├── services/             # Services
-    │   ├── index.ts          # Service exports
-    │   └── my-service.ts     # Service implementation
-    ├── providers/            # Providers
-    │   ├── index.ts          # Provider exports
-    │   └── my-provider.ts    # Provider implementation
-    └── config.ts             # Component configuration
+src/
+└── components/
+    └── my-component/
+        ├── index.ts              # Main entry point that exports the component class and public APIs
+        ├── component.ts          # Component class definition
+        ├── keys.ts               # Binding keys (constants)
+        ├── types.ts              # Type definitions and interfaces
+        ├── services/             # Services provided by the component
+        │   ├── index.ts          # Service exports
+        │   └── my-service.ts     # Service implementation
+        ├── providers/            # Providers for creating values dynamically
+        │   ├── index.ts          # Provider exports
+        │   └── my-provider.ts    # Provider implementation
+        └── decorators/           # Custom decorators (if any)
+            ├── index.ts          # Decorator exports
+            └── my-decorator.ts   # Decorator implementation
 ```
+
+This structure follows the principle of organizing code by feature (component) rather than by type, making it easier to understand and maintain.
 
 ## Creating a Component
 
@@ -135,18 +143,29 @@ export * from './console-logger';
 
 ### 4. Create Component Class
 
-Now, create the component class:
+Now, create the component class following LoopBack 4's component pattern:
 
 ```typescript
-// components/logger/index.ts
-import { createBindingFromClass, Binding } from 'contexify';
+// src/components/logger/component.ts
+import { createBindingFromClass, Binding, injectable } from 'contexify';
 import { ConsoleLogger } from './services';
 import { LoggerBindings } from './keys';
 import { LoggerConfig } from './types';
 
+/**
+ * Logger Component for providing logging capabilities
+ */
+@injectable({ tags: ['component'] })
 export class LoggerComponent {
+  /**
+   * Bindings provided by this component
+   */
   bindings: Binding[] = [];
 
+  /**
+   * Constructor for creating a LoggerComponent instance
+   * @param config - Configuration for the logger
+   */
   constructor(config: LoggerConfig = { level: 'info' }) {
     this.bindings = [
       // Bind the component itself
@@ -167,33 +186,35 @@ export class LoggerComponent {
   }
 }
 
-// Re-export everything
+// src/components/logger/index.ts
+export * from './component';
 export * from './keys';
 export * from './types';
 export * from './services';
 ```
 
+This follows LoopBack 4's pattern of using the `@injectable` decorator with a 'component' tag and providing clear documentation for the component class and its methods.
+
 ## Using the Component
 
-Now you can use the component in your application:
+Once component support is implemented, you will be able to use the component in your application like this:
 
 ```typescript
-import { Context } from 'contexify';
+import { Application } from 'contexify';
 import { LoggerComponent, LoggerBindings, Logger } from './components/logger';
 
-// Create a context
-const context = new Context('application');
+// Create an application
+const app = new Application();
 
-// Add the logger component
-const loggerComponent = new LoggerComponent({ level: 'debug', prefix: 'MyApp' });
-for (const binding of loggerComponent.bindings) {
-  context.add(binding);
-}
+// Add the logger component with configuration
+app.component(LoggerComponent, { level: 'debug', prefix: 'MyApp' });
 
-// Use the logger
+// Use the logger in your application
 async function run() {
-  const logger = await context.get<Logger>(LoggerBindings.SERVICE);
-  
+  // Get the logger from the application context
+  const logger = await app.get<Logger>(LoggerBindings.SERVICE);
+
+  // Use the logger
   logger.debug('This is a debug message');
   logger.info('This is an info message');
   logger.warn('This is a warning message');
@@ -202,6 +223,8 @@ async function run() {
 
 run().catch(err => console.error(err));
 ```
+
+This simplified approach follows LoopBack 4's pattern of using the `component()` method to register components with an application.
 
 ## Component with Providers
 
@@ -258,7 +281,7 @@ export class FileLoggerProvider implements Provider<Logger> {
     const timestamp = new Date().toISOString();
     const prefix = this.fileConfig.prefix ? `[${this.fileConfig.prefix}]` : '';
     const logMessage = `${timestamp} ${level} ${prefix} ${message} ${args.length ? JSON.stringify(args) : ''}`;
-    
+
     fs.appendFileSync(this.fileConfig.file, logMessage + '\n');
   }
 }
@@ -347,7 +370,7 @@ export class ConsoleLogger implements Logger {
       propertyPath: 'config',
     })
     private config: LoggerConfig = { level: 'info' },
-    
+
     @inject.tag(LoggerBindings.EXTENSIONS)
     private extensions: LoggerExtension[] = []
   ) {}
@@ -437,13 +460,21 @@ export class MetricsComponent {
 
 ## Best Practices
 
-- **Single Responsibility**: Each component should have a single responsibility
-- **Clear Interfaces**: Define clear interfaces for your component's services
-- **Configuration**: Make your component configurable
-- **Extension Points**: Provide extension points for other components
-- **Documentation**: Document your component's API and configuration options
-- **Testing**: Write tests for your component
+Following LoopBack 4's component design principles, here are some best practices for creating components:
+
+- **Single Responsibility**: Each component should have a single, well-defined responsibility
+- **Clear Interfaces**: Define clear interfaces for your component's services and extension points
+- **Configuration**: Make your component configurable with sensible defaults
+- **Extension Points**: Provide well-documented extension points for other components
+- **Documentation**: Document your component's API, configuration options, and usage examples
+- **Testing**: Write comprehensive tests for your component, including unit and integration tests
 - **Versioning**: Use semantic versioning for your component
+- **Discoverability**: Use appropriate tags for bindings to make them discoverable
+- **Naming Conventions**: Follow consistent naming conventions for binding keys
+- **Dependency Declaration**: Clearly declare dependencies on other components
+- **Lifecycle Management**: Properly handle component initialization and cleanup
+
+> **Note:** Remember that component support is planned for the second phase of development. The current version of Contexify does not yet support components as described in this guide.
 
 ## Next Steps
 

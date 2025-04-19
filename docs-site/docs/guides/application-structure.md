@@ -62,41 +62,45 @@ import { AuthComponent } from './components/authentication';
 export class MyApplication extends Context {
   constructor() {
     super('application');
-    
+
     // Configure the application
     this.configure();
   }
-  
+
   private configure() {
-    // Register components
-    this.component(new AuthComponent());
-    
+    // Register components (planned for future implementation)
+    // this.component(AuthComponent, { /* config */ });
+
+    // For now, manually add component bindings
+    const authComponent = new AuthComponent();
+    for (const binding of authComponent.bindings) {
+      this.add(binding);
+    }
+
     // Register services
     this.bind('services.UserService').toClass(UserService);
-    
+
     // Register repositories
     this.bind('repositories.UserRepository').toClass(UserRepository);
-    
+
     // Register controllers
     this.bind('controllers.UserController').toClass(UserController);
   }
-  
-  // Add a component to the application
-  component(component: { bindings?: any[] }) {
-    if (component.bindings) {
-      for (const binding of component.bindings) {
-        this.add(binding);
-      }
-    }
+
+  // Add a component to the application (planned for future implementation)
+  component(componentClass: Function, config?: any) {
+    // Note: This is a simplified placeholder for the planned component support
+    // The actual implementation will be available in the second phase
+    console.log('Component support is planned for future implementation');
     return this;
   }
-  
+
   // Start the application
   async start() {
     console.log('Application starting...');
     // Application startup logic
   }
-  
+
   // Stop the application
   async stop() {
     console.log('Application stopping...');
@@ -108,13 +112,16 @@ export class MyApplication extends Context {
 
 ## Components
 
+> **Note:** Component support is planned for the second phase of development and is not yet available in the current version of Contexify.
+
 Components are collections of related bindings that can be reused across applications. They are a great way to organize your code and promote modularity.
 
 ```typescript
-import { createBindingFromClass } from 'contexify';
+import { createBindingFromClass, injectable } from 'contexify';
 import { AuthService } from './services';
 import { TokenProvider } from './providers';
 
+@injectable({ tags: ['component'] })
 export class AuthComponent {
   bindings = [
     createBindingFromClass(AuthService),
@@ -122,6 +129,8 @@ export class AuthComponent {
   ];
 }
 ```
+
+For more details on creating components, see the [Component Creation Guide](./component-creation).
 
 ## Controllers
 
@@ -137,11 +146,11 @@ export class UserController {
   constructor(
     @inject('services.UserService') private userService: UserService
   ) {}
-  
+
   async getUser(id: string): Promise<User> {
     return this.userService.getUser(id);
   }
-  
+
   async createUser(userData: Partial<User>): Promise<User> {
     return this.userService.createUser(userData);
   }
@@ -162,11 +171,11 @@ export class UserService {
   constructor(
     @inject('repositories.UserRepository') private userRepo: UserRepository
   ) {}
-  
+
   async getUser(id: string): Promise<User> {
     return this.userRepo.findById(id);
   }
-  
+
   async createUser(userData: Partial<User>): Promise<User> {
     // Business logic
     return this.userRepo.create(userData);
@@ -188,12 +197,12 @@ export class UserRepository {
   constructor(
     @inject('datasources.default') private dataSource: DataSource
   ) {}
-  
+
   async findById(id: string): Promise<User> {
     // Data access logic
     return this.dataSource.findById('users', id);
   }
-  
+
   async create(userData: Partial<User>): Promise<User> {
     // Data access logic
     return this.dataSource.create('users', userData);
@@ -238,7 +247,7 @@ export function configureApplication(app: Context) {
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_NAME || 'myapp',
   });
-  
+
   // Server configuration
   app.bind(ConfigKeys.SERVER).to({
     port: parseInt(process.env.PORT || '3000'),
@@ -258,15 +267,15 @@ import { configureApplication } from './config';
 async function main() {
   // Create the application
   const app = new MyApplication();
-  
+
   // Configure the application
   configureApplication(app);
-  
+
   // Start the application
   await app.start();
-  
+
   console.log('Application is running');
-  
+
   // Handle shutdown
   process.on('SIGINT', async () => {
     console.log('Shutting down...');

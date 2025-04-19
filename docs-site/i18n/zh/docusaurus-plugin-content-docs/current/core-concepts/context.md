@@ -214,4 +214,4 @@ context.bind('controllers.UserController')
 
 - [绑定](./binding) - 如何注册和管理依赖项
 - [依赖注入](./dependency-injection) - 如何将依赖项注入到类中
-- [API 参考](../api) - 查看详细的 API 文档
+- [API 参考](../api/overview) - 查看详细的 API 文档

@@ -243,4 +243,4 @@ const userBindings = await context.find(/^services\.User/);
 
 - [依赖注入](./dependency-injection) - 如何将依赖项注入到类中
 - [Context](./context) - 绑定的容器
-- [API 参考](../api) - 查看详细的 API 文档
+- [API 参考](../api/overview) - 查看详细的 API 文档

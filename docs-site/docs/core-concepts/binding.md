@@ -242,4 +242,4 @@ Now that you understand Bindings, you can learn about:
 
 - [Dependency Injection](./dependency-injection) - How to inject dependencies into your classes
 - [Context](./context) - The container for bindings
-- [API Reference](../api) - View the detailed API documentation
+- [API Reference](../api/overview) - View the detailed API documentation

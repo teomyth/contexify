@@ -1,39 +1,39 @@
 ---
-sidebar_position: 2
+sidebar_position: 5
 ---
 
-# API Usage Examples
+# API 用法示例
 
-This section provides examples of using the Contexify API to help you better understand how to use these APIs in real applications.
+本节提供了使用 Contexify API 的示例，帮助您更好地理解如何在实际应用程序中使用这些 API。
 
-## Context Class Examples
+## Context 类示例
 
-### Creating Contexts
+### 创建 Context
 
 ```typescript
-// Create a root context
+// 创建根 Context
 const rootContext = new Context('root');
 
-// Create a child context
+// 创建子 Context
 const childContext = new Context(rootContext, 'child');
 ```
 
-### Binding and Resolving Values
+### 绑定和解析值
 
 ```typescript
-// Bind a simple value
+// 绑定简单值
 context.bind('greeting').to('Hello, world!');
 
-// Resolve the value asynchronously
+// 异步解析值
 const greeting = await context.get<string>('greeting');
-console.log(greeting); // Output: Hello, world!
+console.log(greeting); // 输出: Hello, world!
 
-// Resolve the value synchronously (if possible)
+// 同步解析值（如果可能）
 const greetingSync = context.getSync<string>('greeting');
-console.log(greetingSync); // Output: Hello, world!
+console.log(greetingSync); // 输出: Hello, world!
 ```
 
-### Binding Classes
+### 绑定类
 
 ```typescript
 @injectable()
@@ -43,28 +43,28 @@ class GreetingService {
   }
 }
 
-// Bind the class
+// 绑定类
 context.bind('services.GreetingService').toClass(GreetingService);
 
-// Resolve the class instance
+// 解析类实例
 const greetingService = await context.get<GreetingService>('services.GreetingService');
-console.log(greetingService.sayHello('John')); // Output: Hello, John!
+console.log(greetingService.sayHello('John')); // 输出: Hello, John!
 ```
 
-### Using Dynamic Values
+### 使用动态值
 
 ```typescript
-// Bind a dynamic value
+// 绑定动态值
 context.bind('currentTime').toDynamicValue(() => new Date().toISOString());
 
-// Each resolution gets a new value
+// 每次解析获取新值
 const time1 = await context.get<string>('currentTime');
-// Wait for some time
+// 等待一段时间
 const time2 = await context.get<string>('currentTime');
-console.log(time1 !== time2); // Output: true
+console.log(time1 !== time2); // 输出: true
 ```
 
-### Using Providers
+### 使用提供者
 
 ```typescript
 @injectable()
@@ -74,72 +74,72 @@ class TimeProvider implements Provider<string> {
   }
 }
 
-// Bind the provider
+// 绑定提供者
 context.bind('currentTime').toProvider(TimeProvider);
 
-// Resolve the value
+// 解析值
 const time = await context.get<string>('currentTime');
-console.log(time); // Outputs the current time
+console.log(time); // 输出当前时间
 ```
 
-### Using Aliases
+### 使用别名
 
 ```typescript
-// Bind a value
+// 绑定值
 context.bind('config.apiUrl').to('https://api.example.com');
 
-// Create an alias
+// 创建别名
 context.bind('apiUrl').toAlias('config.apiUrl');
 
-// Resolve through the alias
+// 通过别名解析
 const apiUrl = await context.get<string>('apiUrl');
-console.log(apiUrl); // Output: https://api.example.com
+console.log(apiUrl); // 输出: https://api.example.com
 ```
 
-### Setting Binding Scope
+### 设置绑定作用域
 
 ```typescript
-// Singleton scope (default)
+// 单例作用域（默认）
 context.bind('singleton').to(new Date()).inScope(BindingScope.SINGLETON);
 
-// Transient scope (new instance for each resolution)
+// 瞬态作用域（每次解析创建新实例）
 context.bind('transient').toDynamicValue(() => new Date()).inScope(BindingScope.TRANSIENT);
 
-// Context scope (instance shared within the same context)
+// 上下文作用域（在同一上下文中共享实例）
 context.bind('contextScoped').toDynamicValue(() => new Date()).inScope(BindingScope.CONTEXT);
 ```
 
-### Using Tags
+### 使用标签
 
 ```typescript
-// Add tags
+// 添加标签
 context.bind('service.user').toClass(UserService).tag('service');
 context.bind('service.order').toClass(OrderService).tag('service');
 context.bind('service.payment').toClass(PaymentService).tag('service');
 
-// Find bindings by tag
+// 通过标签查找绑定
 const serviceBindings = await context.findByTag('service');
-console.log(serviceBindings.length); // Output: 3
+console.log(serviceBindings.length); // 输出: 3
 ```
 
-### Using Context Views
+### 使用 Context 视图
 
 ```typescript
-// Create a view that tracks all bindings with the 'service' tag
+// 创建跟踪所有带有 'service' 标签的绑定的视图
 const serviceView = context.createView<any>(binding => binding.tags.has('service'));
 
-// Get all matching bindings
+// 获取所有匹配的绑定
 const bindings = serviceView.bindings();
-console.log(bindings.length); // Output: 3
+console.log(bindings.length); // 输出: 3
 
-// Resolve all matching values
+// 解析所有匹配的值
 const services = await serviceView.resolve();
-console.log(services.length); // Output: 3
+console.log(services.length); // 输出: 3
 ```
 
-## Decorator Examples
+## 装饰器示例
 
-### @injectable() Decorator
+### @injectable() 装饰器
 
 ```typescript
 @injectable()
@@ -147,18 +147,18 @@ class UserService {
   constructor() {
     console.log('UserService created');
   }
-  
+
   getUsers() {
     return ['user1', 'user2', 'user3'];
   }
 }
 
-// Now UserService can be created through Context
+// 现在 UserService 可以通过 Context 创建
 context.bind('services.UserService').toClass(UserService);
 const userService = await context.get<UserService>('services.UserService');
 ```
 
-### @inject() Decorator
+### @inject() 装饰器
 
 ```typescript
 @injectable()
@@ -171,28 +171,28 @@ class UserRepository {
 @injectable()
 class UserService {
   constructor(@inject('repositories.UserRepository') private userRepo: UserRepository) {}
-  
+
   getUsers() {
     return this.userRepo.findAll();
   }
 }
 
-// Bind dependencies
+// 绑定依赖项
 context.bind('repositories.UserRepository').toClass(UserRepository);
 context.bind('services.UserService').toClass(UserService);
 
-// Resolve UserService (UserRepository is automatically injected)
+// 解析 UserService（UserRepository 自动注入）
 const userService = await context.get<UserService>('services.UserService');
-console.log(userService.getUsers()); // Output: ['user1', 'user2', 'user3']
+console.log(userService.getUsers()); // 输出: ['user1', 'user2', 'user3']
 ```
 
-### @inject.tag() Decorator
+### @inject.tag() 装饰器
 
 ```typescript
 @injectable()
 class Logger {
   constructor(private name: string) {}
-  
+
   log(message: string) {
     console.log(`[${this.name}] ${message}`);
   }
@@ -201,40 +201,40 @@ class Logger {
 @injectable()
 class Application {
   constructor(@inject.tag('logger') private loggers: Logger[]) {}
-  
+
   run() {
     this.loggers.forEach(logger => logger.log('Application started'));
   }
 }
 
-// Bind multiple services with the same tag
+// 绑定多个带有相同标签的服务
 context.bind('loggers.console').toClass(Logger).tag('logger').to(new Logger('console'));
 context.bind('loggers.file').toClass(Logger).tag('logger').to(new Logger('file'));
 context.bind('app').toClass(Application);
 
-// Resolve the application (all services with the 'logger' tag are automatically injected)
+// 解析应用程序（所有带有 'logger' 标签的服务自动注入）
 const app = await context.get<Application>('app');
 app.run();
-// Output:
+// 输出:
 // [console] Application started
 // [file] Application started
 ```
 
-### @inject.getter() Decorator
+### @inject.getter() 装饰器
 
 ```typescript
 @injectable()
 class ConfigService {
   constructor(@inject.getter('config.database') private getDbConfig: Getter<any>) {}
-  
+
   async connectToDatabase() {
-    // Get the configuration only when needed
+    // 仅在需要时获取配置
     const dbConfig = await this.getDbConfig();
     console.log(`Connecting to ${dbConfig.host}:${dbConfig.port}`);
   }
 }
 
-// Bind configuration
+// 绑定配置
 context.bind('config.database').to({
   host: 'localhost',
   port: 5432,
@@ -244,18 +244,18 @@ context.bind('config.database').to({
 
 context.bind('services.ConfigService').toClass(ConfigService);
 
-// Resolve the service
+// 解析服务
 const configService = await context.get<ConfigService>('services.ConfigService');
-await configService.connectToDatabase(); // Output: Connecting to localhost:5432
+await configService.connectToDatabase(); // 输出: Connecting to localhost:5432
 ```
 
-### @inject.view() Decorator
+### @inject.view() 装饰器
 
 ```typescript
 @injectable()
 class Plugin {
   constructor(public name: string) {}
-  
+
   initialize() {
     console.log(`Plugin ${this.name} initialized`);
   }
@@ -267,29 +267,29 @@ class PluginManager {
     @inject.view(binding => binding.tags.has('plugin'))
     private pluginView: ContextView<Plugin>
   ) {}
-  
+
   async initializePlugins() {
     const plugins = await this.pluginView.resolve();
     plugins.forEach(plugin => plugin.initialize());
   }
 }
 
-// Bind plugins and manager
+// 绑定插件和管理器
 context.bind('plugins.logger').to(new Plugin('logger')).tag('plugin');
 context.bind('plugins.auth').to(new Plugin('auth')).tag('plugin');
 context.bind('plugins.cache').to(new Plugin('cache')).tag('plugin');
 context.bind('managers.PluginManager').toClass(PluginManager);
 
-// Resolve manager and initialize plugins
+// 解析管理器并初始化插件
 const pluginManager = await context.get<PluginManager>('managers.PluginManager');
 await pluginManager.initializePlugins();
-// Output:
+// 输出:
 // Plugin logger initialized
 // Plugin auth initialized
 // Plugin cache initialized
 ```
 
-### @config() Decorator
+### @config() 装饰器
 
 ```typescript
 @injectable()
@@ -298,13 +298,13 @@ class DatabaseService {
     @config('database.host') private host: string,
     @config('database.port') private port: number
   ) {}
-  
+
   connect() {
     console.log(`Connecting to database at ${this.host}:${this.port}`);
   }
 }
 
-// Bind configuration
+// 绑定配置
 context.configure('services.DatabaseService').to({
   database: {
     host: 'localhost',
@@ -314,58 +314,58 @@ context.configure('services.DatabaseService').to({
 
 context.bind('services.DatabaseService').toClass(DatabaseService);
 
-// Resolve the service
+// 解析服务
 const dbService = await context.get<DatabaseService>('services.DatabaseService');
-dbService.connect(); // Output: Connecting to database at localhost:5432
+dbService.connect(); // 输出: Connecting to database at localhost:5432
 ```
 
-### @intercept() Decorator
+### @intercept() 装饰器
 
 ```typescript
-// Define an interceptor
+// 定义拦截器
 class LoggingInterceptor implements Interceptor {
   intercept(invocationCtx: InvocationContext, next: () => ValueOrPromise<any>) {
     console.log(`Calling ${invocationCtx.methodName} with args:`, invocationCtx.args);
     const start = Date.now();
     const result = next();
-    
+
     if (result instanceof Promise) {
       return result.then(value => {
         console.log(`${invocationCtx.methodName} completed in ${Date.now() - start}ms`);
         return value;
       });
     }
-    
+
     console.log(`${invocationCtx.methodName} completed in ${Date.now() - start}ms`);
     return result;
   }
 }
 
-// Use the interceptor
+// 使用拦截器
 @injectable()
 class UserService {
   @intercept(new LoggingInterceptor())
   async findUsers() {
-    // Simulate database query
+    // 模拟数据库查询
     await new Promise(resolve => setTimeout(resolve, 100));
     return ['user1', 'user2', 'user3'];
   }
 }
 
-// Bind the service
+// 绑定服务
 context.bind('services.UserService').toClass(UserService);
 
-// Resolve the service and call the method
+// 解析服务并调用方法
 const userService = await context.get<UserService>('services.UserService');
 const users = await userService.findUsers();
-// Output:
+// 输出:
 // Calling findUsers with args: []
 // findUsers completed in 100ms
 ```
 
-## Interface Examples
+## 接口示例
 
-### Provider Interface
+### Provider 接口
 
 ```typescript
 @injectable()
@@ -375,46 +375,46 @@ class RandomNumberProvider implements Provider<number> {
   }
 }
 
-// Bind the provider
+// 绑定提供者
 context.bind('random').toProvider(RandomNumberProvider);
 
-// Resolve values
+// 解析值
 const random1 = await context.get<number>('random');
 const random2 = await context.get<number>('random');
-console.log(random1 !== random2); // Output: true
+console.log(random1 !== random2); // 输出: true
 ```
 
-### Interceptor Interface
+### Interceptor 接口
 
 ```typescript
-// Define a caching interceptor
+// 定义缓存拦截器
 class CachingInterceptor implements Interceptor {
   private cache = new Map<string, any>();
-  
+
   intercept(invocationCtx: InvocationContext, next: () => ValueOrPromise<any>) {
     const cacheKey = `${invocationCtx.targetClass.name}.${invocationCtx.methodName}(${JSON.stringify(invocationCtx.args)})`;
-    
+
     if (this.cache.has(cacheKey)) {
       console.log(`Cache hit for ${cacheKey}`);
       return this.cache.get(cacheKey);
     }
-    
+
     console.log(`Cache miss for ${cacheKey}`);
     const result = next();
-    
+
     if (result instanceof Promise) {
       return result.then(value => {
         this.cache.set(cacheKey, value);
         return value;
       });
     }
-    
+
     this.cache.set(cacheKey, result);
     return result;
   }
 }
 
-// Use the caching interceptor
+// 使用缓存拦截器
 @injectable()
 class ExpensiveService {
   @intercept(new CachingInterceptor())
@@ -425,48 +425,48 @@ class ExpensiveService {
   }
 }
 
-// Bind the service
+// 绑定服务
 context.bind('services.ExpensiveService').toClass(ExpensiveService);
 
-// Resolve the service and call the method
+// 解析服务并调用方法
 const expensiveService = await context.get<ExpensiveService>('services.ExpensiveService');
 
-// First call (cache miss)
+// 第一次调用（缓存未命中）
 let result1 = await expensiveService.computeExpensiveValue('test');
-console.log(result1); // Output: Result for test
+console.log(result1); // 输出: Result for test
 
-// Second call (cache hit)
+// 第二次调用（缓存命中）
 let result2 = await expensiveService.computeExpensiveValue('test');
-console.log(result2); // Output: Result for test
+console.log(result2); // 输出: Result for test
 ```
 
-### ContextObserver Interface
+### ContextObserver 接口
 
 ```typescript
-// Define an observer
+// 定义观察者
 class BindingObserver implements ContextObserver {
-  // Only observe bindings with the 'service' tag
+  // 只观察带有 'service' 标签的绑定
   filter = (binding: Readonly<Binding<unknown>>) => binding.tags.has('service');
-  
+
   observe(eventType: string, binding: Readonly<Binding<unknown>>, context: Context) {
     console.log(`Event: ${eventType}, Binding: ${binding.key}`);
   }
 }
 
-// Create a context and subscribe the observer
+// 创建 Context 并订阅观察者
 const context = new Context('app');
 context.subscribe(new BindingObserver());
 
-// Add a binding (will trigger the observer)
+// 添加绑定（将触发观察者）
 context.bind('services.UserService').toClass(UserService).tag('service');
-// Output: Event: bind, Binding: services.UserService
+// 输出: Event: bind, Binding: services.UserService
 
-// Resolve the binding (will trigger the observer)
+// 解析绑定（将触发观察者）
 await context.get('services.UserService');
-// Output: Event: resolve:before, Binding: services.UserService
-// Output: Event: resolve:after, Binding: services.UserService
+// 输出: Event: resolve:before, Binding: services.UserService
+// 输出: Event: resolve:after, Binding: services.UserService
 ```
 
-## More Examples
+## 更多示例
 
-For more examples, see the [Examples](../examples/basic-example.md) section or check out the example code in the [GitHub repository](https://github.com/teomyth/contexify).
+有关更多示例，请参阅[示例](../examples/basic-example.md)部分或查看 [GitHub 仓库](https://github.com/teomyth/contexify)中的示例代码。

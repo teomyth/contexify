@@ -1,14 +1,14 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 
-# ContextView Class
+# ContextView
 
 The `ContextView` class allows you to track a set of bindings that match a specific filter. It provides methods for resolving and observing these bindings.
 
 ## Constructor
 
-### `constructor(context: Context, filter: BindingFilter, comparator?: BindingComparator)`
+### constructor
 
 Creates a new ContextView instance.
 
@@ -31,7 +31,7 @@ const serviceView = new ContextView<any>(
 
 ## Methods
 
-### `resolve(): Promise<T[]>`
+### resolve
 
 Resolves all bindings that match the filter.
 
@@ -44,7 +44,7 @@ const services = await serviceView.resolve();
 console.log(`Resolved ${services.length} services`);
 ```
 
-### `values(): Promise<T[]>`
+### values
 
 Alias for `resolve()`. Resolves all bindings that match the filter.
 
@@ -57,7 +57,7 @@ const services = await serviceView.values();
 console.log(`Resolved ${services.length} services`);
 ```
 
-### `bindings(): Readonly<Binding>[]`
+### bindings
 
 Gets all bindings that match the filter.
 
@@ -72,7 +72,7 @@ console.log(`Found ${bindings.length} service bindings`);
 
 ## Event Methods
 
-### `on(event: string, listener: Function): this`
+### on
 
 Adds an event listener for the given event.
 
@@ -90,7 +90,7 @@ serviceView.on('bind', (binding) => {
 });
 ```
 
-### `once(event: string, listener: Function): this`
+### once
 
 Adds a one-time event listener for the given event.
 
@@ -108,7 +108,7 @@ serviceView.once('bind', (binding) => {
 });
 ```
 
-### `off(event: string, listener: Function): this`
+### off
 
 Removes an event listener for the given event.
 
@@ -134,7 +134,7 @@ serviceView.off('bind', listener);
 
 ## Lifecycle Methods
 
-### `close(): void`
+### close
 
 Closes the ContextView, removing all event listeners.
 
@@ -206,14 +206,14 @@ async function run() {
   const bindings = serviceView.bindings();
   console.log(`Found ${bindings.length} service bindings:`);
   bindings.forEach(binding => console.log(`- ${binding.key}`));
-  
+
   // Resolve all services
   const services = await serviceView.resolve();
   console.log(`Resolved ${services.length} services`);
-  
+
   // Add a new service
   context.bind('services.PaymentService').toClass(PaymentService).tag('service');
-  
+
   // Close the view when done
   serviceView.close();
 }
