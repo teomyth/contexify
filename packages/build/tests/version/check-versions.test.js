@@ -167,8 +167,8 @@ describe('checkVersions', () => {
     });
 
     // Should throw when throwOnError is true
-    await expect(
-      checkVersions({ throwOnError: true })
-    ).rejects.toThrow('Version check failed');
+    await expect(checkVersions({ throwOnError: true })).rejects.toThrow(
+      'Version check failed'
+    );
   });
 });

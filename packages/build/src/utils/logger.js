@@ -71,10 +71,7 @@ export const logger = {
    * @param message Status message
    * @param status Status type (success, warning, error)
    */
-  fileStatus(
-    message,
-    status = 'success'
-  ) {
+  fileStatus(message, status = 'success') {
     const icon = status === 'success' ? '✓' : status === 'warning' ? '⚠' : '✗';
     const color =
       status === 'success'
