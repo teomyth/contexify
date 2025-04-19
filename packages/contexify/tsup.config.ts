@@ -1,9 +1,7 @@
 import { defineConfig } from 'tsup';
 
 // Define the entry file
-const entryPoints: string[] = [
-  './src/**/*.ts',
-];
+const entryPoints: string[] = ['./src/**/*.ts'];
 
 export default defineConfig({
   entry: entryPoints,
@@ -25,4 +23,3 @@ export default defineConfig({
     options.legalComments = 'none';
   },
 });
- 

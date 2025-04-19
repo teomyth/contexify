@@ -40,13 +40,7 @@
       "default": "./dist/interceptors.js"
     }
   },
-  "files": [
-    "README.md",
-    "NOTICE.md",
-    "LICENSE",
-    "dist",
-    "src"
-  ],
+  "files": ["README.md", "NOTICE.md", "LICENSE", "dist", "src"],
   "engines": {
     "node": ">=18"
   },
