@@ -78,7 +78,7 @@
     "metarize": "^1.0.2"
   },
   "devDependencies": {
-    "@swc/core": "^1.11.21",
+    "@swc/core": "^1.11.22",
     "@types/node": "^22.14.1",
     "@vitest/coverage-v8": "^3.1.2",
     "tsup": "^8.4.0",
