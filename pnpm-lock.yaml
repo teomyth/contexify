@@ -151,8 +151,8 @@ importers:
         specifier: ^5.4.1
         version: 5.4.1
       commander:
-        specifier: ^13.1.0
-        version: 13.1.0
+        specifier: ^14.0.0
+        version: 14.0.0
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
