@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
-import { Context, inject, InvocationContext } from '../../src/index.js';
+import { Context, InvocationContext, inject } from '../../src/index.js';
 
 describe('InvocationContext', () => {
   let ctx: Context;

@@ -1,6 +1,6 @@
-import { Binding, createBindingFromClass } from 'contexify';
+import { type Binding, createBindingFromClass } from 'contexify';
 
-import { Component } from '../component.js';
+import type { Component } from '../component.js';
 
 import { TaskKeys } from './keys.js';
 import { InMemoryTaskRepository } from './services/task-repository.js';

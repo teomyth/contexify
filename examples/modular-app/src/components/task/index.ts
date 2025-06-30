@@ -12,7 +12,6 @@ export * from './keys.js';
 
 // Export models
 export * from './models/task.js';
-
+export * from './services/task-repository.js';
 // Export service interfaces and implementations
 export * from './services/task-service.js';
-export * from './services/task-repository.js';

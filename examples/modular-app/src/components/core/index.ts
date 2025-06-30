@@ -9,7 +9,6 @@ export * from './component.js';
 
 // Export keys for dependency injection
 export * from './keys.js';
-
+export * from './services/config-service.js';
 // Export service interfaces and implementations
 export * from './services/logger.js';
-export * from './services/config-service.js';

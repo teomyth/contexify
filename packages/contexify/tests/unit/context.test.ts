@@ -1,8 +1,5 @@
 import { format } from 'util';
-
-import { Debugger } from '../../src/utils/debug.js';
-import { describe, it, expect, beforeEach } from 'vitest';
-
+import { beforeEach, describe, expect, it } from 'vitest';
 import {
   Binding,
   BindingCreationPolicy,
@@ -12,8 +9,9 @@ import {
   Context,
   inject,
   isPromiseLike,
-  Provider,
+  type Provider,
 } from '../../src/index.js';
+import type { Debugger } from '../../src/utils/debug.js';
 import { UNIQUE_ID_PATTERN } from '../../src/utils/unique-id.js';
 
 /**
@@ -1136,7 +1134,7 @@ describe('Context', () => {
 
   describe('maxListeners', () => {
     it('defaults to Infinity', () => {
-      expect(ctx.getMaxListeners()).toBe(Infinity);
+      expect(ctx.getMaxListeners()).toBe(Number.POSITIVE_INFINITY);
     });
 
     it('can be changed', () => {

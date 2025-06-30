@@ -1,4 +1,4 @@
-import { injectable, BindingScope } from 'contexify';
+import { BindingScope, injectable } from 'contexify';
 
 /**
  * Log level

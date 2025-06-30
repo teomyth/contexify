@@ -1,14 +1,13 @@
 import { DecoratorFactory } from 'metarize';
-
-import { BindingSelector } from '../binding/binding-filter.js';
-import { Binding } from '../binding/binding.js';
-import { Context } from '../context/context.js';
-import { Injection, InjectionMetadata } from '../inject/inject.js';
+import type { Binding } from '../binding/binding.js';
+import type { BindingSelector } from '../binding/binding-filter.js';
+import type { Context } from '../context/context.js';
+import type { Injection, InjectionMetadata } from '../inject/inject.js';
 import createDebugger from '../utils/debug.js';
 import {
-  BoundValue,
-  ValueOrPromise,
+  type BoundValue,
   tryWithFinally,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 const debugSession = createDebugger('contexify:resolver:session');
@@ -222,7 +221,7 @@ export class ResolutionSession {
 
     if (this.stack.find((i) => isBinding(i) && i.value === binding)) {
       const msg =
-        `Circular dependency detected: ` +
+        'Circular dependency detected: ' +
         `${this.getResolutionPath()} --> ${binding.key}`;
       debugSession(msg);
       throw new Error(msg);
@@ -394,7 +393,7 @@ export class ResolutionError extends Error {
     reason: string,
     resolutionCtx: Partial<ResolutionContext>
   ) {
-    const info = this.describeResolutionContext(resolutionCtx);
+    const info = ResolutionError.describeResolutionContext(resolutionCtx);
     const message = `${reason} (${info})`;
     return message;
   }

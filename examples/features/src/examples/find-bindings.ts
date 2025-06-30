@@ -1,6 +1,6 @@
 import {
-  BindingFilter,
-  BindingTemplate,
+  type BindingFilter,
+  type BindingTemplate,
   Context,
   createBindingFromClass,
   filterByTag,

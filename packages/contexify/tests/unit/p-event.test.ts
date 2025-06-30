@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import * as pEvent from '../../src/utils/p-event.js';
 

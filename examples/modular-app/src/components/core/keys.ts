@@ -1,7 +1,7 @@
 import { BindingKey } from 'contexify';
 
-import { ConfigService } from './services/config-service.js';
-import { Logger } from './services/logger.js';
+import type { ConfigService } from './services/config-service.js';
+import type { Logger } from './services/logger.js';
 
 /**
  * Binding keys for the core component

@@ -1,4 +1,4 @@
-import { Binding } from 'contexify';
+import type { Binding } from 'contexify';
 
 /**
  * Component interface

@@ -1,23 +1,23 @@
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  BindingAddress,
+  type BindingAddress,
   BindingScope,
   Context,
-  Getter,
+  type Getter,
+  type Injection,
   inject,
   injectable,
-  Injection,
   instantiateClass,
   invokeMethod,
-  Provider,
-  ResolutionSession,
+  type Provider,
+  type ResolutionSession,
 } from '../../src/index.js';
 
 describe('constructor injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').to('FOO');
     ctx.bind('bar').to('BAR');
@@ -75,7 +75,7 @@ describe('constructor injection', () => {
     class TestClass {
       constructor(
         @inject('optional-binding-key', { optional: true })
-        public fooBar: string = 'fooBar'
+        public fooBar = 'fooBar'
       ) {}
     }
 
@@ -137,8 +137,8 @@ describe('constructor injection', () => {
 
   it('reports circular dependencies of two bindings', () => {
     const context = new Context();
-    interface XInterface {}
-    interface YInterface {}
+    type XInterface = {}
+    type YInterface = {}
 
     class XClass implements XInterface {
       @inject('y')
@@ -260,9 +260,9 @@ describe('constructor injection', () => {
     const context = new Context();
 
     // Declare interfaces so that they can be used for typing
-    interface XInterface {}
-    interface YInterface {}
-    interface ZInterface {}
+    type XInterface = {}
+    type YInterface = {}
+    type ZInterface = {}
 
     class XClass {
       constructor(@inject('y') public y: YInterface) {}
@@ -423,7 +423,7 @@ describe('constructor injection', () => {
 describe('async constructor injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').toDynamicValue(() => Promise.resolve('FOO'));
     ctx.bind('bar').toDynamicValue(() => Promise.resolve('BAR'));
@@ -451,7 +451,7 @@ describe('async constructor injection', () => {
 describe('property injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').to('FOO');
     ctx.bind('bar').to('BAR');
@@ -520,7 +520,7 @@ describe('property injection', () => {
 describe('async property injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').toDynamicValue(() => Promise.resolve('FOO'));
     ctx.bind('bar').toDynamicValue(() => Promise.resolve('BAR'));
@@ -549,7 +549,7 @@ describe('async property injection', () => {
 describe('dependency injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').to('FOO');
     ctx.bind('bar').to('BAR');
@@ -572,7 +572,7 @@ describe('dependency injection', () => {
 describe('async dependency injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').toDynamicValue(() => Promise.resolve('FOO'));
     ctx.bind('bar').toDynamicValue(() => Promise.resolve('BAR'));
@@ -595,7 +595,7 @@ describe('async dependency injection', () => {
 describe('async constructor & sync property injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').toDynamicValue(() => Promise.resolve('FOO'));
     ctx.bind('bar').to('BAR');
@@ -618,7 +618,7 @@ describe('async constructor & sync property injection', () => {
 describe('async constructor injection with errors', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').toDynamicValue(
       () =>
@@ -644,7 +644,7 @@ describe('async constructor injection with errors', () => {
 describe('async property injection with errors', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('bar').toDynamicValue(async () => {
       throw new Error('bar: error');
@@ -666,7 +666,7 @@ describe('async property injection with errors', () => {
 describe('sync constructor & async property injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').to('FOO');
     ctx.bind('bar').toDynamicValue(() => Promise.resolve('BAR'));
@@ -707,7 +707,7 @@ function customAsyncDecorator(def: object) {
 describe('method injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').to('FOO');
     ctx.bind('bar').to('BAR');
@@ -773,7 +773,7 @@ describe('method injection', () => {
 describe('async method injection', () => {
   let ctx: Context;
 
-  beforeAll(function () {
+  beforeAll(() => {
     ctx = new Context();
     ctx.bind('foo').toDynamicValue(() => Promise.resolve('FOO'));
     ctx.bind('bar').toDynamicValue(() => Promise.resolve('BAR'));

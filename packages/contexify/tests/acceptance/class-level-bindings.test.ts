@@ -1,21 +1,21 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
   Binding,
   BindingCreationPolicy,
   BindingKey,
   BindingScope,
-  config,
-  Constructor,
+  type Constructor,
   Context,
+  config,
   Getter,
+  type Injection,
   inject,
-  Injection,
   instantiateClass,
   invokeMethod,
-  Provider,
-  ResolutionSession,
-  Setter,
+  type Provider,
+  type ResolutionSession,
+  type Setter,
 } from '../../src/index.js';
 
 const INFO_CONTROLLER = 'controllers.info';
@@ -56,7 +56,7 @@ describe('Context bindings - Injecting dependencies of classes', () => {
           /but no value was supplied by the caller\. Did you forget to apply @inject\(\) to the argument\?/
         );
         expect(err.message).toMatch(
-          /\(context: [\w\-]+, resolutionPath: controllers\.info\)/
+          /\(context: [\w-]+, resolutionPath: controllers\.info\)/
         );
       }
     );
@@ -85,7 +85,7 @@ describe('Context bindings - Injecting dependencies of classes', () => {
           /but no value was supplied by the caller\. Did you forget to apply @inject\(\) to the argument\?/
         );
         expect(err.message).toMatch(
-          /\(context: [\w\-]+, resolutionPath: controllers\.info\)/
+          /\(context: [\w-]+, resolutionPath: controllers\.info\)/
         );
       }
     );

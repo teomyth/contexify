@@ -1,11 +1,11 @@
-import { injectable, BindingScope, inject } from 'contexify';
+import { BindingScope, inject, injectable } from 'contexify';
 
 import { CoreKeys } from '../../core/keys.js';
-import { Logger } from '../../core/services/logger.js';
+import type { Logger } from '../../core/services/logger.js';
 import { TaskKeys } from '../keys.js';
-import { Task, TaskData, TaskStatus } from '../models/task.js';
+import { type Task, type TaskData, TaskStatus } from '../models/task.js';
 
-import { TaskRepository } from './task-repository.js';
+import type { TaskRepository } from './task-repository.js';
 // import { LoggingInterceptor } from '../../../interceptors/logging-interceptor.js';
 
 /**

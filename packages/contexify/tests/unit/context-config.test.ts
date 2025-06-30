@@ -1,14 +1,14 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  BindingAddress,
+  type BindingAddress,
   BindingKey,
-  ConfigurationResolver,
+  type ConfigurationResolver,
   Context,
   ContextTags,
   DefaultConfigurationResolver,
-  ResolutionOptions,
-  ValueOrPromise,
+  type ResolutionOptions,
+  type ValueOrPromise,
 } from '../../src/index.js';
 
 describe('Context binding configuration', () => {
@@ -73,7 +73,7 @@ describe('Context binding configuration', () => {
         ctx.getConfig('servers.rest', 'host', {
           optional: false,
         })
-      ).rejects.toThrow(/The key 'servers\.rest\:\$config' is not bound/);
+      ).rejects.toThrow(/The key 'servers\.rest:\$config' is not bound/);
     });
   });
 

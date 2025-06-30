@@ -1,14 +1,17 @@
-import { BindingFilter } from '../binding/binding-filter.js';
-import { BindingAddress, BindingKey } from '../binding/binding-key.js';
+import type { BindingFilter } from '../binding/binding-filter.js';
+import { type BindingAddress, BindingKey } from '../binding/binding-key.js';
+import type { Context } from '../context/context.js';
 import { ContextView } from '../context/context-view.js';
-import { Context } from '../context/context.js';
-import { ResolutionSession } from '../resolution/resolution-session.js';
-import { ValueOrPromise, getDeepProperty } from '../utils/value-promise.js';
+import type { ResolutionSession } from '../resolution/resolution-session.js';
+import {
+  getDeepProperty,
+  type ValueOrPromise,
+} from '../utils/value-promise.js';
 
 import {
-  Injection,
-  InjectionMetadata,
   assertTargetType,
+  type Injection,
+  type InjectionMetadata,
   inject,
 } from './inject.js';
 

@@ -1,19 +1,18 @@
 import { MetadataAccessor, MetadataInspector } from 'metarize';
 
-import { Provider } from '../provider/provider.js';
-import { ContextTags } from '../utils/keys.js';
+import type { Provider } from '../provider/provider.js';
 import createDebugger from '../utils/debug.js';
-import { Constructor } from '../utils/value-promise.js';
-
-import { BindingAddress } from './binding-key.js';
+import { ContextTags } from '../utils/keys.js';
+import type { Constructor } from '../utils/value-promise.js';
 import {
   Binding,
-  BindingScope,
-  BindingTag,
-  BindingTemplate,
-  DynamicValueProviderClass,
+  type BindingScope,
+  type BindingTag,
+  type BindingTemplate,
+  type DynamicValueProviderClass,
   isDynamicValueProviderClass,
 } from './binding.js';
+import type { BindingAddress } from './binding-key.js';
 
 const debug = createDebugger('contexify:binding-inspector');
 
@@ -301,10 +300,9 @@ function applyClassBindingOptions<T>(
 function getNamespace(type: string, typeNamespaces = DEFAULT_TYPE_NAMESPACES) {
   if (type in typeNamespaces) {
     return typeNamespaces[type];
-  } else {
-    // Return the plural form
-    return `${type}s`;
   }
+  // Return the plural form
+  return `${type}s`;
 }
 
 /**

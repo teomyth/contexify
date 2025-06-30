@@ -1,6 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
-import { Binding, BindingTag, Context, filterByTag } from '../../src/index.js';
+import {
+  Binding,
+  type BindingTag,
+  Context,
+  filterByTag,
+} from '../../src/index.js';
 
 /**
  * Create a subclass of context so that we can access parents and registry

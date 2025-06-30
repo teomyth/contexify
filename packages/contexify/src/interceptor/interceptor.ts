@@ -5,45 +5,44 @@ import {
   DecoratorFactory,
   MetadataAccessor,
   MetadataInspector,
-  MetadataMap,
+  type MetadataMap,
   MethodDecoratorFactory,
 } from 'metarize';
-
+import type { Binding, BindingTemplate } from '../binding/binding.js';
 import { injectable } from '../binding/binding-decorator.js';
 import {
-  BindingFromClassOptions,
-  BindingSpec,
+  type BindingFromClassOptions,
+  type BindingSpec,
   createBindingFromClass,
   isProviderClass,
 } from '../binding/binding-inspector.js';
-import { BindingAddress, BindingKey } from '../binding/binding-key.js';
+import { type BindingAddress, BindingKey } from '../binding/binding-key.js';
 import { sortBindingsByPhase } from '../binding/binding-sorter.js';
-import { Binding, BindingTemplate } from '../binding/binding.js';
-import { Context } from '../context/context.js';
-import { Provider } from '../provider/provider.js';
+import type { Context } from '../context/context.js';
+import type { Provider } from '../provider/provider.js';
+import createDebugger from '../utils/debug.js';
 import {
   ContextBindings,
   ContextTags,
   GLOBAL_INTERCEPTOR_NAMESPACE,
   LOCAL_INTERCEPTOR_NAMESPACE,
 } from '../utils/keys.js';
-import createDebugger from '../utils/debug.js';
 import {
-  Constructor,
-  ValueOrPromise,
+  type Constructor,
   tryWithFinally,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import {
-  GenericInterceptor,
-  GenericInterceptorOrKey,
+  type GenericInterceptor,
+  type GenericInterceptorOrKey,
   invokeInterceptors,
 } from './interceptor-chain.js';
 import {
-  InvocationArgs,
+  type InvocationArgs,
   InvocationContext,
-  InvocationOptions,
-  InvocationResult,
+  type InvocationOptions,
+  type InvocationResult,
 } from './invocation.js';
 
 const debug = createDebugger('contexify:interceptor');

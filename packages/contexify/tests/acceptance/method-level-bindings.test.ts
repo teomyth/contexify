@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { BindingKey, Context, inject, invokeMethod } from '../../src/index.js';
 import createDebugger from '../../src/utils/debug.js';

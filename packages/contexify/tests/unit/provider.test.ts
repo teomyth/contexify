@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
-import { Provider } from '../../src/index.js';
+import type { Provider } from '../../src/index.js';
 
 describe('Provider', () => {
   let provider: Provider<string>;

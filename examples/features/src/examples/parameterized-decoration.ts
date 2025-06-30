@@ -1,7 +1,7 @@
 import {
-  BindingAddress,
-  BindingTag,
-  Constructor,
+  type BindingAddress,
+  type BindingTag,
+  type Constructor,
   Context,
   createBindingFromClass,
   inject,

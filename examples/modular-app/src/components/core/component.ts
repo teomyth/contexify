@@ -1,6 +1,6 @@
-import { Binding, createBindingFromClass } from 'contexify';
+import { type Binding, createBindingFromClass } from 'contexify';
 
-import { Component } from '../component.js';
+import type { Component } from '../component.js';
 
 import { CoreKeys } from './keys.js';
 import { MemoryConfigService } from './services/config-service.js';

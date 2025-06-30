@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { isPromiseLike } from '../../src/index.js';
 
@@ -29,7 +29,7 @@ describe('isPromise', () => {
 
   it('returns true for a Promise-like object', () => {
     const promiseLike = {
-      then: function () {},
+      then: () => {},
     };
     expect(isPromiseLike(promiseLike)).toBe(true);
   });

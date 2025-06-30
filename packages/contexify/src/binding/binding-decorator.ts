@@ -3,12 +3,12 @@ import { ClassDecoratorFactory } from 'metarize';
 import type { Constructor } from '../utils/value-promise.js';
 
 import {
-  BINDING_METADATA_KEY,
-  type BindingMetadata,
-  type BindingSpec,
   asBindingTemplate,
   asClassOrProvider,
   asProvider,
+  BINDING_METADATA_KEY,
+  type BindingMetadata,
+  type BindingSpec,
   isProviderClass,
   removeNameAndKeyTags,
 } from './binding-inspector.js';
@@ -27,10 +27,9 @@ class InjectableDecoratorFactory extends ClassDecoratorFactory<BindingMetadata> 
         ],
         target: this.spec.target,
       };
-    } else {
-      this.withTarget(this.spec, target);
-      return this.spec;
     }
+    this.withTarget(this.spec, target);
+    return this.spec;
   }
 
   mergeWithOwn(ownMetadata: BindingMetadata) {
@@ -65,9 +64,8 @@ export function injectable(...specs: BindingSpec[]): ClassDecorator {
   const templateFunctions = specs.map((t) => {
     if (typeof t === 'function') {
       return t;
-    } else {
-      return asBindingTemplate(t);
     }
+    return asBindingTemplate(t);
   });
 
   return (target: Function) => {

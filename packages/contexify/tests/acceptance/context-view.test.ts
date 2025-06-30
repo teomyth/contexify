@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
-import { Context, ContextView, filterByTag } from '../../src/index.js';
+import { Context, type ContextView, filterByTag } from '../../src/index.js';
 
 let app: Context;
 let server: Context;

@@ -1,17 +1,17 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import {
-  BindingFromClassOptions,
+  type BindingFromClassOptions,
   BindingScope,
-  BindingScopeAndTags,
-  Constructor,
+  type BindingScopeAndTags,
+  type Constructor,
   Context,
   ContextTags,
   createBindingFromClass,
+  inject,
   injectable,
   isProviderClass,
-  Provider,
-  inject,
+  type Provider,
 } from '../../src/index.js';
 
 describe('createBindingFromClass()', () => {
@@ -350,9 +350,7 @@ describe('isProviderClass', () => {
 
     function MyJsProvider() {}
 
-    MyJsProvider.prototype.value = function () {
-      return 'abc';
-    };
+    MyJsProvider.prototype.value = () => 'abc';
 
     assertProviderClasses(MyProvider, MyAsyncProvider, MyJsProvider);
   });

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { Binding, Context } from '../../src/index.js';
+import { type Binding, Context } from '../../src/index.js';
 
-describe(`Context bindings - Unlocking bindings`, () => {
+describe('Context bindings - Unlocking bindings', () => {
   describe('Unlocking a locked binding', () => {
     let ctx: Context;
     let binding: Binding;

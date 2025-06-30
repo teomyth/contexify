@@ -1,14 +1,14 @@
 import { types } from 'util';
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  Binding,
+  type Binding,
   BindingScope,
-  BindingTag,
-  compareBindingsByTag,
+  type BindingTag,
   Context,
   ContextView,
+  compareBindingsByTag,
   createBindingFromClass,
   createViewGetter,
   filterByTag,

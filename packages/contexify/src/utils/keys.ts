@@ -1,4 +1,4 @@
-import { ConfigurationResolver } from '../binding/binding-config.js';
+import type { ConfigurationResolver } from '../binding/binding-config.js';
 import { BindingKey } from '../binding/binding-key.js';
 
 /**

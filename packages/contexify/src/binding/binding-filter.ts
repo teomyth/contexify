@@ -1,7 +1,6 @@
-import { MapObject } from '../utils/value-promise.js';
-
-import { BindingAddress } from './binding-key.js';
-import { Binding, BindingTag } from './binding.js';
+import type { MapObject } from '../utils/value-promise.js';
+import type { Binding, BindingTag } from './binding.js';
+import type { BindingAddress } from './binding-key.js';
 
 /**
  * A function that filters bindings. It returns `true` to select a given
@@ -35,9 +34,7 @@ import { Binding, BindingTag } from './binding.js';
  * To keep things simple and easy to use, we use `boolean` as the return type
  * of a binding filter function.
  */
-export interface BindingFilter {
-  (binding: Readonly<Binding<unknown>>): boolean;
-}
+export type BindingFilter = (binding: Readonly<Binding<unknown>>) => boolean;
 
 /**
  * Select binding(s) by key or a filter function
@@ -160,7 +157,7 @@ export function includesTagValue(...itemValues: unknown[]): TagValueMatcher {
  */
 export function filterByTag(tagPattern: BindingTag | RegExp): BindingTagFilter {
   let filter: BindingFilter;
-  let regex: RegExp | undefined = undefined;
+  let regex: RegExp | undefined;
   if (tagPattern instanceof RegExp) {
     // RegExp for tag names
     regex = tagPattern;
@@ -220,9 +217,11 @@ export function filterByKey(
   if (typeof keyPattern === 'string') {
     const regex = wildcardToRegExp(keyPattern);
     return (binding) => regex.test(binding.key);
-  } else if (keyPattern instanceof RegExp) {
+  }
+  if (keyPattern instanceof RegExp) {
     return (binding) => keyPattern.test(binding.key);
-  } else if (typeof keyPattern === 'function') {
+  }
+  if (typeof keyPattern === 'function') {
     return keyPattern;
   }
   return () => true;
@@ -238,7 +237,7 @@ function wildcardToRegExp(pattern: string): RegExp {
   // Escape reserved chars for RegExp:
   // `- \ ^ $ + . ( ) | { } [ ] :`
   // eslint-disable-next-line no-useless-escape
-  let regexp = pattern.replace(/[\-\[\]\/\{\}\(\)\+\.\\\^\$\|\:]/g, '\\$&');
+  let regexp = pattern.replace(/[-[\]/{}()+.\\^$|:]/g, '\\$&');
   // Replace wildcard chars `*` and `?`
   // `*` matches zero or more characters except `.` and `:`
   // `?` matches one character except `.` and `:`

@@ -1,9 +1,9 @@
 import { Context } from '../context/context.js';
 import { ResolutionSession } from '../resolution/resolution-session.js';
-import { ValueOrPromise } from '../utils/value-promise.js';
+import type { ValueOrPromise } from '../utils/value-promise.js';
 
 import { invokeMethodWithInterceptors } from './interceptor.js';
-import { InvocationArgs, InvocationSource } from './invocation.js';
+import type { InvocationArgs, InvocationSource } from './invocation.js';
 
 /**
  * Create the Promise type for `T`. If `T` extends `Promise`, the type is `T`,
@@ -97,9 +97,8 @@ export class InterceptionHandler<T extends object> implements ProxyHandler<T> {
           }
         );
       };
-    } else {
-      return propertyOrMethod;
     }
+    return propertyOrMethod;
   }
 }
 

@@ -1,33 +1,32 @@
 import {
   DecoratorFactory,
-  InspectionOptions,
+  type InspectionOptions,
   MetadataAccessor,
   MetadataInspector,
-  MetadataMap,
+  type MetadataMap,
   ParameterDecoratorFactory,
   PropertyDecoratorFactory,
   Reflector,
 } from 'metarize';
-
+import { Binding, type BindingTag } from '../binding/binding.js';
 import {
-  BindingFilter,
-  BindingSelector,
+  type BindingFilter,
+  type BindingSelector,
   filterByTag,
   isBindingAddress,
   isBindingTagFilter,
 } from '../binding/binding-filter.js';
-import { BindingAddress, BindingKey } from '../binding/binding-key.js';
-import { BindingComparator } from '../binding/binding-sorter.js';
-import { Binding, BindingTag } from '../binding/binding.js';
+import type { BindingAddress, BindingKey } from '../binding/binding-key.js';
+import type { BindingComparator } from '../binding/binding-sorter.js';
+import type { BindingCreationPolicy, Context } from '../context/context.js';
 import { ContextView, createViewGetter } from '../context/context-view.js';
-import { BindingCreationPolicy, Context } from '../context/context.js';
 import {
-  ResolutionOptions,
+  type ResolutionOptions,
   ResolutionSession,
 } from '../resolution/resolution-session.js';
-import { JSONObject } from '../utils/json-types.js';
 import createDebugger from '../utils/debug.js';
-import {
+import type { JSONObject } from '../utils/json-types.js';
+import type {
   BoundValue,
   Constructor,
   ValueOrPromise,
@@ -62,13 +61,11 @@ const debug = createDebugger('contexify:inject');
  * }
  * ```
  */
-export interface ResolverFunction {
-  (
-    ctx: Context,
-    injection: Readonly<Injection>,
-    session: ResolutionSession
-  ): ValueOrPromise<BoundValue>;
-}
+export type ResolverFunction = (
+  ctx: Context,
+  injection: Readonly<Injection>,
+  session: ResolutionSession
+) => ValueOrPromise<BoundValue>;
 
 /**
  * An object to provide metadata for `@inject`
@@ -590,7 +587,7 @@ function shouldSkipBaseConstructorInjection(targetClass: object) {
      */
     // Use non-greedy quantifiers and keep multiline flag
     // eslint-disable-next-line no-useless-escape
-    classDef.match(/\s+constructor\s*?\([^\)]*?\)\s*?\{/m)
+    classDef.match(/\s+constructor\s*?\([^)]*?\)\s*?\{/m)
   );
 }
 
@@ -624,7 +621,7 @@ export function describeInjectedArguments(
     if (shouldSkipBaseConstructorInjection(target)) {
       options.ownMetadataOnly = true;
     }
-  } else if (Object.prototype.hasOwnProperty.call(target, method)) {
+  } else if (Object.hasOwn(target, method)) {
     // The method exists in the target, no injections on the super method
     // should be honored
     options.ownMetadataOnly = true;

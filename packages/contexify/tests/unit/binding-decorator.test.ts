@@ -1,14 +1,14 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  bind,
-  injectable,
+  asBindingTemplate,
   BindingScope,
+  bind,
   Context,
-  Provider,
   createBindingFromClass,
   getBindingMetadata,
-  asBindingTemplate,
+  injectable,
+  type Provider,
 } from '../../src/index.js';
 
 describe('binding-decorator', () => {

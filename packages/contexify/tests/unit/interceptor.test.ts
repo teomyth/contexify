@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
   asGlobalInterceptor,
@@ -6,14 +6,14 @@ import {
   ContextBindings,
   ContextTags,
   createBindingFromClass,
-  globalInterceptor,
   GLOBAL_INTERCEPTOR_NAMESPACE,
+  globalInterceptor,
   InterceptedInvocationContext,
-  Interceptor,
-  InterceptorOrKey,
-  InvocationSource,
+  type Interceptor,
+  type InterceptorOrKey,
+  type InvocationSource,
   mergeInterceptors,
-  Provider,
+  type Provider,
   registerInterceptor,
 } from '../../src/index.js';
 import { UNIQUE_ID_PATTERN } from '../../src/utils/unique-id.js';
@@ -277,7 +277,7 @@ describe('globalInterceptors', () => {
   }
 
   function givenInvocationContext(source?: string) {
-    let invocationSource: InvocationSource<string> | undefined = undefined;
+    let invocationSource: InvocationSource<string> | undefined;
     if (source != null) {
       invocationSource = {
         type: source,

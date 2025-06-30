@@ -1,8 +1,8 @@
-import { injectable, inject, BindingScope } from 'contexify';
+import { BindingScope, inject, injectable } from 'contexify';
 
 import { CoreKeys } from '../keys.js';
 
-import { Logger } from './logger.js';
+import type { Logger } from './logger.js';
 
 /**
  * Configuration service interface
