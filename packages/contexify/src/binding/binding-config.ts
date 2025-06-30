@@ -42,8 +42,8 @@ export class DefaultConfigurationResolver implements ConfigurationResolver {
     propertyPath?: string,
     resolutionOptions?: ResolutionOptions
   ): ValueOrPromise<ConfigValueType | undefined> {
-    propertyPath = propertyPath ?? '';
-    const configKey = configBindingKeyFor(key, propertyPath);
+    const resolvedPropertyPath = propertyPath ?? '';
+    const configKey = configBindingKeyFor(key, resolvedPropertyPath);
 
     const options: ResolutionOptions = Object.assign(
       { optional: true },

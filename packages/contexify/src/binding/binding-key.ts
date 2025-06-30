@@ -64,14 +64,14 @@ export class BindingKey<_ValueType> {
    */
   static validate<T>(key: BindingAddress<T>): string {
     if (!key) throw new Error('Binding key must be provided.');
-    key = key.toString();
-    if (key.includes(BindingKey.PROPERTY_SEPARATOR)) {
+    const keyString = key.toString();
+    if (keyString.includes(BindingKey.PROPERTY_SEPARATOR)) {
       throw new Error(
-        `Binding key ${key} cannot contain` +
+        `Binding key ${keyString} cannot contain` +
           ` '${BindingKey.PROPERTY_SEPARATOR}'.`
       );
     }
-    return key;
+    return keyString;
   }
 
   /**

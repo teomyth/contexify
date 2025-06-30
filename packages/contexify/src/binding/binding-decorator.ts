@@ -68,7 +68,7 @@ export function injectable(...specs: BindingSpec[]): ClassDecorator {
     return asBindingTemplate(t);
   });
 
-  return (target: Function) => {
+  return (target: Constructor<unknown>) => {
     const cls = target as Constructor<unknown>;
     const spec: BindingMetadata = {
       templates: [asClassOrProvider(cls), ...templateFunctions],

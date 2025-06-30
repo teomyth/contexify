@@ -80,8 +80,7 @@ export class InterceptionHandler<T extends object> implements ProxyHandler<T> {
   ) {}
 
   get(target: T, propertyName: PropertyKey, _receiver: unknown) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const targetObj = target as any;
+    const targetObj = target as Record<PropertyKey, unknown>;
     if (typeof propertyName !== 'string') return targetObj[propertyName];
     const propertyOrMethod = targetObj[propertyName];
     if (typeof propertyOrMethod === 'function') {

@@ -69,16 +69,23 @@ export function config(
   propertyPath?: string | ConfigInjectionMetadata,
   metadata?: ConfigInjectionMetadata
 ) {
-  propertyPath = propertyPath ?? '';
+  let resolvedPropertyPath = propertyPath ?? '';
+  let resolvedMetadata = metadata;
+
   if (typeof propertyPath === 'object') {
-    metadata = propertyPath;
-    propertyPath = '';
+    resolvedMetadata = propertyPath;
+    resolvedPropertyPath = '';
   }
-  metadata = Object.assign(
-    { propertyPath, decorator: '@config', optional: true },
-    metadata
+
+  const finalMetadata = Object.assign(
+    {
+      propertyPath: resolvedPropertyPath,
+      decorator: '@config',
+      optional: true,
+    },
+    resolvedMetadata
   );
-  return inject('', metadata, resolveFromConfig);
+  return inject('', finalMetadata, resolveFromConfig);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -92,16 +99,23 @@ export namespace config {
     propertyPath?: string | ConfigInjectionMetadata,
     metadata?: ConfigInjectionMetadata
   ) {
-    propertyPath = propertyPath ?? '';
+    let resolvedPropertyPath = propertyPath ?? '';
+    let resolvedMetadata = metadata;
+
     if (typeof propertyPath === 'object') {
-      metadata = propertyPath;
-      propertyPath = '';
+      resolvedMetadata = propertyPath;
+      resolvedPropertyPath = '';
     }
-    metadata = Object.assign(
-      { propertyPath, decorator: '@config.getter', optional: true },
-      metadata
+
+    const finalMetadata = Object.assign(
+      {
+        propertyPath: resolvedPropertyPath,
+        decorator: '@config.getter',
+        optional: true,
+      },
+      resolvedMetadata
     );
-    return inject('', metadata, resolveAsGetterFromConfig);
+    return inject('', finalMetadata, resolveAsGetterFromConfig);
   };
 
   /**
@@ -114,16 +128,23 @@ export namespace config {
     propertyPath?: string | ConfigInjectionMetadata,
     metadata?: ConfigInjectionMetadata
   ) {
-    propertyPath = propertyPath ?? '';
+    let resolvedPropertyPath = propertyPath ?? '';
+    let resolvedMetadata = metadata;
+
     if (typeof propertyPath === 'object') {
-      metadata = propertyPath;
-      propertyPath = '';
+      resolvedMetadata = propertyPath;
+      resolvedPropertyPath = '';
     }
-    metadata = Object.assign(
-      { propertyPath, decorator: '@config.view', optional: true },
-      metadata
+
+    const finalMetadata = Object.assign(
+      {
+        propertyPath: resolvedPropertyPath,
+        decorator: '@config.view',
+        optional: true,
+      },
+      resolvedMetadata
     );
-    return inject('', metadata, resolveAsViewFromConfig);
+    return inject('', finalMetadata, resolveAsViewFromConfig);
   };
 }
 
