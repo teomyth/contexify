@@ -7,15 +7,15 @@ import {
   BindingScope,
   type Constructor,
   Context,
+  config,
   Getter,
   type Injection,
-  type Provider,
-  type ResolutionSession,
-  type Setter,
-  config,
   inject,
   instantiateClass,
   invokeMethod,
+  type Provider,
+  type ResolutionSession,
+  type Setter,
 } from '../../src/index.js';
 
 const INFO_CONTROLLER = 'controllers.info';

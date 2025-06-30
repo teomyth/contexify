@@ -8,6 +8,7 @@ import {
   type MetadataMap,
   MethodDecoratorFactory,
 } from 'metarize';
+import type { Binding, BindingTemplate } from '../binding/binding.js';
 import { injectable } from '../binding/binding-decorator.js';
 import {
   type BindingFromClassOptions,
@@ -17,7 +18,6 @@ import {
 } from '../binding/binding-inspector.js';
 import { type BindingAddress, BindingKey } from '../binding/binding-key.js';
 import { sortBindingsByPhase } from '../binding/binding-sorter.js';
-import type { Binding, BindingTemplate } from '../binding/binding.js';
 import type { Context } from '../context/context.js';
 import type { Provider } from '../provider/provider.js';
 import createDebugger from '../utils/debug.js';
@@ -29,8 +29,8 @@ import {
 } from '../utils/keys.js';
 import {
   type Constructor,
-  type ValueOrPromise,
   tryWithFinally,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import {

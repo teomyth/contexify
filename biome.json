@@ -70,18 +70,14 @@
     }
   },
   "files": {
-    "ignore": [
-      "**/node_modules",
-      "**/dist",
-      "**/coverage",
-      "**/.git",
-      "**/*.d.ts",
-      "**/*.js.map",
-      "**/examples/**/dist",
-      "docs-site/build",
-      "docs-site",
-      "**/fix-imports.js",
-      "scripts"
+    "ignoreUnknown": true,
+    "includes": [
+      "packages/*/src/**/*.ts",
+      "packages/*/src/**/*.js",
+      "packages/*/tests/**/*.ts",
+      "packages/*/tests/**/*.js",
+      "examples/*/src/**/*.ts",
+      "examples/*/src/**/*.js"
     ]
   }
 }

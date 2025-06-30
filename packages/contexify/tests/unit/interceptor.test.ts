@@ -1,19 +1,19 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
+  asGlobalInterceptor,
   Context,
   ContextBindings,
   ContextTags,
+  createBindingFromClass,
   GLOBAL_INTERCEPTOR_NAMESPACE,
+  globalInterceptor,
   InterceptedInvocationContext,
   type Interceptor,
   type InterceptorOrKey,
   type InvocationSource,
-  type Provider,
-  asGlobalInterceptor,
-  createBindingFromClass,
-  globalInterceptor,
   mergeInterceptors,
+  type Provider,
   registerInterceptor,
 } from '../../src/index.js';
 import { UNIQUE_ID_PATTERN } from '../../src/utils/unique-id.js';

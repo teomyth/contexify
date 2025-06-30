@@ -1,13 +1,13 @@
 import { DecoratorFactory } from 'metarize';
-import type { BindingSelector } from '../binding/binding-filter.js';
 import type { Binding } from '../binding/binding.js';
+import type { BindingSelector } from '../binding/binding-filter.js';
 import type { Context } from '../context/context.js';
 import type { Injection, InjectionMetadata } from '../inject/inject.js';
 import createDebugger from '../utils/debug.js';
 import {
   type BoundValue,
-  type ValueOrPromise,
   tryWithFinally,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 const debugSession = createDebugger('contexify:resolver:session');

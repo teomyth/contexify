@@ -7,8 +7,8 @@ import type { ResolutionSession } from '../resolution/resolution-session.js';
 import { resolveInjectedArguments } from '../resolution/resolver.js';
 import createDebugger from '../utils/debug.js';
 import {
-  type ValueOrPromise,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import { invokeMethodWithInterceptors } from './interceptor.js';

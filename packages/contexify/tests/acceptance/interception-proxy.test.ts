@@ -4,13 +4,13 @@ import {
   type AsyncProxy,
   BindingScope,
   Context,
+  createProxyWithInterceptors,
   type Interceptor,
+  inject,
+  intercept,
   type Provider,
   ResolutionSession,
   type ValueOrPromise,
-  createProxyWithInterceptors,
-  inject,
-  intercept,
 } from '../../src/index.js';
 
 describe('Interception proxy', () => {

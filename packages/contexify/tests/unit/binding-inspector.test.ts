@@ -7,11 +7,11 @@ import {
   type Constructor,
   Context,
   ContextTags,
-  type Provider,
   createBindingFromClass,
   inject,
   injectable,
   isProviderClass,
+  type Provider,
 } from '../../src/index.js';
 
 describe('createBindingFromClass()', () => {

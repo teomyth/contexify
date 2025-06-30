@@ -15,7 +15,13 @@
     "cx-sync-versions": "./bin/sync-versions.js",
     "cx-check-versions": "./bin/check-versions.js"
   },
-  "files": ["bin", "src", "templates", "README.md", "LICENSE"],
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "clean": "rm -rf dist",
     "build": "echo 'No build step required - using JavaScript directly'",
@@ -26,7 +32,13 @@
     "fix": "biome check --write . && biome format --write .",
     "prepub": "pnpm fix && pnpm test"
   },
-  "keywords": ["contexify", "build", "tools", "typescript", "monorepo"],
+  "keywords": [
+    "contexify",
+    "build",
+    "tools",
+    "typescript",
+    "monorepo"
+  ],
   "author": "teomyth <teomyth@gmail.com>",
   "license": "MIT",
   "repository": {

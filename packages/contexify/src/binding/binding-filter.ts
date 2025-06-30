@@ -1,6 +1,6 @@
 import type { MapObject } from '../utils/value-promise.js';
-import type { BindingAddress } from './binding-key.js';
 import type { Binding, BindingTag } from './binding.js';
+import type { BindingAddress } from './binding-key.js';
 
 /**
  * A function that filters bindings. It returns `true` to select a given

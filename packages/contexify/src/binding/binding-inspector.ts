@@ -4,7 +4,6 @@ import type { Provider } from '../provider/provider.js';
 import createDebugger from '../utils/debug.js';
 import { ContextTags } from '../utils/keys.js';
 import type { Constructor } from '../utils/value-promise.js';
-import type { BindingAddress } from './binding-key.js';
 import {
   Binding,
   type BindingScope,
@@ -13,6 +12,7 @@ import {
   type DynamicValueProviderClass,
   isDynamicValueProviderClass,
 } from './binding.js';
+import type { BindingAddress } from './binding-key.js';
 
 const debug = createDebugger('contexify:binding-inspector');
 

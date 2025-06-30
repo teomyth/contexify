@@ -7,9 +7,9 @@ import {
   BindingScope,
   BindingType,
   Context,
-  type Provider,
   inject,
   isPromiseLike,
+  type Provider,
 } from '../../src/index.js';
 import type { Debugger } from '../../src/utils/debug.js';
 import { UNIQUE_ID_PATTERN } from '../../src/utils/unique-id.js';

@@ -3,9 +3,9 @@ import { describe, expect, it } from 'vitest';
 import {
   BindingScope,
   Context,
-  type Provider,
   createBindingFromClass,
   injectable,
+  type Provider,
 } from '../../src/index.js';
 
 describe('@injectable - customize classes with binding attributes', () => {

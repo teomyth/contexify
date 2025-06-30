@@ -3,12 +3,12 @@ import { ClassDecoratorFactory } from 'metarize';
 import type { Constructor } from '../utils/value-promise.js';
 
 import {
-  BINDING_METADATA_KEY,
-  type BindingMetadata,
-  type BindingSpec,
   asBindingTemplate,
   asClassOrProvider,
   asProvider,
+  BINDING_METADATA_KEY,
+  type BindingMetadata,
+  type BindingSpec,
   isProviderClass,
   removeNameAndKeyTags,
 } from './binding-inspector.js';

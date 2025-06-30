@@ -6,12 +6,12 @@ import { createProxyWithInterceptors } from '../interceptor/interception-proxy.j
 import { invokeMethod } from '../interceptor/invocation.js';
 import type { Provider } from '../provider/provider.js';
 import {
+  asResolutionOptions,
   type ResolutionContext,
   ResolutionError,
   type ResolutionOptions,
   type ResolutionOptionsOrSession,
   ResolutionSession,
-  asResolutionOptions,
 } from '../resolution/resolution-session.js';
 import { instantiateClass } from '../resolution/resolver.js';
 import createDebugger from '../utils/debug.js';
@@ -20,10 +20,10 @@ import { ContextTags } from '../utils/keys.js';
 import {
   type BoundValue,
   type Constructor,
-  type MapObject,
-  type ValueOrPromise,
   isPromiseLike,
+  type MapObject,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import { bindingTemplateFor } from './binding-inspector.js';

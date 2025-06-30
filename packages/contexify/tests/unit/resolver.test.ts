@@ -6,12 +6,12 @@ import {
   Context,
   type Getter,
   type Injection,
-  type Provider,
-  type ResolutionSession,
   inject,
   injectable,
   instantiateClass,
   invokeMethod,
+  type Provider,
+  type ResolutionSession,
 } from '../../src/index.js';
 
 describe('constructor injection', () => {

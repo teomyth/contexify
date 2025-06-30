@@ -1,5 +1,5 @@
-import type { BindingFilter } from '../binding/binding-filter.js';
 import type { Binding } from '../binding/binding.js';
+import type { BindingFilter } from '../binding/binding-filter.js';
 import type { ValueOrPromise } from '../utils/value-promise.js';
 
 import type { Context } from './context.js';

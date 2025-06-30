@@ -3,9 +3,9 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import {
   Context,
   type ContextView,
-  type Getter,
   config,
   configBindingKeyFor,
+  type Getter,
 } from '../../src/index.js';
 
 describe('Context bindings - injecting configuration for bound artifacts', () => {

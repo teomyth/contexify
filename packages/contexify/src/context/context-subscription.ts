@@ -2,13 +2,13 @@ import { EventEmitter } from 'events';
 
 import createDebugger from '../utils/debug.js';
 import * as pEvent from '../utils/p-event.js';
+import type { Context } from './context.js';
 import type { ContextEvent, ContextEventListener } from './context-event.js';
 import type {
   ContextEventObserver,
   ContextEventType,
   ContextObserver,
 } from './context-observer.js';
-import type { Context } from './context.js';
 
 const debug = createDebugger('contexify:subscription');
 

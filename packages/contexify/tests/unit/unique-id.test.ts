@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  generateUniqueId,
+  generateUUID,
   UNIQUE_ID_PATTERN,
   UUID_PATTERN,
-  generateUUID,
-  generateUniqueId,
 } from '../../src/utils/unique-id.js';
 
 describe('unique-id', () => {

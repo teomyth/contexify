@@ -1,11 +1,11 @@
 import {
   type Interceptor,
   type InvocationContext,
+  inject,
+  injectable,
   type Next,
   type NonVoid,
   type ValueOrPromise,
-  inject,
-  injectable,
 } from 'contexify';
 
 import { CoreKeys } from '../components/core/keys.js';

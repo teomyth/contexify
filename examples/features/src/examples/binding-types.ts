@@ -1,4 +1,4 @@
-import { BindingKey, Context, type Provider, inject } from 'contexify';
+import { BindingKey, Context, inject, type Provider } from 'contexify';
 
 /**
  * A strongly-typed binding key for current date

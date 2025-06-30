@@ -1,24 +1,24 @@
 import { EventEmitter } from 'events';
+import type { Binding } from '../binding/binding.js';
 import type { BindingFilter } from '../binding/binding-filter.js';
 import type { BindingComparator } from '../binding/binding-sorter.js';
-import type { Binding } from '../binding/binding.js';
 import type { Getter } from '../inject/inject.js';
 import {
+  asResolutionOptions,
   type ResolutionOptions,
   type ResolutionOptionsOrSession,
   ResolutionSession,
-  asResolutionOptions,
 } from '../resolution/resolution-session.js';
 import createDebugger from '../utils/debug.js';
 import {
-  type ValueOrPromise,
   isPromiseLike,
   resolveList,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
+import type { Context } from './context.js';
 import type { ContextEvent } from './context-event.js';
 import type { ContextEventType, ContextObserver } from './context-observer.js';
 import type { Subscription } from './context-subscription.js';
-import type { Context } from './context.js';
 
 const debug = createDebugger('contexify:view');
 
