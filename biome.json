@@ -1,8 +1,6 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -22,7 +20,6 @@
       },
       "style": {
         "noNamespace": "off",
-        "useShorthandArrayType": "error",
         "noUselessElse": "off",
         "useImportType": "off",
         "noParameterAssign": "off",
@@ -34,7 +31,14 @@
         "noUnusedTemplateLiteral": "off",
         "useNumberNamespace": "off",
         "noInferrableTypes": "off",
-        "noCommaOperator": "off"
+        "useAsConstAssertion": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        }
       },
       "complexity": {
         "noBannedTypes": "off",
@@ -43,7 +47,8 @@
         "noStaticOnlyClass": "off",
         "useLiteralKeys": "off",
         "useArrowFunction": "off",
-        "noThisInStatic": "off"
+        "noThisInStatic": "off",
+        "noCommaOperator": "off"
       },
       "performance": {
         "noDelete": "off"
@@ -67,14 +72,15 @@
     }
   },
   "files": {
-    "ignore": [
-      "**/node_modules/**",
-      "**/dist/**",
-      "**/coverage/**",
-      "**/.git/**",
-      "**/*.d.ts",
-      "**/*.js.map",
-      "**/examples/**/dist/**"
+    "includes": [
+      "**",
+      "!**/node_modules/**",
+      "!**/dist/**",
+      "!**/coverage/**",
+      "!**/.git/**",
+      "!**/*.d.ts",
+      "!**/*.js.map",
+      "!**/examples/**/dist/**"
     ]
   }
 }
