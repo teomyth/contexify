@@ -70,14 +70,11 @@
     }
   },
   "files": {
-    "ignoreUnknown": true,
-    "includes": [
-      "packages/*/src/**/*.ts",
-      "packages/*/src/**/*.js",
-      "packages/*/tests/**/*.ts",
-      "packages/*/tests/**/*.js",
-      "examples/*/src/**/*.ts",
-      "examples/*/src/**/*.js"
-    ]
+    "ignoreUnknown": true
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
   }
 }
