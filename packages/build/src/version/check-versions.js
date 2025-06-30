@@ -5,7 +5,9 @@
  */
 
 import * as fgPkg from 'fast-glob';
+
 const fg = fgPkg.default || fgPkg;
+
 import fs from 'fs';
 import path from 'path';
 // No types needed in JavaScript

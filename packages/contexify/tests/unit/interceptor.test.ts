@@ -1,19 +1,19 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  asGlobalInterceptor,
   Context,
   ContextBindings,
   ContextTags,
-  createBindingFromClass,
   GLOBAL_INTERCEPTOR_NAMESPACE,
-  globalInterceptor,
   InterceptedInvocationContext,
   type Interceptor,
   type InterceptorOrKey,
   type InvocationSource,
-  mergeInterceptors,
   type Provider,
+  asGlobalInterceptor,
+  createBindingFromClass,
+  globalInterceptor,
+  mergeInterceptors,
   registerInterceptor,
 } from '../../src/index.js';
 import { UNIQUE_ID_PATTERN } from '../../src/utils/unique-id.js';
@@ -132,8 +132,7 @@ describe('globalInterceptors', () => {
     return +process.versions.v8.split('.')[0] >= 7;
   }
 
-  /* skipIf */ !isSortStable(),
-    it,
+  /* skipIf */ (!isSortStable() ? it.skip : it)(
     'sorts by binding order without group tags',
     async () => {
       registerInterceptor(ctx, authInterceptor, {
@@ -153,7 +152,8 @@ describe('globalInterceptors', () => {
         'globalInterceptors.authInterceptor',
         'globalInterceptors.logInterceptor',
       ]);
-    };
+    }
+  );
 
   it('applies asGlobalInterceptor', () => {
     const binding = ctx

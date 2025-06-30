@@ -9,6 +9,6 @@
  */
 export const VERSION = '0.3.0';
 
+export * from './utils/logger.js';
 // Re-export modules
 export * from './version/index.js';
-export * from './utils/logger.js';

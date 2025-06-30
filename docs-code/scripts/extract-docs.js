@@ -91,11 +91,13 @@ function main() {
 
   for (const docFile of docFiles) {
     const docName = path.basename(docFile, '.md');
-    
+
     const codeBlocks = extractCodeFromDocs(docFile);
     if (codeBlocks.length === 0) continue;
-    
-    console.log(`Processing document: ${docName} (${codeBlocks.length} code blocks)`);
+
+    console.log(
+      `Processing document: ${docName} (${codeBlocks.length} code blocks)`
+    );
     totalCodeBlocks += codeBlocks.length;
 
     for (let i = 0; i < codeBlocks.length; i++) {

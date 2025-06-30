@@ -6,12 +6,12 @@ import {
   Context,
   type Getter,
   type Injection,
+  type Provider,
+  type ResolutionSession,
   inject,
   injectable,
   instantiateClass,
   invokeMethod,
-  type Provider,
-  type ResolutionSession,
 } from '../../src/index.js';
 
 describe('constructor injection', () => {
@@ -137,8 +137,8 @@ describe('constructor injection', () => {
 
   it('reports circular dependencies of two bindings', () => {
     const context = new Context();
-    type XInterface = {}
-    type YInterface = {}
+    type XInterface = {};
+    type YInterface = {};
 
     class XClass implements XInterface {
       @inject('y')
@@ -260,9 +260,9 @@ describe('constructor injection', () => {
     const context = new Context();
 
     // Declare interfaces so that they can be used for typing
-    type XInterface = {}
-    type YInterface = {}
-    type ZInterface = {}
+    type XInterface = {};
+    type YInterface = {};
+    type ZInterface = {};
 
     class XClass {
       constructor(@inject('y') public y: YInterface) {}

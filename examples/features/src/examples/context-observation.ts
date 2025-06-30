@@ -1,5 +1,5 @@
-import { Context, filterByKey, filterByTag } from 'contexify';
 import { promisify } from 'util';
+import { Context, filterByKey, filterByTag } from 'contexify';
 
 const setImmediateAsync = promisify(setImmediate);
 

@@ -4,9 +4,9 @@ import {
   Context,
   ContextBindings,
   DefaultConfigurationResolver,
-  inject,
   type ResolutionOptions,
   type ValueOrPromise,
+  inject,
 } from 'contexify';
 
 /**

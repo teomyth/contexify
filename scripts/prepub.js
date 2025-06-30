@@ -36,14 +36,18 @@ const errors = [];
  * @returns {boolean} - Whether the command succeeded
  */
 function runCommand(command, description, critical = true) {
-  console.log(`\n${colors.cyan}${colors.bold}Running: ${description}${colors.reset}`);
+  console.log(
+    `\n${colors.cyan}${colors.bold}Running: ${description}${colors.reset}`
+  );
   console.log(`${colors.blue}$ ${command}${colors.reset}\n`);
 
   try {
     // Pass the output directly to the console
     execSync(command, { stdio: 'inherit' });
 
-    console.log(`\n${colors.green}✓ ${description} completed successfully${colors.reset}`);
+    console.log(
+      `\n${colors.green}✓ ${description} completed successfully${colors.reset}`
+    );
     return true;
   } catch (error) {
     const errorMessage = `${colors.red}✗ ${description} failed${colors.reset}`;
@@ -64,7 +68,9 @@ function runCommand(command, description, critical = true) {
  */
 function showErrorSummary() {
   if (errors.length === 0) {
-    console.log(`\n${colors.green}${colors.bold}All checks passed successfully!${colors.reset}`);
+    console.log(
+      `\n${colors.green}${colors.bold}All checks passed successfully!${colors.reset}`
+    );
     return;
   }
 
@@ -72,25 +78,43 @@ function showErrorSummary() {
   console.error(`${colors.red}${colors.bold}===============${colors.reset}`);
 
   errors.forEach((error, index) => {
-    console.error(`\n${colors.red}${colors.bold}Error ${index + 1}: ${error.description}${colors.reset}`);
+    console.error(
+      `\n${colors.red}${colors.bold}Error ${index + 1}: ${error.description}${colors.reset}`
+    );
     console.error(`${colors.blue}Command: ${error.command}${colors.reset}`);
     console.error(`${colors.red}${error.error}${colors.reset}`);
   });
 
-  console.error(`\n${colors.red}${colors.bold}${errors.length} error(s) occurred during pre-publish validation.${colors.reset}`);
-  console.error(`${colors.yellow}Please fix these errors before publishing.${colors.reset}`);
+  console.error(
+    `\n${colors.red}${colors.bold}${errors.length} error(s) occurred during pre-publish validation.${colors.reset}`
+  );
+  console.error(
+    `${colors.yellow}Please fix these errors before publishing.${colors.reset}`
+  );
 }
 
 // Main execution
-console.log(`${colors.magenta}${colors.bold}Starting pre-publish validation...${colors.reset}`);
+console.log(
+  `${colors.magenta}${colors.bold}Starting pre-publish validation...${colors.reset}`
+);
 
 // Step 1: Run prepub for all packages (excluding docs)
-runCommand('pnpm turbo run prepub --filter=!@contexify/docs-site --filter=!@contexify/docs-code', 'All packages validation (clean, fix, build, test)');
+runCommand(
+  'pnpm turbo run prepub --filter=!@contexify/docs-site --filter=!@contexify/docs-code',
+  'All packages validation (clean, fix, build, test)'
+);
 
 // Step 2: Check documentation code syntax
 // We'll run a modified command that forces color output and filters out the build logs
-runCommand('FORCE_COLOR=true pnpm turbo run docs:check --filter=@contexify/docs-code | FORCE_COLOR=true grep --color=always -v "contexify:build:"', 'Documentation code syntax check');
+runCommand(
+  'FORCE_COLOR=true pnpm turbo run docs:check --filter=@contexify/docs-code | FORCE_COLOR=true grep --color=always -v "contexify:build:"',
+  'Documentation code syntax check'
+);
 
 // If we got here, all commands succeeded
-console.log(`\n${colors.green}${colors.bold}All pre-publish checks passed!${colors.reset}`);
-console.log(`${colors.green}The package is ready to be published.${colors.reset}`);
+console.log(
+  `\n${colors.green}${colors.bold}All pre-publish checks passed!${colors.reset}`
+);
+console.log(
+  `${colors.green}The package is ready to be published.${colors.reset}`
+);

@@ -4,8 +4,8 @@ import type { BindingComparator } from '../binding/binding-sorter.js';
 import type { Context } from '../context/context.js';
 import createDebugger from '../utils/debug.js';
 import {
-  transformValueOrPromise,
   type ValueOrPromise,
+  transformValueOrPromise,
 } from '../utils/value-promise.js';
 
 import type { InvocationResult } from './invocation.js';

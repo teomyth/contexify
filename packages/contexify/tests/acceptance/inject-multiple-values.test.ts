@@ -3,9 +3,9 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import {
   Context,
   type ContextView,
+  type Getter,
   compareBindingsByTag,
   filterByTag,
-  type Getter,
   inject,
 } from '../../src/index.js';
 

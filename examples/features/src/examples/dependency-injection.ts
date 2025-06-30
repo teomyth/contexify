@@ -2,8 +2,8 @@ import {
   BindingKey,
   Context,
   type ContextView,
-  filterByTag,
   type Getter,
+  filterByTag,
   inject,
   invokeMethod,
 } from 'contexify';

@@ -1,11 +1,11 @@
 import {
   type Interceptor,
   type InvocationContext,
-  inject,
-  injectable,
   type Next,
   type NonVoid,
   type ValueOrPromise,
+  inject,
+  injectable,
 } from 'contexify';
 
 import { CoreKeys } from '../components/core/keys.js';
@@ -64,12 +64,10 @@ export class LoggingInterceptorProvider {
               throw error;
             });
         }
-          // Handle synchronous result
-          const duration = Date.now() - startTime;
-          logger.debug(
-            `${targetName}.${methodName} completed in ${duration}ms`
-          );
-          return resultPromise;
+        // Handle synchronous result
+        const duration = Date.now() - startTime;
+        logger.debug(`${targetName}.${methodName} completed in ${duration}ms`);
+        return resultPromise;
       } catch (error) {
         // Log method call error (for synchronous errors)
         const duration = Date.now() - startTime;
@@ -128,10 +126,10 @@ export function createLoggingInterceptor(logger: Logger): Interceptor {
             throw error;
           });
       }
-        // Handle synchronous result
-        const duration = Date.now() - startTime;
-        logger.debug(`${targetName}.${methodName} completed in ${duration}ms`);
-        return resultPromise;
+      // Handle synchronous result
+      const duration = Date.now() - startTime;
+      logger.debug(`${targetName}.${methodName} completed in ${duration}ms`);
+      return resultPromise;
     } catch (error) {
       // Log method call error (for synchronous errors)
       const duration = Date.now() - startTime;

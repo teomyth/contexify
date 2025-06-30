@@ -1,6 +1,6 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import clsx from 'clsx';
+import type { ReactNode } from 'react';
 import styles from './styles.module.css';
 
 type FeatureItem = {
@@ -23,9 +23,7 @@ const FeatureList: FeatureItem[] = [
     title: 'IoC 容器',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
-      <>
-        通过强大的控制反转容器管理依赖项，支持绑定值、类、提供者等多种方式。
-      </>
+      <>通过强大的控制反转容器管理依赖项，支持绑定值、类、提供者等多种方式。</>
     ),
   },
   {
@@ -39,7 +37,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

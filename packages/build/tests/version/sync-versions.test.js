@@ -2,10 +2,10 @@
  * Tests for version synchronization
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { syncVersions } from '../../src/version/sync-versions.js';
 import fs from 'fs';
 import path from 'path';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { syncVersions } from '../../src/version/sync-versions.js';
 
 // Mock dependencies
 vi.mock('fs');

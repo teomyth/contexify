@@ -1,6 +1,6 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import clsx from 'clsx';
+import type { ReactNode } from 'react';
 import styles from './styles.module.css';
 
 type FeatureItem = {
@@ -15,7 +15,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Inject dependencies into classes, properties, and methods using decorators, making your code more modular, testable, and maintainable.
+        Inject dependencies into classes, properties, and methods using
+        decorators, making your code more modular, testable, and maintainable.
       </>
     ),
   },
@@ -24,7 +25,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Manage dependencies with a powerful inversion of control container, supporting binding values, classes, providers, and more.
+        Manage dependencies with a powerful inversion of control container,
+        supporting binding values, classes, providers, and more.
       </>
     ),
   },
@@ -33,13 +35,14 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Create parent-child relationships between contexts, enabling dependency inheritance and scope control, perfect for complex applications.
+        Create parent-child relationships between contexts, enabling dependency
+        inheritance and scope control, perfect for complex applications.
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">

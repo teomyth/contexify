@@ -1,4 +1,4 @@
-import { Context, ContextObserver, Binding } from 'contexify';
+import { Binding, Context, ContextObserver } from 'contexify';
 
 /**
  * This example demonstrates how to use observers in Contexify.

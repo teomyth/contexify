@@ -1,6 +1,5 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
@@ -47,8 +46,7 @@
         "noStaticOnlyClass": "off",
         "useLiteralKeys": "off",
         "useArrowFunction": "off",
-        "noThisInStatic": "off",
-        "noCommaOperator": "off"
+        "noThisInStatic": "off"
       },
       "performance": {
         "noDelete": "off"
@@ -72,15 +70,18 @@
     }
   },
   "files": {
-    "includes": [
-      "**",
-      "!**/node_modules/**",
-      "!**/dist/**",
-      "!**/coverage/**",
-      "!**/.git/**",
-      "!**/*.d.ts",
-      "!**/*.js.map",
-      "!**/examples/**/dist/**"
+    "ignore": [
+      "**/node_modules",
+      "**/dist",
+      "**/coverage",
+      "**/.git",
+      "**/*.d.ts",
+      "**/*.js.map",
+      "**/examples/**/dist",
+      "docs-site/build",
+      "docs-site",
+      "**/fix-imports.js",
+      "scripts"
     ]
   }
 }

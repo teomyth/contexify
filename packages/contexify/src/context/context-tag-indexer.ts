@@ -1,12 +1,12 @@
+import { type BindingFilter, filterByTag } from '../binding/binding-filter.js';
 import type {
   Binding,
   BindingEventListener,
   BindingTag,
 } from '../binding/binding.js';
-import { type BindingFilter, filterByTag } from '../binding/binding-filter.js';
 import type { BoundValue } from '../utils/value-promise.js';
-import type { Context } from './context.js';
 import type { ContextEventListener } from './context-event.js';
+import type { Context } from './context.js';
 
 /**
  * Indexer for context bindings by tag

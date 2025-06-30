@@ -6,19 +6,19 @@ import { isBindingAddress } from '../binding/binding-filter.js';
 import type { BindingAddress } from '../binding/binding-key.js';
 import type { Context } from '../context/context.js';
 import {
+  type Injection,
   describeInjectedArguments,
   describeInjectedProperties,
-  type Injection,
 } from '../inject/inject.js';
 import createDebugger from '../utils/debug.js';
 import {
   type BoundValue,
   type Constructor,
   type MapObject,
+  type ValueOrPromise,
   resolveList,
   resolveMap,
   transformValueOrPromise,
-  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import {

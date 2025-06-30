@@ -1,7 +1,7 @@
 import { Context } from 'contexify';
-import { AuthComponent } from './components/authentication.js';
 import { ApiComponent } from './components/api.js';
-import { ConfigKeys, configureApplication, ServerConfig } from './config.js';
+import { AuthComponent } from './components/authentication.js';
+import { ConfigKeys, ServerConfig, configureApplication } from './config.js';
 
 /**
  * This is the main application class for the modular application example.

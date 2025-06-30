@@ -4,9 +4,9 @@ import {
   Binding,
   Context,
   type Injection,
-  inject,
   ResolutionError,
   ResolutionSession,
+  inject,
 } from '../../src/index.js';
 
 describe('ResolutionSession', () => {

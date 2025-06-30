@@ -1,11 +1,5 @@
 import { EventEmitter } from 'events';
 import {
-  Binding,
-  type BindingInspectOptions,
-  BindingScope,
-  type BindingTag,
-} from '../binding/binding.js';
-import {
   type ConfigurationResolver,
   DefaultConfigurationResolver,
 } from '../binding/binding-config.js';
@@ -18,11 +12,17 @@ import {
 import { type BindingAddress, BindingKey } from '../binding/binding-key.js';
 import type { BindingComparator } from '../binding/binding-sorter.js';
 import {
-  asResolutionOptions,
+  Binding,
+  type BindingInspectOptions,
+  BindingScope,
+  type BindingTag,
+} from '../binding/binding.js';
+import {
   ResolutionError,
   type ResolutionOptions,
   type ResolutionOptionsOrSession,
   type ResolutionSession,
+  asResolutionOptions,
 } from '../resolution/resolution-session.js';
 import createDebugger, { type Debugger } from '../utils/debug.js';
 import type { JSONObject } from '../utils/json-types.js';
@@ -31,10 +31,10 @@ import { generateUniqueId } from '../utils/unique-id.js';
 import {
   type BoundValue,
   type Constructor,
+  type ValueOrPromise,
   getDeepProperty,
   isPromiseLike,
   transformValueOrPromise,
-  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import type { ContextEvent, ContextEventListener } from './context-event.js';

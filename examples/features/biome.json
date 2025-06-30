@@ -1,15 +1,8 @@
 {
-  "root": false,
   "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
 
   "files": {
-    "includes": [
-      "**",
-      "!**/node_modules/**",
-      "!**/dist/**",
-      "!**/*.d.ts",
-      "!**/*.js.map"
-    ]
+    "ignore": ["**/node_modules", "**/dist", "**/*.d.ts", "**/*.js.map"]
   },
   "formatter": {
     "enabled": true,

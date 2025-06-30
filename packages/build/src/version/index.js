@@ -5,5 +5,5 @@
  * with package.json versions.
  */
 
-export * from './sync-versions.js';
 export * from './check-versions.js';
+export * from './sync-versions.js';

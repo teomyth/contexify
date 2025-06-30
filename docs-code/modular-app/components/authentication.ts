@@ -1,7 +1,7 @@
-import { createBindingFromClass, Binding } from 'contexify';
-import { DefaultAuthService } from '../services/auth-service.js';
-import { DefaultAuthProvider } from '../providers/auth-provider.js';
+import { Binding, createBindingFromClass } from 'contexify';
 import { AuthBindings } from '../keys.js';
+import { DefaultAuthProvider } from '../providers/auth-provider.js';
+import { DefaultAuthService } from '../services/auth-service.js';
 
 /**
  * This is the authentication component for the modular application example.

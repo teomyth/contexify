@@ -1,16 +1,16 @@
 import {
   type AsyncProxy,
-  asGlobalInterceptor,
   BindingKey,
   BindingScope,
   Context,
-  createBindingFromClass,
   type Interceptor,
   type InvocationContext,
-  inject,
-  injectable,
   type Provider,
   type ValueOrPromise,
+  asGlobalInterceptor,
+  createBindingFromClass,
+  inject,
+  injectable,
 } from 'contexify';
 
 type RequestIdGenerator = (requestCtx: Context) => string;

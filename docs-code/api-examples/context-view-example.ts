@@ -1,4 +1,4 @@
-import { Context, injectable, inject } from 'contexify';
+import { Context, inject, injectable } from 'contexify';
 
 /**
  * This example demonstrates the usage of Context to manage plugins.

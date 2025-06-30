@@ -1,9 +1,9 @@
 import {
-  Context,
-  injectable,
-  inject,
   Binding,
+  Context,
   createBindingFromClass,
+  inject,
+  injectable,
 } from 'contexify';
 
 /**

@@ -1,12 +1,12 @@
 import {
   Context,
   type ContextView,
+  type ValueOrPromise,
   filterByTag,
   isPromiseLike,
   resolveList,
   resolveMap,
   transformValueOrPromise,
-  type ValueOrPromise,
 } from 'contexify';
 
 /**

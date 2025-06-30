@@ -7,12 +7,12 @@ import {
   BindingScope,
   BindingType,
   Context,
+  type Provider,
+  type ValueFactory,
   config,
   filterByTag,
   inject,
   injectable,
-  type Provider,
-  type ValueFactory,
 } from '../../src/index.js';
 
 const key = 'foo';

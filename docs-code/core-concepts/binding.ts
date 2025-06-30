@@ -1,4 +1,4 @@
-import { Context, BindingScope, injectable } from 'contexify';
+import { BindingScope, Context, injectable } from 'contexify';
 
 /**
  * This example demonstrates different types of bindings in Contexify.

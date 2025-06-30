@@ -8,7 +8,6 @@ import {
   PropertyDecoratorFactory,
   Reflector,
 } from 'metarize';
-import { Binding, type BindingTag } from '../binding/binding.js';
 import {
   type BindingFilter,
   type BindingSelector,
@@ -18,8 +17,9 @@ import {
 } from '../binding/binding-filter.js';
 import type { BindingAddress, BindingKey } from '../binding/binding-key.js';
 import type { BindingComparator } from '../binding/binding-sorter.js';
-import type { BindingCreationPolicy, Context } from '../context/context.js';
+import { Binding, type BindingTag } from '../binding/binding.js';
 import { ContextView, createViewGetter } from '../context/context-view.js';
+import type { BindingCreationPolicy, Context } from '../context/context.js';
 import {
   type ResolutionOptions,
   ResolutionSession,
