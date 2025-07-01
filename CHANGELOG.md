@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### BREAKING CHANGES
+
+* **engines**: Update Node.js requirement from `>=18` to `20 || 22 || 24` to align with upstream LoopBack Next project. Node.js 18 is no longer supported.
+
+### Features
+
+* **engines**: Add .nvmrc file specifying Node.js 20 as the recommended version
+* **ci**: Update GitHub Actions CI matrix to test on Node.js 20.x, 22.x, and 24.x
+* **docs**: Add system requirements section to README.md
+
 ## [1.0.5](https://github.com/teomyth/contexify/compare/v1.0.1...v1.0.5) (2025-04-17)
 
 

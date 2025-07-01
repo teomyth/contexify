@@ -6,6 +6,11 @@ sidebar_position: 1
 
 Welcome to **Contexify**, a powerful TypeScript dependency injection container with context-based IoC capabilities.
 
+## System Requirements
+
+- **Node.js**: 20, 22, or 24
+- **TypeScript**: 5.0 or later (for TypeScript projects)
+
 ## Installation
 
 Install Contexify using your favorite package manager:

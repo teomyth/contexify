@@ -325,7 +325,7 @@ We carefully evaluated each dependency against these criteria:
 
 ### Prerequisites
 
-- Node.js (v18 or later)
+- Node.js (v20, v22, or v24)
 - pnpm (v10 or later)
 
 ### Setup

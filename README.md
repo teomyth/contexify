@@ -17,6 +17,11 @@ This repository uses pnpm workspaces and Turborepo to manage the following packa
 - [**docs-code**](./docs-code/): Executable code examples for Contexify documentation
 - [**docs-site**](./docs-site/): Documentation website built with Docusaurus
 
+## System Requirements
+
+- **Node.js**: 20, 22, or 24
+- **Package Manager**: pnpm 10+
+
 ## Quick Start
 
 ```bash
@@ -82,6 +87,10 @@ To contribute to the documentation:
 4. Run `pnpm run docs:update` to update the documentation with the latest code examples
 5. Run `pnpm run docs:start` to preview your changes locally
 6. Submit a pull request with your changes
+
+## Migration Guide
+
+If you're upgrading from a previous version, please see our [Migration Guide](./MIGRATION.md) for important changes and upgrade instructions.
 
 ## Contributing
 
