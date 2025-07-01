@@ -6,6 +6,11 @@ sidebar_position: 1
 
 欢迎使用 **Contexify**，这是一个强大的 TypeScript 依赖注入容器，提供基于上下文的 IoC 功能。
 
+## 系统要求
+
+- **Node.js**: 20, 22, 或 24
+- **TypeScript**: 5.0 或更高版本（适用于 TypeScript 项目）
+
 ## 安装
 
 使用您喜欢的包管理器安装 Contexify：
