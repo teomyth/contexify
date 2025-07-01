@@ -1,0 +1,24 @@
+# Build outputs
+**/dist/**
+**/build/**
+**/coverage/**
+
+# Dependencies
+**/node_modules/**
+
+# Generated files
+**/*.d.ts
+**/*.js.map
+
+# Documentation site
+docs-site/**
+
+# Scripts
+scripts/**
+
+# Git
+**/.git/**
+
+# Other generated files
+**/*.min.js
+**/*.bundle.js

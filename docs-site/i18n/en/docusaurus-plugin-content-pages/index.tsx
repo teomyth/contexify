@@ -1,15 +1,14 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import HomepageFeatures from './src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
-
+import Layout from '@theme/Layout';
+import clsx from 'clsx';
+import type { ReactNode } from 'react';
 import styles from './index.module.css';
+import HomepageFeatures from './src/components/HomepageFeatures';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -20,7 +19,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
+            to="/docs/intro"
+          >
             Get Started with Contexify
           </Link>
         </div>
@@ -30,11 +30,12 @@ function HomepageHeader() {
 }
 
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={`${siteConfig.title} - Powerful TypeScript Dependency Injection Container`}
-      description="Contexify is a powerful TypeScript dependency injection container with context-based IoC capabilities">
+      description="Contexify is a powerful TypeScript dependency injection container with context-based IoC capabilities"
+    >
       <HomepageHeader />
       <main>
         <HomepageFeatures />

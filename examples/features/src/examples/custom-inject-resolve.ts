@@ -1,10 +1,10 @@
 import {
   BindingKey,
   Context,
+  type Injection,
   inject,
-  Injection,
   ResolutionSession,
-  ResolverFunction,
+  type ResolverFunction,
 } from 'contexify';
 
 /**

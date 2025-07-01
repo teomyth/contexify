@@ -3,12 +3,12 @@ import { ClassDecoratorFactory } from 'metarize';
 import type { Constructor } from '../utils/value-promise.js';
 
 import {
-  BINDING_METADATA_KEY,
-  type BindingMetadata,
-  type BindingSpec,
   asBindingTemplate,
   asClassOrProvider,
   asProvider,
+  BINDING_METADATA_KEY,
+  type BindingMetadata,
+  type BindingSpec,
   isProviderClass,
   removeNameAndKeyTags,
 } from './binding-inspector.js';
@@ -27,10 +27,9 @@ class InjectableDecoratorFactory extends ClassDecoratorFactory<BindingMetadata> 
         ],
         target: this.spec.target,
       };
-    } else {
-      this.withTarget(this.spec, target);
-      return this.spec;
     }
+    this.withTarget(this.spec, target);
+    return this.spec;
   }
 
   mergeWithOwn(ownMetadata: BindingMetadata) {
@@ -65,12 +64,11 @@ export function injectable(...specs: BindingSpec[]): ClassDecorator {
   const templateFunctions = specs.map((t) => {
     if (typeof t === 'function') {
       return t;
-    } else {
-      return asBindingTemplate(t);
     }
+    return asBindingTemplate(t);
   });
 
-  return (target: Function) => {
+  return (target: any) => {
     const cls = target as Constructor<unknown>;
     const spec: BindingMetadata = {
       templates: [asClassOrProvider(cls), ...templateFunctions],
@@ -96,16 +94,15 @@ export namespace injectable {
    *
    * A list of binding scope/tags or template functions to configure the binding
    */
-  export function provider(
-    ...specs: BindingSpec[]
-  ): (target: Constructor<unknown>) => void {
-    return (target: Constructor<unknown>) => {
-      if (!isProviderClass(target)) {
-        throw new Error(`Target ${target} is not a Provider`);
+  export function provider(...specs: BindingSpec[]): (target: any) => void {
+    return (target: any) => {
+      const cls = target as Constructor<unknown>;
+      if (!isProviderClass(cls)) {
+        throw new Error(`Target ${cls} is not a Provider`);
       }
       injectable(
         // Set up the default for providers
-        asProvider(target),
+        asProvider(cls),
         // Call other template functions
         ...specs
       )(target);

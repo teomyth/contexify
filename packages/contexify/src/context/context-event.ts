@@ -1,6 +1,6 @@
-import { Binding } from '../binding/binding.js';
+import type { Binding } from '../binding/binding.js';
 
-import { Context } from './context.js';
+import type { Context } from './context.js';
 
 /**
  * Events emitted by a context

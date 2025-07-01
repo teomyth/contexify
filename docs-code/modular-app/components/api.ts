@@ -1,4 +1,4 @@
-import { createBindingFromClass, Binding } from 'contexify';
+import { Binding, createBindingFromClass } from 'contexify';
 import { UserController } from '../controllers/user-controller.js';
 import { ApiBindings } from '../keys.js';
 

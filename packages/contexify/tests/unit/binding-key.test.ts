@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { BindingKey } from '../../src/index.js';
 import { UNIQUE_ID_PATTERN } from '../../src/utils/unique-id.js';

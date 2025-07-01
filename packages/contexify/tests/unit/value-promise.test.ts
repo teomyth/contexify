@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import {
   getDeepProperty,
@@ -45,7 +45,7 @@ describe('getDeepProperty', () => {
 
   it('allows number value', () => {
     expect(getDeepProperty(1, 'x.z')).toBeUndefined();
-    expect(getDeepProperty(NaN, 'x.z')).toBeUndefined();
+    expect(getDeepProperty(Number.NaN, 'x.z')).toBeUndefined();
   });
 
   it('allows to get length string value', () => {
@@ -243,7 +243,7 @@ describe('resolveUntil', () => {
         const up = v.toUpperCase();
         if (up === v) return up;
         // Produces a value for upper case
-        else return Promise.resolve(up); // Produces a promise for lower case
+        return Promise.resolve(up); // Produces a promise for lower case
       },
       (s, v) => s === 'a'
     );

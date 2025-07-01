@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
+  Context,
+  type ContextView,
   config,
   configBindingKeyFor,
-  Context,
-  ContextView,
-  Getter,
+  type Getter,
 } from '../../src/index.js';
 
 describe('Context bindings - injecting configuration for bound artifacts', () => {

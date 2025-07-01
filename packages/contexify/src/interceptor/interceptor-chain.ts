@@ -1,14 +1,14 @@
-import { BindingFilter } from '../binding/binding-filter.js';
-import { BindingAddress } from '../binding/binding-key.js';
-import { BindingComparator } from '../binding/binding-sorter.js';
-import { Context } from '../context/context.js';
+import type { BindingFilter } from '../binding/binding-filter.js';
+import type { BindingAddress } from '../binding/binding-key.js';
+import type { BindingComparator } from '../binding/binding-sorter.js';
+import type { Context } from '../context/context.js';
 import createDebugger from '../utils/debug.js';
 import {
-  ValueOrPromise,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
-import { InvocationResult } from './invocation.js';
+import type { InvocationResult } from './invocation.js';
 
 const debug = createDebugger('contexify:interceptor-chain');
 
@@ -183,7 +183,7 @@ export class GenericInterceptorChain<C extends Context = Context> {
    * Use the interceptor chain as an interceptor
    */
   asInterceptor(): GenericInterceptor<C> {
-    return (ctx, next) => {
+    return (_ctx, next) => {
       return this.invokeInterceptors(next);
     };
   }

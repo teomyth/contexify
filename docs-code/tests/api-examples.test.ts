@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
-import { contextExample } from '../api-examples/context-example.js';
+import { describe, expect, it } from 'vitest';
 import { bindingExample } from '../api-examples/binding-example.js';
-import { decoratorExample } from '../api-examples/decorator-example.js';
+import { contextExample } from '../api-examples/context-example.js';
 import { contextViewExample } from '../api-examples/context-view-example.js';
+import { decoratorExample } from '../api-examples/decorator-example.js';
 
 describe('API Examples', () => {
   describe('Context Example', () => {

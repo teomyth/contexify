@@ -1,4 +1,4 @@
-import { ValueOrPromise } from '../utils/value-promise.js';
+import type { ValueOrPromise } from '../utils/value-promise.js';
 
 /**
  * Providers allow developers to compute injected values dynamically,

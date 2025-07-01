@@ -1,4 +1,4 @@
-import { injectable, inject } from 'contexify';
+import { inject, injectable } from 'contexify';
 import { AuthBindings } from '../keys.js';
 import { User } from '../types.js';
 

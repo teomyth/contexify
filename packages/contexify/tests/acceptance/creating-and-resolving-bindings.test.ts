@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { BindingKey, Context } from '../../src/index.js';
 
@@ -67,9 +67,7 @@ describe('Context bindings - Creating and resolving bindings', () => {
     describe('when a dynamic binding is created with three values', () => {
       it('returns values in sequence', async () => {
         const data = ['a', 'b', 'c'];
-        ctx.bind('data').toDynamicValue(function () {
-          return data.shift() ?? '(empty)';
-        });
+        ctx.bind('data').toDynamicValue(() => data.shift() ?? '(empty)');
 
         // First call
         let result = await ctx.get('data');

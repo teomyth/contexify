@@ -3,27 +3,27 @@ import assert from 'assert';
 import { DecoratorFactory } from 'metarize';
 
 import { isBindingAddress } from '../binding/binding-filter.js';
-import { BindingAddress } from '../binding/binding-key.js';
-import { Context } from '../context/context.js';
+import type { BindingAddress } from '../binding/binding-key.js';
+import type { Context } from '../context/context.js';
 import {
-  Injection,
   describeInjectedArguments,
   describeInjectedProperties,
+  type Injection,
 } from '../inject/inject.js';
 import createDebugger from '../utils/debug.js';
 import {
-  BoundValue,
-  Constructor,
-  MapObject,
-  ValueOrPromise,
+  type BoundValue,
+  type Constructor,
+  type MapObject,
   resolveList,
   resolveMap,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import {
   ResolutionError,
-  ResolutionOptions,
+  type ResolutionOptions,
   ResolutionSession,
 } from './resolution-session.js';
 
@@ -141,19 +141,18 @@ function resolve<T>(
       if (injection.resolve) {
         // A custom resolve function is provided
         return injection.resolve(ctx, injection, s);
-      } else {
-        // Default to resolve the value from the context by binding key
-        assert(
-          isBindingAddress(injection.bindingSelector),
-          'The binding selector must be an address (string or BindingKey)'
-        );
-        const key = injection.bindingSelector as BindingAddress;
-        const options: ResolutionOptions = {
-          session: s,
-          ...injection.metadata,
-        };
-        return ctx.getValueOrPromise(key, options);
       }
+      // Default to resolve the value from the context by binding key
+      assert(
+        isBindingAddress(injection.bindingSelector),
+        'The binding selector must be an address (string or BindingKey)'
+      );
+      const key = injection.bindingSelector as BindingAddress;
+      const options: ResolutionOptions = {
+        session: s,
+        ...injection.metadata,
+      };
+      return ctx.getValueOrPromise(key, options);
     },
     injection,
     session
@@ -219,7 +218,7 @@ export function resolveInjectedArguments(
   }
 
   let nonInjectedIndex = 0;
-  return resolveList(new Array(argLength), (val, ix) => {
+  return resolveList(new Array(argLength), (_val, ix) => {
     // The `val` argument is not used as the resolver only uses `injectedArgs`
     // and `extraArgs` to return the new value
     const injection = ix < injectedArgs.length ? injectedArgs[ix] : undefined;
@@ -230,15 +229,14 @@ export function resolveInjectedArguments(
       if (nonInjectedIndex < extraArgs.length) {
         // Set the argument from the non-injected list
         return extraArgs[nonInjectedIndex++];
-      } else {
-        const name = getTargetName(target, method, ix);
-        throw new ResolutionError(
-          `The argument '${name}' is not decorated for dependency injection ` +
-            'but no value was supplied by the caller. Did you forget to apply ' +
-            '@inject() to the argument?',
-          { context: ctx, options: { session } }
-        );
       }
+      const name = getTargetName(target, method, ix);
+      throw new ResolutionError(
+        `The argument '${name}' is not decorated for dependency injection ` +
+          'but no value was supplied by the caller. Did you forget to apply ' +
+          '@inject() to the argument?',
+        { context: ctx, options: { session } }
+      );
     }
 
     return resolve(

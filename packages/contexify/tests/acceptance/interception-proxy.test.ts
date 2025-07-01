@@ -1,16 +1,16 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  AsyncProxy,
+  type AsyncProxy,
+  BindingScope,
   Context,
   createProxyWithInterceptors,
+  type Interceptor,
   inject,
   intercept,
-  Interceptor,
+  type Provider,
   ResolutionSession,
-  ValueOrPromise,
-  BindingScope,
-  Provider,
+  type ValueOrPromise,
 } from '../../src/index.js';
 
 describe('Interception proxy', () => {

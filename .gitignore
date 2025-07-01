@@ -50,3 +50,10 @@ tmp
 
 # Release state file
 .release-state.json
+
+# Biome specific ignores
+docs-site/i18n/
+docs-site/build/
+docs-site/static/
+.version-sync.json
+templates/

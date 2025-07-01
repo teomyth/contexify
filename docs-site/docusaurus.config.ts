@@ -1,12 +1,13 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { Config } from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
   title: 'Contexify',
-  tagline: 'A TypeScript library providing a powerful dependency injection container with context-based IoC capabilities',
+  tagline:
+    'A TypeScript library providing a powerful dependency injection container with context-based IoC capabilities',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -30,11 +31,11 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en', 'zh'],
     localeConfigs: {
-      'en': {
+      en: {
         label: 'English',
         direction: 'ltr',
       },
-      'zh': {
+      zh: {
         label: '中文',
         direction: 'ltr',
       },
@@ -49,8 +50,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/teomyth/contexify/edit/main/docs-site/',
+          editUrl: 'https://github.com/teomyth/contexify/edit/main/docs-site/',
         },
         blog: false,
         theme: {

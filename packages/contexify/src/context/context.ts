@@ -1,48 +1,50 @@
 import { EventEmitter } from 'events';
-
 import {
-  ConfigurationResolver,
+  Binding,
+  type BindingInspectOptions,
+  BindingScope,
+  type BindingTag,
+} from '../binding/binding.js';
+import {
+  type ConfigurationResolver,
   DefaultConfigurationResolver,
 } from '../binding/binding-config.js';
 import {
-  BindingFilter,
+  type BindingFilter,
   filterByKey,
   filterByTag,
   isBindingTagFilter,
 } from '../binding/binding-filter.js';
-import { BindingAddress, BindingKey } from '../binding/binding-key.js';
-import { BindingComparator } from '../binding/binding-sorter.js';
+import { type BindingAddress, BindingKey } from '../binding/binding-key.js';
+import type { BindingComparator } from '../binding/binding-sorter.js';
 import {
-  Binding,
-  BindingInspectOptions,
-  BindingScope,
-  BindingTag,
-} from '../binding/binding.js';
-import {
-  ResolutionError,
-  ResolutionOptions,
-  ResolutionOptionsOrSession,
-  ResolutionSession,
   asResolutionOptions,
+  ResolutionError,
+  type ResolutionOptions,
+  type ResolutionOptionsOrSession,
+  type ResolutionSession,
 } from '../resolution/resolution-session.js';
-import { JSONObject } from '../utils/json-types.js';
+import createDebugger, { type Debugger } from '../utils/debug.js';
+import type { JSONObject } from '../utils/json-types.js';
 import { ContextBindings } from '../utils/keys.js';
-import createDebugger, { Debugger } from '../utils/debug.js';
 import { generateUniqueId } from '../utils/unique-id.js';
 import {
-  BoundValue,
-  Constructor,
-  ValueOrPromise,
+  type BoundValue,
+  type Constructor,
   getDeepProperty,
   isPromiseLike,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
-import { ContextEvent, ContextEventListener } from './context-event.js';
-import { ContextEventObserver, ContextObserver } from './context-observer.js';
+import type { ContextEvent, ContextEventListener } from './context-event.js';
+import type {
+  ContextEventObserver,
+  ContextObserver,
+} from './context-observer.js';
 import {
   ContextSubscriptionManager,
-  Subscription,
+  type Subscription,
 } from './context-subscription.js';
 import { ContextTagIndexer } from './context-tag-indexer.js';
 import { ContextView } from './context-view.js';
@@ -540,16 +542,15 @@ export class Context extends EventEmitter {
         resolutionCtx = this.getScopedContext(binding.scope);
         if (resolutionCtx != null) {
           return resolutionCtx;
-        } else {
-          // If no `REQUEST` scope exists in the chain, fall back to the current
-          // context
-          this.debug(
-            'No context is found for binding "%s (scope=%s)". Fall back to the current context.',
-            binding.key,
-            binding.scope
-          );
-          return this;
         }
+        // If no `REQUEST` scope exists in the chain, fall back to the current
+        // context
+        this.debug(
+          'No context is found for binding "%s (scope=%s)". Fall back to the current context.',
+          binding.key,
+          binding.scope
+        );
+        return this;
       default:
         // Use the scoped context
         return this.getScopedContext(binding.scope);
@@ -956,7 +957,7 @@ export class Context extends EventEmitter {
     const bindings: JSONObject = {};
     for (const [k, v] of this.registry) {
       const ctor = v.valueConstructor ?? v.providerConstructor;
-      let name: string | undefined = undefined;
+      let name: string | undefined;
       if (ctor != null) {
         name = visitedClasses.visit(ctor);
       }

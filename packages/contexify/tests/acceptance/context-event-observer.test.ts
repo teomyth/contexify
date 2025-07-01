@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  Binding,
+  type Binding,
   Context,
-  ContextEventType,
-  ContextObserver,
+  type ContextEventType,
+  type ContextObserver,
   filterByTag,
 } from '../../src/index.js';
 

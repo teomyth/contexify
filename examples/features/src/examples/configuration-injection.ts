@@ -1,4 +1,4 @@
-import { config, Context } from 'contexify';
+import { Context, config } from 'contexify';
 
 /**
  * Configuration for greeters

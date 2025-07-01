@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
-import { Binding, Context } from '../../src/index.js';
+import { type Binding, Context } from '../../src/index.js';
 
 describe('Context bindings - Tagged bindings', () => {
   let ctx: Context;

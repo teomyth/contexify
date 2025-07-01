@@ -6,11 +6,11 @@
  * @packageDocumentation
  */
 
+export * from './interceptor/interception-proxy.js';
 // Export interceptor modules
 export * from './interceptor/interceptor.js';
 export * from './interceptor/interceptor-chain.js';
 export * from './interceptor/invocation.js';
-export * from './interceptor/interception-proxy.js';
 
 // Export version
 export { VERSION } from './version.js';

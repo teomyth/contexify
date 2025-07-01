@@ -1,8 +1,8 @@
-import { BindingFilter } from '../binding/binding-filter.js';
-import { Binding } from '../binding/binding.js';
-import { ValueOrPromise } from '../utils/value-promise.js';
+import type { Binding } from '../binding/binding.js';
+import type { BindingFilter } from '../binding/binding-filter.js';
+import type { ValueOrPromise } from '../utils/value-promise.js';
 
-import { Context } from './context.js';
+import type { Context } from './context.js';
 
 /**
  * Context event types. We support `bind` and `unbind` for now but

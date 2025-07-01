@@ -4,9 +4,11 @@
  * This module synchronizes version constants in source files with package.json versions.
  */
 
-import { replaceInFile } from 'replace-in-file';
 import * as fgPkg from 'fast-glob';
+import { replaceInFile } from 'replace-in-file';
+
 const fg = fgPkg.default || fgPkg;
+
 import fs from 'fs';
 import path from 'path';
 // No types needed in JavaScript

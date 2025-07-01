@@ -15,30 +15,18 @@
     "cx-sync-versions": "./bin/sync-versions.js",
     "cx-check-versions": "./bin/check-versions.js"
   },
-  "files": [
-    "bin",
-    "src",
-    "templates",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["bin", "src", "templates", "README.md", "LICENSE"],
   "scripts": {
     "clean": "rm -rf dist",
     "build": "echo 'No build step required - using JavaScript directly'",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "lint": "biome check --write .",
-    "format": "biome format --write .",
-    "fix": "biome check --write . && biome format --write .",
+    "lint": "biome check --write src tests",
+    "format": "biome format --write src tests",
+    "fix": "biome check --write src tests && biome format --write src tests",
     "prepub": "pnpm fix && pnpm test"
   },
-  "keywords": [
-    "contexify",
-    "build",
-    "tools",
-    "typescript",
-    "monorepo"
-  ],
+  "keywords": ["contexify", "build", "tools", "typescript", "monorepo"],
   "author": "teomyth <teomyth@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -57,8 +45,8 @@
     "replace-in-file": "^8.3.0"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^3.1.4",
-    "vitest": "^3.1.4"
+    "@vitest/coverage-v8": "^3.2.4",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=18"

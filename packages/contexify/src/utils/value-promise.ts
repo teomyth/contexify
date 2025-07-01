@@ -94,7 +94,7 @@ export function resolveMap<T, V>(
   resolver: (val: T, key: string, values: MapObject<T>) => ValueOrPromise<V>
 ): ValueOrPromise<MapObject<V>> {
   const result: MapObject<V> = {};
-  let asyncResolvers: PromiseLike<void>[] | undefined = undefined;
+  let asyncResolvers: PromiseLike<void>[] | undefined;
 
   const setter = (key: string) => (val: V) => {
     if (val !== undefined) {
@@ -120,9 +120,8 @@ export function resolveMap<T, V>(
 
   if (asyncResolvers) {
     return Promise.all(asyncResolvers).then(() => result);
-  } else {
-    return result;
   }
+  return result;
 }
 
 /**
@@ -156,7 +155,7 @@ export function resolveList<T, V>(
   resolver: (val: T, index: number, values: T[]) => ValueOrPromise<V>
 ): ValueOrPromise<V[]> {
   const result: V[] = new Array<V>(list.length);
-  let asyncResolvers: PromiseLike<void>[] | undefined = undefined;
+  let asyncResolvers: PromiseLike<void>[] | undefined;
 
   const setter = (index: number) => (val: V) => {
     result[index] = val;
@@ -174,9 +173,8 @@ export function resolveList<T, V>(
 
   if (asyncResolvers) {
     return Promise.all(asyncResolvers).then(() => result);
-  } else {
-    return result;
   }
+  return result;
 }
 
 /**
@@ -266,15 +264,12 @@ export function resolveUntil<T, V>(
       return valueOrPromise.then((v) => {
         if (evaluator(sourceVal, v)) {
           return v;
-        } else {
-          return resolveUntil(source, resolver, evaluator);
         }
+        return resolveUntil(source, resolver, evaluator);
       });
-    } else {
-      if (evaluator(sourceVal, valueOrPromise)) {
-        return valueOrPromise;
-      }
-      // Continue with the while loop
+    }
+    if (evaluator(sourceVal, valueOrPromise)) {
+      return valueOrPromise;
     }
   }
 }
@@ -291,9 +286,8 @@ export function transformValueOrPromise<T, V>(
 ): ValueOrPromise<V> {
   if (isPromiseLike(valueOrPromise)) {
     return valueOrPromise.then(transformer);
-  } else {
-    return transformer(valueOrPromise);
   }
+  return transformer(valueOrPromise);
 }
 
 /**

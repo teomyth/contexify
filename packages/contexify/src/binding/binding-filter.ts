@@ -1,7 +1,6 @@
-import { MapObject } from '../utils/value-promise.js';
-
-import { BindingAddress } from './binding-key.js';
-import { Binding, BindingTag } from './binding.js';
+import type { MapObject } from '../utils/value-promise.js';
+import type { Binding, BindingTag } from './binding.js';
+import type { BindingAddress } from './binding-key.js';
 
 /**
  * A function that filters bindings. It returns `true` to select a given
@@ -35,9 +34,7 @@ import { Binding, BindingTag } from './binding.js';
  * To keep things simple and easy to use, we use `boolean` as the return type
  * of a binding filter function.
  */
-export interface BindingFilter {
-  (binding: Readonly<Binding<unknown>>): boolean;
-}
+export type BindingFilter = (binding: Readonly<Binding<unknown>>) => boolean;
 
 /**
  * Select binding(s) by key or a filter function
@@ -98,8 +95,7 @@ export function isBindingTagFilter(
   filter?: BindingFilter
 ): filter is BindingTagFilter {
   if (filter == null || !('bindingTagPattern' in filter)) return false;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const tagPattern = (filter as any).bindingTagPattern;
+  const tagPattern = (filter as BindingTagFilter).bindingTagPattern;
   return (
     tagPattern instanceof RegExp ||
     typeof tagPattern === 'string' ||
@@ -110,15 +106,11 @@ export function isBindingTagFilter(
 /**
  * A function to check if a given tag value is matched for `filterByTag`
  */
-export interface TagValueMatcher {
-  /**
-   * Check if the given tag value matches the search criteria
-   * @param tagValue - Tag value from the binding
-   * @param tagName - Tag name
-   * @param tagMap - Tag map from the binding
-   */
-  (tagValue: unknown, tagName: string, tagMap: MapObject<unknown>): boolean;
-}
+export type TagValueMatcher = (
+  tagValue: unknown,
+  tagName: string,
+  tagMap: MapObject<unknown>
+) => boolean;
 
 /**
  * A symbol that can be used to match binding tags by name regardless of the
@@ -134,7 +126,7 @@ export interface TagValueMatcher {
  * ctx.findByTag({controller: ANY_TAG_VALUE})
  * ```
  */
-export const ANY_TAG_VALUE: TagValueMatcher = (tagValue, tagName, tagMap) =>
+export const ANY_TAG_VALUE: TagValueMatcher = (_tagValue, tagName, tagMap) =>
   tagName in tagMap;
 
 /**
@@ -160,7 +152,7 @@ export function includesTagValue(...itemValues: unknown[]): TagValueMatcher {
  */
 export function filterByTag(tagPattern: BindingTag | RegExp): BindingTagFilter {
   let filter: BindingFilter;
-  let regex: RegExp | undefined = undefined;
+  let regex: RegExp | undefined;
   if (tagPattern instanceof RegExp) {
     // RegExp for tag names
     regex = tagPattern;
@@ -175,7 +167,7 @@ export function filterByTag(tagPattern: BindingTag | RegExp): BindingTagFilter {
 
   if (regex != null) {
     // RegExp or wildcard match
-    filter = (b) => b.tagNames.some((t) => regex!.test(t));
+    filter = (b) => b.tagNames.some((t) => regex?.test(t) ?? false);
   } else if (typeof tagPattern === 'string') {
     // Plain tag string match
     filter = (b) => b.tagNames.includes(tagPattern);
@@ -220,9 +212,11 @@ export function filterByKey(
   if (typeof keyPattern === 'string') {
     const regex = wildcardToRegExp(keyPattern);
     return (binding) => regex.test(binding.key);
-  } else if (keyPattern instanceof RegExp) {
+  }
+  if (keyPattern instanceof RegExp) {
     return (binding) => keyPattern.test(binding.key);
-  } else if (typeof keyPattern === 'function') {
+  }
+  if (typeof keyPattern === 'function') {
     return keyPattern;
   }
   return () => true;
@@ -238,7 +232,7 @@ function wildcardToRegExp(pattern: string): RegExp {
   // Escape reserved chars for RegExp:
   // `- \ ^ $ + . ( ) | { } [ ] :`
   // eslint-disable-next-line no-useless-escape
-  let regexp = pattern.replace(/[\-\[\]\/\{\}\(\)\+\.\\\^\$\|\:]/g, '\\$&');
+  let regexp = pattern.replace(/[-[\]/{}()+.\\^$|:]/g, '\\$&');
   // Replace wildcard chars `*` and `?`
   // `*` matches zero or more characters except `.` and `:`
   // `?` matches one character except `.` and `:`

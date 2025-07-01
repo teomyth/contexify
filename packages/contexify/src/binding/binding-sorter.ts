@@ -1,4 +1,4 @@
-import { Binding } from './binding.js';
+import type { Binding } from './binding.js';
 
 /**
  * Compare function to sort an array of bindings.
@@ -87,18 +87,17 @@ export function compareByOrder(
   if (i1 !== -1 || i2 !== -1) {
     // Honor the order
     return i1 - i2;
-  } else {
-    // Neither value is in the pre-defined order
-
-    // symbol comes before string
-    if (typeof a === 'symbol' && typeof b === 'string') return -1;
-    if (typeof a === 'string' && typeof b === 'symbol') return 1;
-
-    // both a and b are symbols or both a and b are strings
-    if (typeof a === 'symbol') a = a.toString();
-    if (typeof b === 'symbol') b = b.toString();
-    return a < b ? -1 : a > b ? 1 : 0;
   }
+  // Neither value is in the pre-defined order
+
+  // symbol comes before string
+  if (typeof a === 'symbol' && typeof b === 'string') return -1;
+  if (typeof a === 'string' && typeof b === 'symbol') return 1;
+
+  // both a and b are symbols or both a and b are strings
+  if (typeof a === 'symbol') a = a.toString();
+  if (typeof b === 'symbol') b = b.toString();
+  return a < b ? -1 : a > b ? 1 : 0;
 }
 
 /**

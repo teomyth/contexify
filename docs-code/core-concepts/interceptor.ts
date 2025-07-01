@@ -1,10 +1,10 @@
 import {
   Context,
-  injectable,
-  intercept,
   Interceptor,
   InvocationContext,
   ValueOrPromise,
+  injectable,
+  intercept,
 } from 'contexify';
 
 /**

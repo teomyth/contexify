@@ -1,6 +1,10 @@
-import { ContextObserver, BindingFilter, ContextObserverFn } from 'contexify';
+import type {
+  BindingFilter,
+  ContextObserver,
+  ContextObserverFn,
+} from 'contexify';
 
-import { Logger } from '../components/core/services/logger.js';
+import type { Logger } from '../components/core/services/logger.js';
 
 /**
  * Service Observer

@@ -10,7 +10,7 @@
     "dev": "tsc --watch",
     "clean": "rm -rf dist",
     "build:clean": "pnpm clean && pnpm build",
-    "lint": "biome check --write .",
+    "lint": "biome check --write src",
     "format": "biome format --write .",
     "fix": "biome check --write . && biome format --write .",
     "prepub": "pnpm clean && pnpm fix && pnpm build"
@@ -28,11 +28,11 @@
     "contexify": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22.15.24",
+    "@types/node": "^24.0.7",
     "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@10.8.1"
+  "packageManager": "pnpm@10.12.4"
 }

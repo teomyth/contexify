@@ -21,7 +21,6 @@ export * from './provider/provider.js';
 export * from './resolution/resolution-session.js';
 export * from './utils/json-types.js';
 export * from './utils/keys.js';
-export * from './utils/value-promise.js';
 // Export specific items from unique-id.js to avoid naming conflicts
 export {
   createIdGenerator,
@@ -29,6 +28,7 @@ export {
   generateUUID,
   UNIQUE_ID_PATTERN,
 } from './utils/unique-id.js';
+export * from './utils/value-promise.js';
 
 // Export version
 export { VERSION } from './version.js';

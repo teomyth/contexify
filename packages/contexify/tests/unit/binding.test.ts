@@ -1,18 +1,18 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   Binding,
-  BindingEvent,
+  type BindingEvent,
   BindingKey,
   BindingScope,
   BindingType,
-  config,
   Context,
+  config,
   filterByTag,
   inject,
   injectable,
-  Provider,
-  ValueFactory,
+  type Provider,
+  type ValueFactory,
 } from '../../src/index.js';
 
 const key = 'foo';

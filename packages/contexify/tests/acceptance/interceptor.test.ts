@@ -1,16 +1,16 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
   asGlobalInterceptor,
   Context,
+  type Interceptor,
+  type InvocationContext,
   inject,
   intercept,
-  Interceptor,
-  InvocationContext,
   invokeMethod,
   invokeMethodWithInterceptors,
-  Provider,
-  ValueOrPromise,
+  type Provider,
+  type ValueOrPromise,
 } from '../../src/index.js';
 
 describe('Interceptor', () => {

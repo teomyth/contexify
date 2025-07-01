@@ -1,7 +1,7 @@
+import { spawnSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { spawnSync } from 'child_process';
 
 // Get the directory name
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,12 +11,14 @@ const TEMP_DIR = path.resolve(__dirname, '../temp');
 
 // Check if the temporary directory exists
 if (!fs.existsSync(TEMP_DIR)) {
-  console.error('Temporary directory does not exist. Run extract-docs.js first.');
+  console.error(
+    'Temporary directory does not exist. Run extract-docs.js first.'
+  );
   process.exit(1);
 }
 
 // Get all TypeScript files in the temporary directory
-const files = fs.readdirSync(TEMP_DIR).filter(file => file.endsWith('.ts'));
+const files = fs.readdirSync(TEMP_DIR).filter((file) => file.endsWith('.ts'));
 
 if (files.length === 0) {
   console.error('No TypeScript files found in the temporary directory.');
@@ -27,11 +29,28 @@ console.log(`Found ${files.length} TypeScript files to check.`);
 
 // Check for basic syntax errors using TypeScript's parser
 // We're not doing full type checking, just syntax validation
-const result = spawnSync('npx', ['tsc', '--allowJs', '--checkJs', '--noEmit', '--target', 'es2022', '--moduleResolution', 'node', '--skipLibCheck', '--noImplicitAny', 'false', path.join(TEMP_DIR, '*.ts')], {
-  stdio: 'pipe',
-  shell: true,
-  encoding: 'utf-8'
-});
+const result = spawnSync(
+  'npx',
+  [
+    'tsc',
+    '--allowJs',
+    '--checkJs',
+    '--noEmit',
+    '--target',
+    'es2022',
+    '--moduleResolution',
+    'node',
+    '--skipLibCheck',
+    '--noImplicitAny',
+    'false',
+    path.join(TEMP_DIR, '*.ts'),
+  ],
+  {
+    stdio: 'pipe',
+    shell: true,
+    encoding: 'utf-8',
+  }
+);
 
 // Parse the output to find syntax errors
 const output = result.stdout + result.stderr;
@@ -64,7 +83,7 @@ if (hasCriticalErrors) {
   // Extract and show only the critical errors
   const lines = output.split('\n');
   for (const line of lines) {
-    if (criticalSyntaxErrors.some(error => line.includes(error))) {
+    if (criticalSyntaxErrors.some((error) => line.includes(error))) {
       console.error(line);
     }
   }
@@ -96,7 +115,9 @@ for (const file of files) {
 }
 
 if (hasIssues) {
-  console.warn('Some documentation code has minor issues that should be addressed.');
+  console.warn(
+    'Some documentation code has minor issues that should be addressed.'
+  );
 } else {
   console.log('Documentation code looks good!');
 }

@@ -1,14 +1,14 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
+  Context,
   compareBindingsByTag,
   composeInterceptors,
-  Context,
   filterByTag,
-  GenericInterceptor,
+  type GenericInterceptor,
   GenericInterceptorChain,
-  Next,
-  Interceptor,
+  type Interceptor,
+  type Next,
 } from '../../src/index.js';
 
 describe('GenericInterceptorChain', () => {

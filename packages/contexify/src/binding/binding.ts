@@ -1,33 +1,33 @@
 import { EventEmitter } from 'events';
 
-import { Context } from '../context/context.js';
+import type { Context } from '../context/context.js';
 import { inspectInjections } from '../inject/inject.js';
 import { createProxyWithInterceptors } from '../interceptor/interception-proxy.js';
 import { invokeMethod } from '../interceptor/invocation.js';
-import { Provider } from '../provider/provider.js';
+import type { Provider } from '../provider/provider.js';
 import {
-  ResolutionContext,
-  ResolutionError,
-  ResolutionOptions,
-  ResolutionOptionsOrSession,
-  ResolutionSession,
   asResolutionOptions,
+  type ResolutionContext,
+  ResolutionError,
+  type ResolutionOptions,
+  type ResolutionOptionsOrSession,
+  ResolutionSession,
 } from '../resolution/resolution-session.js';
 import { instantiateClass } from '../resolution/resolver.js';
-import { JSONObject } from '../utils/json-types.js';
-import { ContextTags } from '../utils/keys.js';
 import createDebugger from '../utils/debug.js';
+import type { JSONObject } from '../utils/json-types.js';
+import { ContextTags } from '../utils/keys.js';
 import {
-  BoundValue,
-  Constructor,
-  MapObject,
-  ValueOrPromise,
+  type BoundValue,
+  type Constructor,
   isPromiseLike,
+  type MapObject,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import { bindingTemplateFor } from './binding-inspector.js';
-import { BindingAddress, BindingKey } from './binding-key.js';
+import { type BindingAddress, BindingKey } from './binding-key.js';
 
 const debug = createDebugger('contexify:binding');
 

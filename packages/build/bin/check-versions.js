@@ -4,8 +4,8 @@
  * Direct command entry point for cx-check-versions
  */
 
-import { checkVersions } from '../src/version/check-versions.js';
 import { Command } from 'commander';
+import { checkVersions } from '../src/version/check-versions.js';
 
 // Create a simple command-line interface
 const program = new Command();

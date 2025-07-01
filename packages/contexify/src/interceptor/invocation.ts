@@ -3,12 +3,12 @@ import assert from 'assert';
 import { DecoratorFactory } from 'metarize';
 
 import { Context } from '../context/context.js';
-import { ResolutionSession } from '../resolution/resolution-session.js';
+import type { ResolutionSession } from '../resolution/resolution-session.js';
 import { resolveInjectedArguments } from '../resolution/resolver.js';
 import createDebugger from '../utils/debug.js';
 import {
-  ValueOrPromise,
   transformValueOrPromise,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
 
 import { invokeMethodWithInterceptors } from './interceptor.js';
@@ -181,15 +181,14 @@ export function invokeMethod(
     if (options.skipParameterInjection) {
       // Invoke the target method directly without injection or interception
       return invokeTargetMethod(ctx, target, method, nonInjectedArgs);
-    } else {
-      return invokeTargetMethodWithInjection(
-        ctx,
-        target,
-        method,
-        nonInjectedArgs,
-        options.session
-      );
     }
+    return invokeTargetMethodWithInjection(
+      ctx,
+      target,
+      method,
+      nonInjectedArgs,
+      options.session
+    );
   }
   // Invoke the target method with interception but no injection
   return invokeMethodWithInterceptors(
@@ -256,7 +255,7 @@ function invokeTargetMethodWithInjection(
  * @param args - Arguments
  */
 function invokeTargetMethod(
-  ctx: Context, // Not used
+  _ctx: Context, // Not used
   target: object,
   methodName: string,
   args: InvocationArgs

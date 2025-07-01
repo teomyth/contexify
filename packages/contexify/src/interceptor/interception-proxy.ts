@@ -1,9 +1,9 @@
 import { Context } from '../context/context.js';
 import { ResolutionSession } from '../resolution/resolution-session.js';
-import { ValueOrPromise } from '../utils/value-promise.js';
+import type { ValueOrPromise } from '../utils/value-promise.js';
 
 import { invokeMethodWithInterceptors } from './interceptor.js';
-import { InvocationArgs, InvocationSource } from './invocation.js';
+import type { InvocationArgs, InvocationSource } from './invocation.js';
 
 /**
  * Create the Promise type for `T`. If `T` extends `Promise`, the type is `T`,
@@ -80,8 +80,7 @@ export class InterceptionHandler<T extends object> implements ProxyHandler<T> {
   ) {}
 
   get(target: T, propertyName: PropertyKey, _receiver: unknown) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const targetObj = target as any;
+    const targetObj = target as Record<PropertyKey, unknown>;
     if (typeof propertyName !== 'string') return targetObj[propertyName];
     const propertyOrMethod = targetObj[propertyName];
     if (typeof propertyOrMethod === 'function') {
@@ -97,9 +96,8 @@ export class InterceptionHandler<T extends object> implements ProxyHandler<T> {
           }
         );
       };
-    } else {
-      return propertyOrMethod;
     }
+    return propertyOrMethod;
   }
 }
 

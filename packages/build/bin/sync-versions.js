@@ -4,8 +4,8 @@
  * Direct command entry point for cx-sync-versions
  */
 
-import { syncVersions } from '../src/version/sync-versions.js';
 import { Command } from 'commander';
+import { syncVersions } from '../src/version/sync-versions.js';
 
 // Create a simple command-line interface
 const program = new Command();

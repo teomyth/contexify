@@ -24,7 +24,7 @@ function exec(command, options = {}) {
     return execSync(command, {
       encoding: 'utf8',
       stdio: options.silent ? 'pipe' : 'inherit',
-      ...options
+      ...options,
     });
   } catch (error) {
     console.error(`Command execution failed: ${command}`);
@@ -68,7 +68,7 @@ async function main() {
 }
 
 // Execute the main function
-main().catch(error => {
+main().catch((error) => {
   console.error('Uncaught error:', error);
   process.exit(1);
 });

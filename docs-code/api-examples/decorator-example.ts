@@ -1,11 +1,11 @@
 import {
   Context,
-  injectable,
-  inject,
-  config,
-  intercept,
   Interceptor,
   ValueOrPromise,
+  config,
+  inject,
+  injectable,
+  intercept,
 } from 'contexify';
 
 /**

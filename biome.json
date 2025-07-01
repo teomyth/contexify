@@ -1,14 +1,21 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": false
+  "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+  "files": {
+    "ignoreUnknown": true
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUnusedVariables": "off"
+        "noUnusedVariables": "off",
+        "noUnusedFunctionParameters": "off",
+        "noUnusedPrivateClassMembers": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",
@@ -18,11 +25,11 @@
         "noShadowRestrictedNames": "off",
         "noThenProperty": "off",
         "noEmptyInterface": "off",
-        "noControlCharactersInRegex": "off"
+        "noControlCharactersInRegex": "off",
+        "noTemplateCurlyInString": "off"
       },
       "style": {
         "noNamespace": "off",
-        "useShorthandArrayType": "error",
         "noUselessElse": "off",
         "useImportType": "off",
         "noParameterAssign": "off",
@@ -34,7 +41,14 @@
         "noUnusedTemplateLiteral": "off",
         "useNumberNamespace": "off",
         "noInferrableTypes": "off",
-        "noCommaOperator": "off"
+        "useAsConstAssertion": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": { "syntax": "shorthand" }
+        }
       },
       "complexity": {
         "noBannedTypes": "off",
@@ -65,16 +79,5 @@
     "parser": {
       "unsafeParameterDecoratorsEnabled": true
     }
-  },
-  "files": {
-    "ignore": [
-      "**/node_modules/**",
-      "**/dist/**",
-      "**/coverage/**",
-      "**/.git/**",
-      "**/*.d.ts",
-      "**/*.js.map",
-      "**/examples/**/dist/**"
-    ]
   }
 }

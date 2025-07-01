@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
-  compareBindingsByTag,
   Context,
-  ContextView,
+  type ContextView,
+  compareBindingsByTag,
   filterByTag,
-  Getter,
+  type Getter,
   inject,
 } from '../../src/index.js';
 

@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
 import { Context } from 'contexify';
+import { describe, expect, it } from 'vitest';
 
 describe('Basic Context Test', () => {
   it('should create a context', () => {

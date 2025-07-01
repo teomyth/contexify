@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { Binding, Context } from '../../src/index.js';
+import { type Binding, Context } from '../../src/index.js';
 
 describe('Context bindings - Locking bindings', () => {
   describe('Binding with a duplicate key', () => {

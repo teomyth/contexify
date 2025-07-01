@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
 import {
   Binding,
   Context,
+  type Injection,
   inject,
-  Injection,
-  ResolutionSession,
   ResolutionError,
+  ResolutionSession,
 } from '../../src/index.js';
 
 describe('ResolutionSession', () => {

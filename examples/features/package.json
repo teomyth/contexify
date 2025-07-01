@@ -20,27 +20,27 @@
     "directory": "examples/features"
   },
   "engines": {
-    "node": "18 || 20 || 22"
+    "node": ">=18"
   },
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist *.tsbuildinfo",
-    "lint": "biome check --write .",
+    "lint": "biome check --write src tests",
     "format": "biome format --write .",
     "fix": "biome check --write . && biome format --write .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "rebuild": "npm run clean && npm run build",
+    "rebuild": "pnpm clean && pnpm build",
     "prepub": "pnpm clean && pnpm fix && pnpm build && pnpm test",
-    "prestart": "npm run rebuild",
+    "prestart": "pnpm rebuild",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "contexify": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22.15.24",
+    "@types/node": "^24.0.7",
     "typescript": "^5.8.3",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.4"
   }
 }

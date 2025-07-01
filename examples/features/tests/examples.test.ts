@@ -1,9 +1,9 @@
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { format } from 'node:util';
 
-import { expect, test, describe, beforeAll, afterAll } from 'vitest';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
 import { main } from '../src/index.js';
 
@@ -93,6 +93,6 @@ describe('context examples', () => {
   }
 
   function replaceDates(items: string[]) {
-    return items.map((str) => str.replace(/\[\d+[\w\d\-\.\:]+\]/g, '[DATE]'));
+    return items.map((str) => str.replace(/\[\d+[\w\d\-.:]+\]/g, '[DATE]'));
   }
 });

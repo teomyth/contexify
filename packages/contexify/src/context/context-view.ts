@@ -1,26 +1,24 @@
 import { EventEmitter } from 'events';
-
-import { BindingFilter } from '../binding/binding-filter.js';
-import { BindingComparator } from '../binding/binding-sorter.js';
-import { Binding } from '../binding/binding.js';
-import { Getter } from '../inject/inject.js';
+import type { Binding } from '../binding/binding.js';
+import type { BindingFilter } from '../binding/binding-filter.js';
+import type { BindingComparator } from '../binding/binding-sorter.js';
+import type { Getter } from '../inject/inject.js';
 import {
-  ResolutionOptions,
-  ResolutionOptionsOrSession,
-  ResolutionSession,
   asResolutionOptions,
+  type ResolutionOptions,
+  type ResolutionOptionsOrSession,
+  ResolutionSession,
 } from '../resolution/resolution-session.js';
 import createDebugger from '../utils/debug.js';
 import {
-  ValueOrPromise,
   isPromiseLike,
   resolveList,
+  type ValueOrPromise,
 } from '../utils/value-promise.js';
-
-import { ContextEvent } from './context-event.js';
-import { ContextEventType, ContextObserver } from './context-observer.js';
-import { Subscription } from './context-subscription.js';
-import { Context } from './context.js';
+import type { Context } from './context.js';
+import type { ContextEvent } from './context-event.js';
+import type { ContextEventType, ContextObserver } from './context-observer.js';
+import type { Subscription } from './context-subscription.js';
 
 const debug = createDebugger('contexify:view');
 
@@ -441,7 +439,7 @@ export function createViewGetter<T = unknown>(
   bindingComparatorOrSession?: BindingComparator | ResolutionSession,
   session?: ResolutionOptionsOrSession
 ): Getter<T[]> {
-  let bindingComparator: BindingComparator | undefined = undefined;
+  let bindingComparator: BindingComparator | undefined;
   if (typeof bindingComparatorOrSession === 'function') {
     bindingComparator = bindingComparatorOrSession;
   } else if (bindingComparatorOrSession instanceof ResolutionSession) {

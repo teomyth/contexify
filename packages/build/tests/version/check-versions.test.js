@@ -2,10 +2,10 @@
  * Tests for version checking
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { checkVersions } from '../../src/version/check-versions.js';
 import fs from 'fs';
 import path from 'path';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { checkVersions } from '../../src/version/check-versions.js';
 
 // Mock dependencies
 vi.mock('fs');

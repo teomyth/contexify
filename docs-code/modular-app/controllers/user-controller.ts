@@ -1,7 +1,7 @@
-import { injectable, inject } from 'contexify';
+import { inject, injectable } from 'contexify';
 import { AuthBindings } from '../keys.js';
 import { AuthService } from '../services/auth-service.js';
-import { User, ApiResponse } from '../types.js';
+import { ApiResponse, User } from '../types.js';
 
 /**
  * This is the user controller for the modular application example.

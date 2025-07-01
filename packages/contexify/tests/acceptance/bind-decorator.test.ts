@@ -1,11 +1,11 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import {
   BindingScope,
   Context,
   createBindingFromClass,
   injectable,
-  Provider,
+  type Provider,
 } from '../../src/index.js';
 
 describe('@injectable - customize classes with binding attributes', () => {

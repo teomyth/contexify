@@ -1,12 +1,12 @@
 import {
-  BindingAddress,
-  ConfigurationResolver,
+  type BindingAddress,
+  type ConfigurationResolver,
   Context,
   ContextBindings,
   DefaultConfigurationResolver,
   inject,
-  ResolutionOptions,
-  ValueOrPromise,
+  type ResolutionOptions,
+  type ValueOrPromise,
 } from 'contexify';
 
 /**

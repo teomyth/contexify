@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { Context, injectable, inject } from 'contexify';
+import { Context, inject, injectable } from 'contexify';
+import { describe, expect, it } from 'vitest';
 
 describe('Documentation Examples Test', () => {
   it('should demonstrate basic dependency injection', async () => {
